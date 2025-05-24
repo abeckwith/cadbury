@@ -179,82 +179,84 @@ function printVersion() {
         endDate.substring(8, 10) +
         "/" +
         endDate.substring(0, 4);
-    console.log(startDate);
-    // hide("heading");
-    // const tds = document.querySelectorAll("td");
-    // const ths = document.querySelectorAll("th");
-    logTable = document.getElementById("logtable");
-    html = "<table id='logtable2'>";
-    html +=
-        "<tr>" +
-        "<th>Visitor</th>" +
-        "<th>Resident</th>" +
-        "<th>Room</th>" +
-        "<th>Type</th>" +
-        "<th>Agency</th>" +
-        "<th>Going</th>" +
-        "<th>Hrs</th>" +
-        "<th>ARRIVED</th>" +
-        "<th>DEPARTED</th>" +
-        "<th>Resp.Party</th>" +
-        "</tr>";
-    const rows = logTable.getElementsByTagName("tr");
-    let filterDate = "";
-    for (let i = 1; i < rows.length; i++) {
-        // rows[i].getElementsByTagName("td").forEach(element => {
-        //     // console.log(element.textContent)
-        // });
-        const arrDate = rows[i].getElementsByTagName("td")[7].textContent;
-        const depDate = rows[i].getElementsByTagName("td")[8].textContent;
-        // console.log(arrDate)
-        // console.log(depDate)
-        if (arrDate === "" || typeof arrDate === "undefined")
-            filterDate = depDate;
-        else filterDate = arrDate;
+    if (endDate < startDate) alert("End must be after start date!");
+    else {
+        // hide("heading");
+        // const tds = document.querySelectorAll("td");
+        // const ths = document.querySelectorAll("th");
+        logTable = document.getElementById("logtable");
+        html = "<table id='logtable2'>";
+        html +=
+            "<tr>" +
+            "<th>Visitor</th>" +
+            "<th>Resident</th>" +
+            "<th>Room</th>" +
+            "<th>Type</th>" +
+            "<th>Agency</th>" +
+            "<th>Going</th>" +
+            "<th>Hrs</th>" +
+            "<th>ARRIVED</th>" +
+            "<th>DEPARTED</th>" +
+            "<th>Resp.Party</th>" +
+            "</tr>";
+        const rows = logTable.getElementsByTagName("tr");
+        let filterDate = "";
+        for (let i = 1; i < rows.length; i++) {
+            // rows[i].getElementsByTagName("td").forEach(element => {
+            //     // console.log(element.textContent)
+            // });
+            const arrDate = rows[i].getElementsByTagName("td")[7].textContent;
+            const depDate = rows[i].getElementsByTagName("td")[8].textContent;
+            // console.log(arrDate)
+            // console.log(depDate)
+            if (arrDate === "" || typeof arrDate === "undefined")
+                filterDate = depDate;
+            else filterDate = arrDate;
 
-        // console.log(filterDate)
-        filterDate = filterDate.substring(0, filterDate.indexOf(" "));
-        if (filterDate.length == 9) filterDate = "0" + filterDate;
-        if (filterDate <= endDate && filterDate >= startDate) {
-            html += "<tr>";
-            for (j = 0; j < 10; j++)
-                html +=
-                    "<td>" +
-                    rows[i].getElementsByTagName("td")[j].textContent +
-                    "</td>";
-            html += "</tr>";
+            // console.log(filterDate)
+            filterDate = filterDate.substring(0, filterDate.indexOf(" "));
+            if (filterDate.length == 9) filterDate = "0" + filterDate;
+            if (filterDate <= endDate && filterDate >= startDate) {
+                html += "<tr>";
+                for (j = 0; j < 10; j++)
+                    html +=
+                        "<td>" +
+                        rows[i].getElementsByTagName("td")[j].textContent +
+                        "</td>";
+                html += "</tr>";
+            }
         }
+        html += "</table>";
+
+        hide("logtable");
+        // logTable.style.width = "100%";
+        document.getElementById("heading").innerHTML =
+            html + "<a href='#' onclick='adminPage()'>BACK</a>";
+        // ths.forEach((th) => {
+        //     th.style.fontSize = "10px"; // Replace '16px' with desired font size
+        //     th.style.backgroundColor = "white";
+        //     th.style.color = "black";
+        //     // th.style.width = "fit-content";
+        // });
+        // tds.forEach((td) => {
+        //     td.style.fontSize = "10px"; // Replace '16px' with desired font size
+        //     td.style.backgroundColor = "white";
+        //     td.style.color = "black";
+        // });
+        downloadPDF(html);
+        adminEmail = "info@cadburycommons.com";
+
+        email =
+            '<a href="mailto:' +
+            adminEmail +
+            "?subject=log%20from%20" +
+            new Date().toLocaleDateString() +
+            "&body=Select 'attach' and find Cadbury " +
+            new Date().toLocaleDateString() +
+            " in downloads" +
+            '" target="_blank">EMAIL THE LOG</a>';
+        document.getElementById("email").innerHTML = email;
     }
-    html += "</table>";
-
-    hide("logtable");
-    // logTable.style.width = "100%";
-    document.getElementById("heading").innerHTML =
-        html + "<a href='#' onclick='adminPage()'>BACK</a>";
-    // ths.forEach((th) => {
-    //     th.style.fontSize = "10px"; // Replace '16px' with desired font size
-    //     th.style.backgroundColor = "white";
-    //     th.style.color = "black";
-    //     // th.style.width = "fit-content";
-    // });
-    // tds.forEach((td) => {
-    //     td.style.fontSize = "10px"; // Replace '16px' with desired font size
-    //     td.style.backgroundColor = "white";
-    //     td.style.color = "black";
-    // });
-    downloadPDF(html);
-    adminEmail = "info@cadburycommons.com";
-
-    email =
-        '<a href="mailto:' +
-        adminEmail +
-        "?subject=log%20from%20" +
-        new Date().toLocaleDateString() +
-        "&body=Select 'attach' and find Cadbury " +
-        new Date().toLocaleDateString() +
-        " in downloads" +
-        '" target="_blank">EMAIL THE LOG</a>';
-    document.getElementById("email").innerHTML = email;
     // document.getElementById("logtable").style.fontSize = "10px";
 }
 /**
@@ -474,7 +476,7 @@ function seeLog() {
         // ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST">' +
         "<BR><center><span id='print-menu'><b>PRINTABLE VERSION/Email PDF:</b> " +
         "Start Date: <input type='date' id='start-date' value='" +
-        dateOnly + 
+        dateOnly +
         "'>&nbsp;&nbsp;" +
         "End Date: <input type='date' id='end-date' value='" +
         dateOnly +
