@@ -171,11 +171,14 @@ function printVersion() {
         "<a href='#' onclick='adminPage()'>BACK</a>";
     ths.forEach((th) => {
         th.style.fontSize = "10px"; // Replace '16px' with desired font size
+        th.style.backgroundColor = "white";
+        th.style.color="black";
         // th.style.width = "fit-content";
     });
     tds.forEach((td) => {
         td.style.fontSize = "10px"; // Replace '16px' with desired font size
-        // td.style.width = "fit-content";
+        td.style.backgroundColor = "white";
+        td.style.color="black";
     });
     downloadPDF(logTable);
     adminEmail = "info@cadburycommons.com";
@@ -189,7 +192,7 @@ function printVersion() {
         new Date().toLocaleDateString() +
         " in downloads" +
         '" target="_blank">EMAIL LOG</a>';
-    document.getElementById("email").innerHTML =  email;
+    document.getElementById("email").innerHTML = email;
     // document.getElementById("logtable").style.fontSize = "10px";
 }
 /**
@@ -439,8 +442,8 @@ function seeLog() {
     });
     show("main");
 
-    document.getElementById("main").innerHTML = display + "</table></span>"+
-    "<div id='email'></div>";
+    document.getElementById("main").innerHTML =
+        display + "</table></span>" + "<div id='email'></div>";
 }
 function pwd() {
     var x = document.getElementById("pwdInput");
