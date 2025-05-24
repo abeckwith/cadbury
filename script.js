@@ -191,7 +191,7 @@ function printVersion() {
         "&body=Select attach and find Cadbury" +
         new Date().toLocaleDateString() +
         " in downloads" +
-        '" target="_blank">EMAIL LOG</a>';
+        '" target="_blank">EMAIL THE LOG</a>';
     document.getElementById("email").innerHTML = email;
     // document.getElementById("logtable").style.fontSize = "10px";
 }
