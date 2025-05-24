@@ -162,6 +162,11 @@ function submitRoom2() {
 }
 
 function printVersion() {
+    //get start and end dates:
+    startDate = document.getElementById("start-date").value;
+    endDate = document.getElementById("end-date").value;
+    console.log(endDate);
+    
     // hide("heading");
     const tds = document.querySelectorAll("td");
     const ths = document.querySelectorAll("th");
@@ -188,7 +193,7 @@ function printVersion() {
         adminEmail +
         "?subject=log%20from%20" +
         new Date().toLocaleDateString() +
-        "&body=Select attach and find Cadbury" +
+        "&body=Select 'attach' and find Cadbury " +
         new Date().toLocaleDateString() +
         " in downloads" +
         '" target="_blank">EMAIL THE LOG</a>';
@@ -409,7 +414,10 @@ function seeLog() {
         "<a href='#' onclick='adminPage()'>RETURN TO ADMIN PAGE</a> " +
         // '<input onclick="seeLog()" type="button" class="visit-type-button" value="SEE LOG">' +
         // ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST">' +
-        "<BR><center><a href='#' onclick='printVersion()'>PRINTABLE VERSION</a></center>";
+        "<BR><center><span id='print-menu'>PRINTABLE VERSION "+
+        "START DATE: <input type='date' id='start-date'>&nbsp;&nbsp;"+
+        "END DATE: <input type='date' id='end-date'>&nbsp;&nbsp;"+
+        "<a href='#' onclick='printVersion()'>MAKE PRINTABLE VERSION</a></span></center>";
 
     display =
         "<table id='logtable'>" +
@@ -443,8 +451,9 @@ function seeLog() {
     show("main");
 
     document.getElementById("main").innerHTML =
-        display + "</table></span>" + "<div id='email'></div>";
+        "<div id='email'></div>"+display + "</table></span>";
 }
+
 function pwd() {
     var x = document.getElementById("pwdInput");
     if (x.type === "password") {
