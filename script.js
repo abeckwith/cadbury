@@ -177,7 +177,19 @@ function printVersion() {
         td.style.fontSize = "10px"; // Replace '16px' with desired font size
         // td.style.width = "fit-content";
     });
+    downloadPDF(logTable);
+    adminEmail = "info@cadburycommons.com";
 
+    email =
+        '<a href="mailto:' +
+        adminEmail +
+        "?subject=log%20from%20" +
+        new Date().toLocaleDateString() +
+        "&body=Select attach and find Cadbury" +
+        new Date().toLocaleDateString() +
+        " in downloads" +
+        '" target="_blank">EMAIL LOG</a>';
+    document.getElementById("email").innerHTML =  email;
     // document.getElementById("logtable").style.fontSize = "10px";
 }
 /**
@@ -281,7 +293,10 @@ function getDate() {
         if (element.dateObject.substring(0, 10) < deleteDate) count++;
     }
     html = "There are " + count + " entries before " + deleteDate;
-    html += "<br><b><span style='color:red'>CONFIRM DELETE " + count + " ENTRIES: </span></b> ";
+    html +=
+        "<br><b><span style='color:red'>CONFIRM DELETE " +
+        count +
+        " ENTRIES: </span></b> ";
     html += "<button onclick='deleteData()'>OK TO DELETE</button> ";
     html += "<button onclick='cancel()'>CANCEL</button>";
     document.getElementById("finish-delete").innerHTML = html;
@@ -374,6 +389,12 @@ function editList() {
 
     //add:
 }
+function downloadPDF(content) {
+    const element = document.getElementById("content");
+    html2pdf()
+        .from(content)
+        .save("Cadbury" + new Date().toLocaleDateString() + ".pdf");
+}
 function seeLog() {
     //sorts so most recent is first:
     d = data2["all"].sort(function (a, b) {
@@ -401,7 +422,7 @@ function seeLog() {
         "<th>DEPARTED</th>" +
         "<th>Resp.Party</th>" +
         "</tr>";
-    console.log(d);
+    display2 = "";
     //build table of info:
     d.forEach((logEntry) => {
         t = logEntry.timestamp;
@@ -417,7 +438,9 @@ function seeLog() {
         display += "<td>" + logEntry.responsible + "</td>" + "</tr>";
     });
     show("main");
-    document.getElementById("main").innerHTML = display + "</table></span>";
+
+    document.getElementById("main").innerHTML = display + "</table></span>"+
+    "<div id='email'></div>";
 }
 function pwd() {
     var x = document.getElementById("pwdInput");
@@ -483,7 +506,6 @@ function start() {
 
     autocomplete(document.getElementById("auto-name-input"), allData, true);
     autocomplete(document.getElementById("auto-name-input2"), allData, true);
-
 
     allAgencies = [];
     var DATA2 = JSON.parse(localStorage.getItem("log_data"));
