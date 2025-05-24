@@ -1,8 +1,8 @@
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 22px;
-    background-color: #DFDBE5;
-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='%239C92AC' fill-opacity='0.17'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E");
+    background-color: #dfdbe5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='%239C92AC' fill-opacity='0.17'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E");
 }
 /* dropdown menus */
 .dropbtn {
@@ -54,8 +54,8 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 .dropdown a:hover {
     background-color: #ddd;
 }
-#print-menu{
-    font-size:15px;
+#print-menu {
+    font-size: 15px;
 }
 .show {
     display: block;
@@ -160,17 +160,16 @@ input[type="radio"] {
 .display-time {
     margin-left: 12px;
 }
-.name-in-list{
-      background-color:lightgreen;
-    width : 350px;
+.name-in-list {
+    background-color: lightgreen;
+    width: 350px;
     border: 1px solid black;
     cursor: pointer;
-                  
 }
-.name-in-list:hover{
+.name-in-list:hover {
     background-color: black;
     color: lightgreen;
-    border: 3px dashed white
+    border: 3px dashed white;
 }
 
 .fade-out {
@@ -246,34 +245,35 @@ input[type="radio"] {
 #room-button2,
 #room-button,
 #morningside-out,
-#traditional-out
-{
+#traditional-out {
     display: none;
 }
-#albl{
-    font-size:25px;
+#albl {
+    font-size: 25px;
 }
-#aname{
-    height:52px;
-    font-size:30px;
+#aname {
+    height: 52px;
+    font-size: 30px;
 }
-#auto-room-input, #auto-room-input2, #name{
-    width:150px;
-    font-size:30px;
+#auto-room-input,
+#auto-room-input2,
+#name {
+    width: 150px;
+    font-size: 30px;
 }
-#auto-room-input2{
-    width:300px;
+#auto-room-input2 {
+    width: 300px;
 }
-#namelbl{
-    font-size:25px;
-    width:300px;
+#namelbl {
+    font-size: 25px;
+    width: 300px;
 }
-#name{
-    width:400px;
+#name {
+    width: 400px;
 }
 
-#back-button{
-        border: 3px solid black;
+#back-button {
+    border: 3px solid black;
 
     background-color: "red";
     font-size: 20px;
@@ -284,13 +284,19 @@ input[type="radio"] {
     /* width: 100%; */
 }
 
-#logTable2{
-width: "100%";
+#logtable2 {
+    width: "100%";
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
 }
-#logtable2 td, #logtable2 th{
+#logtable2 td,
+#logtable2 th {
+    border: 1px solid black;
     background-color: "white";
     color: "black";
-    font-size: 10px;
+    font-size: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 #logtable td,
@@ -309,21 +315,22 @@ width: "100%";
     background-color: #ddd;
 }
 
-#logtable tr:hover, #editlist tr:hover {
-    background-color: #bbb
+#logtable tr:hover,
+#editlist tr:hover {
+    background-color: #bbb;
 }
 
-#logtable th, #editlist th {
+#logtable th,
+#editlist th {
     padding-top: 5px;
     padding-bottom: 5px;
     text-align: left;
     background-color: #04aa6d;
     color: white;
 }
-#editlist{
+#editlist {
     background-color: white;
 }
-.edit-btn{
-    margin-right:5px;
+.edit-btn {
+    margin-right: 5px;
 }
-

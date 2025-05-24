@@ -164,28 +164,85 @@ function submitRoom2() {
 function printVersion() {
     //get start and end dates:
     startDate = document.getElementById("start-date").value;
+
     endDate = document.getElementById("end-date").value;
-    console.log(endDate);
-    
+    if (startDate === "mm/dd/yyyy") startDate = endDate;
+    startDate =
+        startDate.substring(5, 7) +
+        "/" +
+        startDate.substring(8, 10) +
+        "/" +
+        startDate.substring(0, 4);
+    endDate =
+        endDate.substring(5, 7) +
+        "/" +
+        endDate.substring(8, 10) +
+        "/" +
+        endDate.substring(0, 4);
+    console.log(startDate);
     // hide("heading");
-    const tds = document.querySelectorAll("td");
-    const ths = document.querySelectorAll("th");
+    // const tds = document.querySelectorAll("td");
+    // const ths = document.querySelectorAll("th");
     logTable = document.getElementById("logtable");
-    logTable.style.width = "100%";
+    html = "<table id='logtable2'>";
+    html +=
+        "<tr>" +
+        "<th>Visitor</th>" +
+        "<th>Resident</th>" +
+        "<th>Room</th>" +
+        "<th>Type</th>" +
+        "<th>Agency</th>" +
+        "<th>Going</th>" +
+        "<th>Hrs</th>" +
+        "<th>ARRIVED</th>" +
+        "<th>DEPARTED</th>" +
+        "<th>Resp.Party</th>" +
+        "</tr>";
+    const rows = logTable.getElementsByTagName("tr");
+    let filterDate = "";
+    for (let i = 1; i < rows.length; i++) {
+        // rows[i].getElementsByTagName("td").forEach(element => {
+        //     // console.log(element.textContent)
+        // });
+        const arrDate = rows[i].getElementsByTagName("td")[7].textContent;
+        const depDate = rows[i].getElementsByTagName("td")[8].textContent;
+        // console.log(arrDate)
+        // console.log(depDate)
+        if (arrDate === "" || typeof arrDate === "undefined")
+            filterDate = depDate;
+        else filterDate = arrDate;
+
+        // console.log(filterDate)
+        filterDate = filterDate.substring(0, filterDate.indexOf(" "));
+        if (filterDate.length == 9) filterDate = "0" + filterDate;
+        if (filterDate <= endDate && filterDate >= startDate) {
+            html += "<tr>";
+            for (j = 0; j < 10; j++)
+                html +=
+                    "<td>" +
+                    rows[i].getElementsByTagName("td")[j].textContent +
+                    "</td>";
+            html += "</tr>";
+        }
+    }
+    html += "</table>";
+
+    hide("logtable");
+    // logTable.style.width = "100%";
     document.getElementById("heading").innerHTML =
-        "<a href='#' onclick='adminPage()'>BACK</a>";
-    ths.forEach((th) => {
-        th.style.fontSize = "10px"; // Replace '16px' with desired font size
-        th.style.backgroundColor = "white";
-        th.style.color="black";
-        // th.style.width = "fit-content";
-    });
-    tds.forEach((td) => {
-        td.style.fontSize = "10px"; // Replace '16px' with desired font size
-        td.style.backgroundColor = "white";
-        td.style.color="black";
-    });
-    downloadPDF(logTable);
+        html + "<a href='#' onclick='adminPage()'>BACK</a>";
+    // ths.forEach((th) => {
+    //     th.style.fontSize = "10px"; // Replace '16px' with desired font size
+    //     th.style.backgroundColor = "white";
+    //     th.style.color = "black";
+    //     // th.style.width = "fit-content";
+    // });
+    // tds.forEach((td) => {
+    //     td.style.fontSize = "10px"; // Replace '16px' with desired font size
+    //     td.style.backgroundColor = "white";
+    //     td.style.color = "black";
+    // });
+    downloadPDF(html);
     adminEmail = "info@cadburycommons.com";
 
     email =
@@ -207,7 +264,7 @@ function printVersion() {
  */
 let data2 = "";
 function back() {
-    window.location.href = "cadbury.html";
+    window.location.href = "index.html";
 }
 function adminPage() {
     hide("logo");
@@ -408,15 +465,20 @@ function seeLog() {
     d = data2["all"].sort(function (a, b) {
         return new Date(b.dateObject) - new Date(a.dateObject);
     });
-
+    const today = new Date();
+    const dateOnly = today.toISOString().slice(0, 10);
     //Table heading:
     document.getElementById("heading").innerHTML =
         "<a href='#' onclick='adminPage()'>RETURN TO ADMIN PAGE</a> " +
         // '<input onclick="seeLog()" type="button" class="visit-type-button" value="SEE LOG">' +
         // ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST">' +
-        "<BR><center><span id='print-menu'>PRINTABLE VERSION "+
-        "START DATE: <input type='date' id='start-date'>&nbsp;&nbsp;"+
-        "END DATE: <input type='date' id='end-date'>&nbsp;&nbsp;"+
+        "<BR><center><span id='print-menu'><b>PRINTABLE VERSION/Email PDF:</b> " +
+        "Start Date: <input type='date' id='start-date' value='" +
+        dateOnly + 
+        "'>&nbsp;&nbsp;" +
+        "End Date: <input type='date' id='end-date' value='" +
+        dateOnly +
+        "'>&nbsp;&nbsp;" +
         "<a href='#' onclick='printVersion()'>MAKE PRINTABLE VERSION</a></span></center>";
 
     display =
@@ -451,7 +513,7 @@ function seeLog() {
     show("main");
 
     document.getElementById("main").innerHTML =
-        "<div id='email'></div>"+display + "</table></span>";
+        "<div id='email'></div>" + display + "</table></span>";
 }
 
 function pwd() {
@@ -676,7 +738,11 @@ function checkAndSave(residentName, visitorName) {
                 const entry = allData[index];
                 rNameEntry = entry.rName.trim().toUpperCase();
                 //FOUND!
-                if (!found && rNameEntry == residentName) {
+                if (
+                    !found &&
+                    rNameEntry == residentName &&
+                    entry.personType === "Resident"
+                ) {
                     found = true;
                     if (allData[index]["timeIn"] == "") {
                         //save time left before saving back to local storage:
