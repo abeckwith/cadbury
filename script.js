@@ -471,7 +471,7 @@ function seeLog() {
     const dateOnly = today.toISOString().slice(0, 10);
     //Table heading:
     document.getElementById("heading").innerHTML =
-        "<a href='#' onclick='adminPage()'>RETURN TO ADMIN PAGE</a> " +
+        "<a href='#' onclick='adminPage()'>RETURN TO ADMIN PAGE</a><Br> " +
         // '<input onclick="seeLog()" type="button" class="visit-type-button" value="SEE LOG">' +
         // ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST">' +
         "<BR><center><span id='print-menu'><b>PRINTABLE VERSION/Email PDF:</b> " +
@@ -481,7 +481,7 @@ function seeLog() {
         "End Date: <input type='date' id='end-date' value='" +
         dateOnly +
         "'>&nbsp;&nbsp;" +
-        "<a href='#' onclick='printVersion()'>MAKE PRINTABLE VERSION</a></span></center>";
+        "<a href='#' onclick='printVersion()'>MAKE PRINTABLE VERSION</a></span></center><br>";
 
     display =
         "<table id='logtable'>" +
