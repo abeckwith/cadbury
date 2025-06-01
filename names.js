@@ -1,15 +1,6 @@
 allNamesList = {
     masterList: [
-        "Anthony",
-        "Beckwith", 
-        "Barbara", 
-        "Beckwith",
-        "Jonathan", 
-        "Beckwith",
-        "Julie", 
-        "Lund",
-        "Husain",
-        "Yassin",
+
         "Raina",
         "Penny",
         "Machelle",
