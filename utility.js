@@ -268,10 +268,9 @@ function fade(element) {
         op -= op * 0.1;
     }, 200);
     setTimeout(function () {
+        window.onbeforeunload = function () {
+        window.scrollTo(0,0);
+};
         window.location.reload();
     }, 4000); // Reload after 1 second (matching transition duration)
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth", // Optional: for a smooth scrolling animation
-    });
 }
