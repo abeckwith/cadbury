@@ -103,7 +103,7 @@ select {
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
-    border: 1px solid black;
+    border: 3px solid black;
     border-radius: 4px;
     cursor: pointer;
     font-size: 30px;
@@ -112,7 +112,7 @@ select {
 .visit-type-button {
     padding: 5px 10px;
     /* width:10%; */
-    background-color: #4caf50;
+    background-color: black;
     color: white;
 
     margin: 8px 0;
