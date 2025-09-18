@@ -277,9 +277,37 @@ function adminPage() {
     document.getElementById("heading").innerHTML =
         '<input onclick="seeLog()" type="button" class="visit-type-button" value="SEE LOG"><Br>' +
         ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST"><Br>' +
-        ' <input onclick="editLog()" type="button" class="visit-type-button" value="EDIT LOG DATA"><Br><Br>' +
+        ' <input onclick="editLog()" type="button" class="visit-type-button" value="EDIT LOG DATA"><Br>' +
+        ' <input onclick="changePassword()" type="button" class="visit-type-button" value="CHANGE ADMIN PASSWORD"><Br><BR>' +
         '<input id="back-button" onclick="back()" type="button" class="visit-type-button" value="RETURN TO SIGN-IN PAGE"></input><Br>' +
         '<div id="edit-page"></div>';
+}
+function hash(pt) {
+    ct = pt.length * 1345;
+    for (i = 0; i < pt.length; i++) {
+        ct += pt.charCodeAt(i) * (i + 1) * (i + 1);
+    }
+    ct *= 7834;
+    return ct;
+}
+function changePassword() {
+    done = false;
+    while (!done) {
+        p1 = prompt("Enter your new password (no restrictions):");
+        if(p1 === null) done = true; //cancel button clicked
+        else {
+            p2 = prompt("Re-enter your new password:");
+            if (p1 !== p2 && p2 !== null) alert("=== PASSWORDS DON'T MATCH ===");
+            else done = true;
+            if(p2 === null) done = true; //cancel button clicked
+        }
+    }
+    if (p1 === p2 && p1 !== null) {
+        //if didn't cancel
+        alert("Password SUCCESSFULLY CHANGED");
+        hsh = hash(p1);
+        localStorage.setItem("p", JSON.stringify(hsh));
+    }
 }
 let editStatus = "";
 function deleteRes(theKey) {
@@ -392,7 +420,7 @@ function editLog() {
         html +=
             '<Br><Br><label for="start">Log entries before </label>' +
             '<input type="date" id="start" name="start" min="" value="" />';
-        html += "<button onclick='getDate()'>Check Log</button>";
+        html += "<button onclick='getDate()'>Find entries to delete</button>";
         html += "<div id='finish-delete'></div>";
     } else html = "No data to delete";
     document.getElementById("edit-page").innerHTML = html;
@@ -518,29 +546,27 @@ function seeLog() {
         "<div id='email'></div>" + display + "</table></span>";
 }
 
-function pwd() {
-    var x = document.getElementById("pwdInput");
-    if (x.type === "password") {
-        x.type = "text";
-    } else {
-        x.type = "password";
-    }
-}
+// function pwd() {
+//     var x = document.getElementById("pwdInput");
+//     if (x.type === "password") {
+//         x.type = "text";
+//     } else {
+//         x.type = "password";
+//     }
+// }
 /**
  * called from admin button - asks for password and calls admin
  */
 function admin() {
-    p = getEntry("pwdInput");
-    if (p == password) {
+    userP = hash(getEntry("pwdInput"));
+    storedP = localStorage.getItem("p");
+    if ("" + userP === "" + storedP) {
         //true || for testing
         var DATA = JSON.parse(localStorage.getItem("log_data"));
         data2 = DATA;
 
         adminPage();
-    } else
-        alert(
-            "Denied Access: INCORRECT PASSWORD" + " \n(TESTING MODE: it is 123)"
-        );
+    } else alert("Denied Access: INCORRECT PASSWORD");
 }
 /**
  * starts time and displays time
