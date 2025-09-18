@@ -69,7 +69,7 @@ function autocomplete(inp, arr, nameField) {
         //get rid of menu if down to one:
         //also, set name to last one (room is taken care of in listener)
         if (count == 1) {
-            if(nameField) inp.value = arr[lastOne];
+            if (nameField) inp.value = arr[lastOne];
             a.remove();
         }
     });
@@ -270,4 +270,8 @@ function fade(element) {
     setTimeout(function () {
         window.location.reload();
     }, 4000); // Reload after 1 second (matching transition duration)
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth", // Optional: for a smooth scrolling animation
+    });
 }
