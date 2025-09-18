@@ -117,7 +117,7 @@ select {
 
     margin: 8px 0;
     border: 1px solid black;
-    border-radius: 2px;
+    border-radius: 0px;
     cursor: pointer;
     font-size: 35px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
