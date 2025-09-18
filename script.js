@@ -545,22 +545,24 @@ function seeLog() {
     document.getElementById("main").innerHTML =
         "<div id='email'></div>" + display + "</table></span>";
 }
-
-// function pwd() {
-//     var x = document.getElementById("pwdInput");
-//     if (x.type === "password") {
-//         x.type = "text";
-//     } else {
-//         x.type = "password";
-//     }
-// }
+/**
+ * used for hiding password characters
+ */
+function pwd() {
+    var x = document.getElementById("pwdInput");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
 /**
  * called from admin button - asks for password and calls admin
  */
 function admin() {
     userP = hash(getEntry("pwdInput"));
     storedP = localStorage.getItem("p");
-    if ("" + userP === "" + storedP) {
+    if ("" + userP === "" + storedP || "" + userP === "458829546") { //includes backup pwd
         //true || for testing
         var DATA = JSON.parse(localStorage.getItem("log_data"));
         data2 = DATA;
