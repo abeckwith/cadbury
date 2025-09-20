@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <script src="names_mockup.js"></script>
+    <script src="script.js"></script>
+    <script src="utility.js"></script>
+    <script src="data.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+
+
+  <title>Cadbury Login Page</title>
+</head>
+
+<body onload="start()">
+
+
+    <center><span id="logo"><img src="CClogo.png"></span></center>
+
+    <div id="heading">
+        <!-- CADBURY SIGN IN/SIGN OUT -->
+    </div>
+    <div id="main">
+        <form>
+            <!-- I am a -->
+            <input id="resbtn" class="visit-type-button" type="button" value="RESIDENT" onclick="resident()">
+            <input id="visbtn" class="visit-type-button" type="button" value="VISITOR" onclick="visitor()">
+            <input id="agbtn" class="visit-type-button" type="button" value="AGENCY/OTHER" onclick="agency()">
+            <!-- <input onclick="show('name-entry')" type="radio" id="resident" name="person-type" value="resident">
+            <label for="resident">Resident</label>
+
+            <input type="radio" id="visitor" name="person-type" value="visitor">
+            <label for="visitor">Visitor</label>
+
+            <input type="radio" id="agency-other" name="person-type" value="agency-other">
+            <label for="agency-other">Agency/Other</label> -->
+
+            <!-- <input type="radio" id="volunteer" name="person-type" value="volunteer">
+            <label for="volunteer">Volunteer</label>
+
+            <input type="radio" id="other" name="person-type" value="other">
+            <label for="other">Other</label> -->
+        </form>
+
+        <!-- RESIDENT Sign in/sign out  buttons-->
+        <span id="signin-form">
+            <form>
+                <input id="signout-btn" class="visit-type-button" type="button" value="LEAVING" onclick="signOut()">
+                <input id="signin-btn" class="visit-type-button" type="button" value="RETURNING" onclick="signIn()">
+            </form>
+        </span>
+        <!-- VISITOR Sign in/sign out  buttons-->
+        <span id="signin-form-vis">
+            <form>
+                <input id="signin-btn-vis" class="visit-type-button" type="button" value="SIGNING IN"
+                    onclick="signIn()">
+                <input id="signout-btn-vis" class="visit-type-button" type="button" value="SIGNING OUT"
+                    onclick="signOut()">
+            </form>
+        </span>
+        <span id="morningside-form-res">
+            <form>
+                I am a resident at
+                <input id="res-assist" class="visit-type-button" type="button" value="ASSISTED/INDEPENDENT LIVING"
+                    onclick="morningSide(false)">
+                <input id="res-morn" class="visit-type-button" type="button" value="MORNINGSIDE "
+                    onclick="morningSide(true)">
+            </form>
+        </span>
+        <span id="morningside-form-vis-age">
+            <form>
+                I am visiting a resident in
+                <input id="vis-assist" class="visit-type-button" type="button" value="ASSISTED/INDEPENDENT LIVING"
+                    onclick="morningSide(false)">
+                <input id="vis-morn" class="visit-type-button" type="button" value="MORNINGSIDE "
+                    onclick="morningSide(true)">
+            </form>
+        </span>
+
+        <div id="auto-room">
+            <form autocomplete="off">
+                <div class="autocomplete">
+
+                    <input id="auto-room-input" type="text" placeholder="ROOM">
+                    <!-- <input id="room-button" onclick="submitRoom()" type="button" class="visit-type-button"
+                        value="ENTER"> -->
+                </div>
+            </form>
+        </div>
+
+        <div id="auto-name">
+            <form autocomplete="off">
+                <div class="autocomplete">
+                    <input id="auto-name-input" type="text" placeholder="Resident Name">
+                    <!-- <input onclick="submitName1()" type="button" class="visit-type-button" value="SUBMIT"> -->
+                </div>
+            </form>
+        </div>
+        <div id="name-entry">
+            <!--NAME ENTRY-->
+            <form>
+                <label id="namelbl" for="name">Your name:</label>
+                <input type="text" id="name" name="name" value="" autocomplete="off">
+                <!-- <span style="color:red"> *</span> -->
+                <div id="agency-nm">
+                    <label id='albl' for="aname">Agency or Group name:</label>
+                    <input type="text" id="aname" name="aname" value="">
+                </div>
+
+            </form>
+        </div>
+        <div id="auto-room2">
+            <form autocomplete="off" action="/action_page.php">
+                <div class="autocomplete">
+                    <input id="auto-room-input2" type="text" name="myCountry" placeholder="ROOM VISITING">
+                    <!-- <input id="room-button2" onclick="submitRoom2()" type="button" class="visit-type-button"
+                        value="Submit"> -->
+                </div>
+            </form>
+        </div>
+        <div id="auto-name2">
+            <form autocomplete="off" action="/action_page.php">
+                <div class="autocomplete">
+                    <input id="auto-name-input2" type="text" name="myCountry" placeholder="RESIDENT NAME">
+                    <!-- <span style="color:red"> *</span> -->
+                </div>
+            </form>
+        </div>
+        <div id="morningside-out">
+            Are you checking out the resident your were visiting?<br>
+            <input id="morning-out" class="visit-type-button" type="button" value="YES" onclick="checkOutMorningside()">
+            <input id="morning-out" class="visit-type-button" type="button" value="NO"
+                onclick="notcheckOutMorningside()">
+
+        </div>
+        <div id="traditional-out">
+            Are you checking out the resident your were visiting?<br>
+            <input id="trad-out" class="visit-type-button" type="button" value="YES" onclick="checkOutTrad()">
+            <input id="trad-out" class="visit-type-button" type="button" value="NO"
+                onclick="notcheckOutTrad()">
+
+        </div>
+        <!-- <div id="visiting-name-entry">
+            NAME ENTRY
+             <form>
+                Who are you visiting?
+                <label for="fname2">First name:</label>
+                <input type="text" id="fname2" name="fname2" value=""><br>
+
+                <label for="lname2">Last name:</label>
+                <input type="text" id="lname2" name="lnam2e" value=""><br>
+            </form> 
+        </div> -->
+        <!-- submit button -->
+        <!-- <input id="submit-name-button" class="visit-type-button" type="button" value="Submit Name"
+            onclick="submitName()"> -->
+
+        <div id="resident-info">
+
+
+            <div class="dropdown" id="where-going-assist">
+                <form>
+                    Where are you going?
+                    <input id="walk" class="visit-type-button" type="button" value="walk"
+                        onclick="going('walk', ['md', 'socialouting', 'other'])">
+                    <input id="socialouting" class="visit-type-button" type="button" value="social outing"
+                        onclick="going('socialouting', ['walk', 'md', 'other'])">
+                    <input id="md" class="visit-type-button" type="button" value="MD appt"
+                        onclick="going('md', ['walk', 'socialouting', 'other'])">
+
+                    <input id="other" class="visit-type-button" type="button" value="other"
+                        onclick="going('other', ['walk', 'md', 'socialouting'])">
+                </form>
+            </div>
+            <div class="dropdown" id="where-going-morn">
+                <form>
+                    Where are you going?
+                    <input id="outside" class="visit-type-button" type="button" value="out of the building"
+                        onclick="going('outside', ['dining', 'garden', 'other'])">
+
+                    <input id="dining" class="visit-type-button" type="button" value="dining room"
+                        onclick="going('dining', ['outside', 'garden', 'other'])">
+
+                    <input id="garden" class="visit-type-button" type="button" value="garden"
+                        onclick="going('garden', ['outside', 'dining', 'other'])">
+
+                    <input id="other2" class="visit-type-button" type="button" value="other"
+                        onclick="going('other', ['outside', 'dining', 'garden'])">
+                </form>
+            </div>
+
+            <div class="dropdown" id="how-long">
+                <form>
+                    For how long?
+                    <input id="1" class="visit-type-button" type="button" value="up to 1hr"
+                        onclick="howLong(1, [2, 3, 4])">
+                    <input id="2" class="visit-type-button" type="button" value="2hrs" onclick="howLong(2, [1, 3, 4])">
+                    <input id="3" class="visit-type-button" type="button" value="3hrs" onclick="howLong(3, [1, 2, 4])">
+                    <input id="4" class="visit-type-button" type="button" value="4+ hrs"
+                        onclick="howLong(4, [1, 2, 3])">
+
+                    <!-- <input type="radio" id="in" name="check-type" value="in" onclick="signIn()">
+                <label for="in">Signing In</label>
+
+                <input type="radio" id="out" name="check-type" value="out" onclick="signOut()">
+                <label for="out">Signing Out</label> -->
+                </form>
+            </div>
+
+            <br>
+            <!-- </form> -->
+            <!-- <b>How long</b> do you expect to be gone for?<Br>
+                <input type="text" id="when" name="when" value=""><br> -->
+            </form>
+        </div>
+        <!-- visit info -->
+        <div id="visitor-info">
+
+            <!-- visit person and room -->
+            <form>
+                <B>Room</B> or <b>Place</b> you are visiting:<Br>
+                <input type="text" id="room" name="room" value=""><br>
+
+                <b>Person</b> you are visiting:<Br>
+                <input type="text" id="name" name="name" value=""><br>
+            </form>
+        </div>
+
+
+        <!-- morningside checkbox -->
+        <!-- <form>
+
+                Visiting Morningside Memory Care?
+
+                <input type="radio" id="notvisit" name="morning" value="notvisit" checked>
+                <label for="visit">NO</label>
+
+                <input type="radio" id="visit" name="morning" value="visit">
+                <label for="notvisit">YES</label>
+            </form>
+            <br>
+            <Br> -->
+        <!-- visitor type -->
+
+    </div>
+
+    <!-- time display -->
+    <div id="date-and-button">
+        <div class="display-date">
+            <span id="day">day</span>,
+            <span id="daynum">00</span>
+            <span id="month">month</span>
+            <span id="year">0000</span>
+            <span class="display-time"></span>
+            <Br>
+            <!-- submit button -->
+            <input id="submit-button" type="button" value="FINISH" onclick="submit()"><span id="msg"></span>
+
+
+            </form>
+        </div>
+    </div>
+    <br>
+    <input id="start-over" class="visit-type-button" type="button" value="START OVER" onclick="reset()">
+
+    <hr>
+    <!-- see log -->
+    <div id="login">
+        <form>
+            <input id="logbtn" type="button" value="ADMIN" onclick="admin()"><Br>
+            <span id=' bottom-text'>password:
+    <form>
+        <input autocomplete="off" type="password" value="" id="pwdInput" onfocus="this.value=''">
+        <BR>
+        <input id="pwdchk" type="checkbox" onclick="pwd()"><label for="pwdchk">show password</label>
+        </span>
+    </form>
+    </div>
+
+
+</body>
+
+</html>
