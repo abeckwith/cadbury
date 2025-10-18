@@ -293,20 +293,23 @@ function unhash(ct){
 function changePassword() {
     done = false;
     while (!done) {
-        p1 = prompt("Enter your new password (no restrictions):");
+        p1 = prompt("Enter your new password (minimum 6 characters/no other restrictions):");
         if(p1 === null) done = true; //cancel button clicked
         else {
+            if(p1.length <6) alert("Not enough characters (minimum of 6)!");
+            else{
             p2 = prompt("Re-enter your new password:");
             if (p1 !== p2 && p2 !== null) alert("=== PASSWORDS DON'T MATCH ===");
             else done = true;
             if(p2 === null) done = true; //cancel button clicked
+            }
         }
     }
-    if (p1 === p2 && p1 !== null) {
+    if (p1 === p2 && p1 !== null && p2 != null) {
         //if didn't cancel
         alert("Password SUCCESSFULLY CHANGED");
         hsh = hash(p1);
-        localStorage.setItem("p", hsh);
+        localStorage.setItem("p", JSON.stringify(hsh));
     }
 }
 let editStatus = "";
