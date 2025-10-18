@@ -283,12 +283,12 @@ function adminPage() {
         '<div id="edit-page"></div>';
 }
 function hash(pt) {
-    ct = pt.length * 1345;
-    for (i = 0; i < pt.length; i++) {
-        ct += pt.charCodeAt(i) * (i + 1) * (i + 1);
-    }
-    ct *= 7834;
-    return ct;
+    ct = enc(pt)
+;    return ct;
+}
+function unhash(ct){
+    pt = decr(ct);
+    return pt;
 }
 function changePassword() {
     done = false;
@@ -560,9 +560,10 @@ function pwd() {
  * called from admin button - asks for password and calls admin
  */
 function admin() {
-    userP = hash(getEntry("pwdInput"));
-    storedP = localStorage.getItem("p");
-    if ("" + userP === "" + storedP || "" + userP === "458829546") { //includes backup pwd
+    userP = getEntry("pwdInput");
+    storedP = "" + localStorage.getItem("p"); //unrailfance the cipher pwd
+    console.log(hash(userP)+ ", " + storedP);
+    if (hash(userP) === storedP || "" + userP === "458829546") { //includes backup pwd
         //true || for testing
         var DATA = JSON.parse(localStorage.getItem("log_data"));
         data2 = DATA;
