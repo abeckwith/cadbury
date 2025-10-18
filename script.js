@@ -418,7 +418,7 @@ function editLog() {
         html += "<br>OLDEST: " + d[d.length - 1].dateObject.substring(0, 10);
         html += "<br>NEWEST: " + d[0].dateObject.substring(0, 10);
         html +=
-            '<Br><Br><label for="start">Log entries before </label>' +
+            '<Br><Br><label for="start">Delete log entries before </label>' +
             '<input type="date" id="start" name="start" min="" value="" />';
         html += "<button onclick='getDate()'>Find entries to delete</button>";
         html += "<div id='finish-delete'></div>";
