@@ -307,6 +307,7 @@ function changePassword() {
         alert("Password SUCCESSFULLY CHANGED");
         hsh = hash(p1);
         localStorage.setItem("p", hsh);
+    }
 }
 let editStatus = "";
 function deleteRes(theKey) {
