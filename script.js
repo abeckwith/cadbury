@@ -563,6 +563,7 @@ function admin() {
     userP = getEntry("pwdInput");
     storedP = "" + localStorage.getItem("p"); //unrailfance the cipher pwd
     console.log(hash(userP)+ ", " + storedP);
+    alert("Local Storage:" + storedP)
     if (hash(userP) === storedP || "" + userP === "458829546") { //includes backup pwd
         //true || for testing
         var DATA = JSON.parse(localStorage.getItem("log_data"));
