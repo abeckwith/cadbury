@@ -269,18 +269,17 @@ function fade(element) {
     }, 200);
     setTimeout(function () {
         window.onbeforeunload = function () {
-        window.scrollTo(0,0);
-};
+            window.scrollTo(0, 0);
+        };
+   
+
         window.location.reload();
     }, 4000); // Reload after 1 second (matching transition duration)
 }
 function enc(text) {
-   return text.substring(3) + text.substring(0,3);
+    return text.substring(3) + text.substring(0, 3);
 }
 
 function decr(text) {
-   
     return text.substring(text.length - 3) + text.substring(0, text.length - 3);
 }
-
-

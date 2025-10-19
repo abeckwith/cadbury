@@ -697,6 +697,7 @@ function submit() {
 function done() {
     m = document.getElementById("msg");
     m.innerHTML = "THANK YOU!";
+        document.getElementById("submit-button").style.visibility = "hidden";
     fade(m);
 }
 function checkAndSave(residentName, visitorName) {
