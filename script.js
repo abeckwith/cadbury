@@ -244,6 +244,7 @@ function printVersion() {
         //     td.style.color = "black";
         // });
         downloadPDF(html);
+        alert("The log for those dates has been downloaded to your device!");
         adminEmail = "info@cadburycommons.com";
 
         email =
@@ -433,6 +434,7 @@ var editDATA;
 
 function editList() {
     //load room/resident data from local storage
+    editStatus = "";
     editDATA = JSON.parse(localStorage.getItem("residents"));
     rooms = Object.keys(editDATA);
     roomsAndNames = [];
