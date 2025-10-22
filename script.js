@@ -148,8 +148,8 @@ function checkForName(roomNum) {
         document.getElementById("auto-name-input2").value = residents[roomNum];
         document.getElementById("auto-name-input").value = residents[roomNum];
     } else {
-        document.getElementById("auto-name-input2").value = ""; //not found";
-        document.getElementById("auto-name-input").value = ""; //not found";
+        // document.getElementById("auto-name-input2").value = ""; //not found";
+        // document.getElementById("auto-name-input").value = ""; //not found";
     }
 }
 function checkForRoom(name) {
@@ -685,6 +685,11 @@ function start() {
 function setStatus(thing, id) {
     if (thing === "") {
         document.getElementById(id).style.borderColor = "red";
+        if(id === "auto-name-input" || id === "auto-name-input2")
+            alert("Enter a resident's name or 'other'");
+        if(id === "auto-room-input" || id === "auto-room-input2")
+            alert("Enter a 3-digit room number or describe where you are going");
+
         return false;
     }
     document.getElementById(id).style.borderColor = "black";
