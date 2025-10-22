@@ -9,13 +9,13 @@
     <script src="script.js"></script>
     <script src="utility.js"></script>
     <script src="data.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
 
 
-  <title>Cadbury Login Page</title>
+    <title>Cadbury Login Page</title>
 </head>
 
 <body onload="start()">
@@ -142,8 +142,7 @@
         <div id="traditional-out">
             Are you checking out the resident your were visiting?<br>
             <input id="trad-out" class="visit-type-button" type="button" value="YES" onclick="checkOutTrad()">
-            <input id="trad-out" class="visit-type-button" type="button" value="NO"
-                onclick="notcheckOutTrad()">
+            <input id="trad-out" class="visit-type-button" type="button" value="NO" onclick="notcheckOutTrad()">
 
         </div>
         <!-- <div id="visiting-name-entry">
@@ -167,31 +166,33 @@
             <div class="dropdown" id="where-going-assist">
                 <form>
                     Where are you going?
-                    <input id="walk" class="visit-type-button" type="button" value="walk"
+                    <!-- <input id="walk" class="visit-type-button" type="button" value="walk"
                         onclick="going('walk', ['md', 'socialouting', 'other'])">
                     <input id="socialouting" class="visit-type-button" type="button" value="social outing"
-                        onclick="going('socialouting', ['walk', 'md', 'other'])">
+                        onclick="going('socialouting', ['walk', 'md', 'other'])"> -->
                     <input id="md" class="visit-type-button" type="button" value="MD appt"
-                        onclick="going('md', ['walk', 'socialouting', 'other'])">
-
+                        onclick="going('md', [ 'other'])">
                     <input id="other" class="visit-type-button" type="button" value="other"
-                        onclick="going('other', ['walk', 'md', 'socialouting'])">
+                        onclick="going('other', [ 'md' ])">
                 </form>
             </div>
             <div class="dropdown" id="where-going-morn">
                 <form>
                     Where are you going?
                     <input id="outside" class="visit-type-button" type="button" value="out of the building"
-                        onclick="going('outside', ['dining', 'garden', 'other'])">
+                        onclick="going('outside', ['dining', 'garden', 'other', 'porch'])">
 
                     <input id="dining" class="visit-type-button" type="button" value="dining room"
-                        onclick="going('dining', ['outside', 'garden', 'other'])">
+                        onclick="going('dining', ['outside', 'garden', 'other', 'porch'])">
 
                     <input id="garden" class="visit-type-button" type="button" value="garden"
-                        onclick="going('garden', ['outside', 'dining', 'other'])">
+                        onclick="going('garden', ['outside', 'dining', 'other', 'porch'])">
+
+                    <input id="porch" class="visit-type-button" type="button" value="front porch"
+                        onclick="going('porch', ['outside', 'dining', 'other', 'garden'])">
 
                     <input id="other2" class="visit-type-button" type="button" value="other"
-                        onclick="going('other', ['outside', 'dining', 'garden'])">
+                        onclick="going('other', ['outside', 'dining', 'garden', 'porch'])">
                 </form>
             </div>
 
@@ -260,9 +261,9 @@
             <span class="display-time"></span>
             <Br>
             <!-- submit button -->
-             <span id="msg"></span>
+            <span id="msg"></span>
             <input id="submit-button" type="button" value="FINISH" onclick="submit()">
-            
+
 
 
             </form>
@@ -277,12 +278,12 @@
         <form>
             <input id="logbtn" type="button" value="Login (Admin)" onclick="admin()"><Br>
             <span id=' bottom-text'>password:
-    <form>
-        <input autocomplete="off" type="password" value="" id="pwdInput" onfocus="this.value=''">
-        <BR>
-        <input id="pwdchk" type="checkbox" onclick="pwd()"><label for="pwdchk">show password</label>
-        </span>
-    </form>
+                <form>
+                    <input autocomplete="off" type="password" value="" id="pwdInput" onfocus="this.value=''">
+                    <BR>
+                    <input id="pwdchk" type="checkbox" onclick="pwd()"><label for="pwdchk">show password</label>
+            </span>
+        </form>
     </div>
 
 

@@ -120,6 +120,7 @@ function signOut() {
 function checkOutMorningside() {
     checkingOut = true;
     show("where-going-morn");
+    hide("where-going-assist");
 }
 function notcheckOutMorningside() {
     checkingOut = false;
@@ -147,6 +148,8 @@ function checkForName(roomNum) {
     if (roomNum in residents && residents[roomNum] !== "") {
         document.getElementById("auto-name-input2").value = residents[roomNum];
         document.getElementById("auto-name-input").value = residents[roomNum];
+        if (morningsideRooms.includes(roomNum))
+            checkOutMorningside();
     } else {
         // document.getElementById("auto-name-input2").value = ""; //not found";
         // document.getElementById("auto-name-input").value = ""; //not found";
@@ -157,7 +160,7 @@ function checkForRoom(name) {
     // if(isresident && !signingIn && roomNum.toUpperCase() in morningsideRooms){
 
     // }
-    console.log(name)
+    console.log(name);
     if (isresident && !signingIn) show("where-going-assist");
     if (isresident && signingIn) show("date-and-button");
 
@@ -166,12 +169,11 @@ function checkForRoom(name) {
     foundRoom = "";
     if (name !== "") {
         for (const key in residents) {
-            console.log("key, val: " + key, residents[key]);
-            // Ensure the property belongs to the object itself, not its prototype chain
-                if (residents[key].toUpperCase() === name) {
-                    foundRoom = key; // Found the key, return it
-                }
+            if (residents[key].toUpperCase() === name) {
+                foundRoom = key; // Found the key
+            }
         }
+        console.log("HERE");
         document.getElementById("auto-room-input2").value = foundRoom;
         document.getElementById("auto-room-input").value = foundRoom;
     } else {
@@ -685,10 +687,12 @@ function start() {
 function setStatus(thing, id) {
     if (thing === "") {
         document.getElementById(id).style.borderColor = "red";
-        if(id === "auto-name-input" || id === "auto-name-input2")
+        if (id === "auto-name-input" || id === "auto-name-input2")
             alert("Enter a resident's name or 'other'");
-        if(id === "auto-room-input" || id === "auto-room-input2")
-            alert("Enter a 3-digit room number or describe where you are going");
+        if (id === "auto-room-input" || id === "auto-room-input2")
+            alert(
+                "Enter a 3-digit room number or describe where you are going"
+            );
 
         return false;
     }
@@ -706,8 +710,11 @@ function submit() {
         //check for existence visitor first and last and resident visiting:
         visitorName = getEntry("name");
         hasnm = setStatus(visitorName, "name");
-        residentName = getEntry("auto-name-input2");
-        hasresnm = setStatus(residentName, "auto-name-input2");
+        hasresnm = true;
+        if (!checkingOut && !checkingOutMorningside) {
+            residentName = getEntry("auto-name-input2");
+            hasresnm = setStatus(residentName, "auto-name-input2");
+        }
         agencyName = getEntry("aname");
         hasanm = setStatus(agencyName, "aname");
         if (
