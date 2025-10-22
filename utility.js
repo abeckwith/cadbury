@@ -54,7 +54,6 @@ function autocomplete(inp, arr, nameField) {
                         /* close the list of autocompleted values,
                             (or any other open lists of autocompleted values:*/
                         closeAllLists();
-                        console.log(inp.id)
                         /** MY NEW CODE: */
                         if (
                             inp.id == "auto-room-input" ||

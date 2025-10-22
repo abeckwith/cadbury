@@ -148,8 +148,12 @@ function checkForName(roomNum) {
     if (roomNum in residents && residents[roomNum] !== "") {
         document.getElementById("auto-name-input2").value = residents[roomNum];
         document.getElementById("auto-name-input").value = residents[roomNum];
-        if (morningsideRooms.includes(roomNum))
+        if (morningsideRooms.includes(roomNum)){
+                if(!isresident || isvisitor)
+                    show("instr");
+                else
             checkOutMorningside();
+        }
     } else {
         // document.getElementById("auto-name-input2").value = ""; //not found";
         // document.getElementById("auto-name-input").value = ""; //not found";
@@ -686,9 +690,10 @@ function start() {
  */
 function setStatus(thing, id) {
     if (thing === "") {
+        console.log(thing + ", " + id)
         document.getElementById(id).style.borderColor = "red";
-        if (id === "auto-name-input" || id === "auto-name-input2")
-            alert("Enter a resident's name or 'other'");
+        // if (id === "auto-name-input" || id === "auto-name-input2")
+        //     alert("Enter a resident's name or 'other'");
         if (id === "auto-room-input" || id === "auto-room-input2")
             alert(
                 "Enter a 3-digit room number or describe where you are going"
@@ -711,7 +716,7 @@ function submit() {
         visitorName = getEntry("name");
         hasnm = setStatus(visitorName, "name");
         hasresnm = true;
-        if (!checkingOut && !checkingOutMorningside) {
+        if (!checkingOut) {
             residentName = getEntry("auto-name-input2");
             hasresnm = setStatus(residentName, "auto-name-input2");
         }
