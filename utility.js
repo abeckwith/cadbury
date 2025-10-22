@@ -43,7 +43,7 @@ function autocomplete(inp, arr, nameField) {
                     b.innerHTML =
                         "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                     b.innerHTML += arr[i].substr(val.length);
-                    /* insert a input field that will hold the current array item's value:*/
+                    /* insert an input field that will hold the current array item's value:*/
                     b.innerHTML +=
                         "<input type='hidden' value='" + arr[i] + "'>";
 
@@ -54,13 +54,18 @@ function autocomplete(inp, arr, nameField) {
                         /* close the list of autocompleted values,
                             (or any other open lists of autocompleted values:*/
                         closeAllLists();
-
+                        console.log(inp.id)
                         /** MY NEW CODE: */
                         if (
                             inp.id == "auto-room-input" ||
                             inp.id == "auto-room-input2"
                         )
                             checkForName(inp.value);
+                         if (
+                            inp.id == "auto-name-input" ||
+                            inp.id == "auto-name-input2"
+                        )
+                            checkForRoom(inp.value);
                     });
                     a.appendChild(b);
                 }

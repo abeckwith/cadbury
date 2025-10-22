@@ -152,6 +152,33 @@ function checkForName(roomNum) {
         document.getElementById("auto-name-input").value = ""; //not found";
     }
 }
+function checkForRoom(name) {
+    //morningside needs responsible party
+    // if(isresident && !signingIn && roomNum.toUpperCase() in morningsideRooms){
+
+    // }
+    console.log(name)
+    if (isresident && !signingIn) show("where-going-assist");
+    if (isresident && signingIn) show("date-and-button");
+
+    name = name.toUpperCase();
+    nameSaved = name;
+    foundRoom = "";
+    if (name !== "") {
+        for (const key in residents) {
+            console.log("key, val: " + key, residents[key]);
+            // Ensure the property belongs to the object itself, not its prototype chain
+                if (residents[key].toUpperCase() === name) {
+                    foundRoom = key; // Found the key, return it
+                }
+        }
+        document.getElementById("auto-room-input2").value = foundRoom;
+        document.getElementById("auto-room-input").value = foundRoom;
+    } else {
+        document.getElementById("auto-room-input2").value = ""; //not found";
+        document.getElementById("auto-room-input").value = ""; //not found";
+    }
+}
 
 function submitRoom2() {
     room = getEntry("auto-room-input2").toUpperCase(); //so 'a' becomes 'A'
@@ -284,25 +311,28 @@ function adminPage() {
         '<div id="edit-page"></div>';
 }
 function hash(pt) {
-    ct = enc(pt)
-;    return ct;
+    ct = enc(pt);
+    return ct;
 }
-function unhash(ct){
+function unhash(ct) {
     pt = decr(ct);
     return pt;
 }
 function changePassword() {
     done = false;
     while (!done) {
-        p1 = prompt("Enter your new password (minimum 6 characters/no other restrictions):");
-        if(p1 === null) done = true; //cancel button clicked
+        p1 = prompt(
+            "Enter your new password (minimum 6 characters/no other restrictions):"
+        );
+        if (p1 === null) done = true; //cancel button clicked
         else {
-            if(p1.length <6) alert("Not enough characters (minimum of 6)!");
-            else{
-            p2 = prompt("Re-enter your new password:");
-            if (p1 !== p2 && p2 !== null) alert("=== PASSWORDS DON'T MATCH ===");
-            else done = true;
-            if(p2 === null) done = true; //cancel button clicked
+            if (p1.length < 6) alert("Not enough characters (minimum of 6)!");
+            else {
+                p2 = prompt("Re-enter your new password:");
+                if (p1 !== p2 && p2 !== null)
+                    alert("=== PASSWORDS DON'T MATCH ===");
+                else done = true;
+                if (p2 === null) done = true; //cancel button clicked
             }
         }
     }
@@ -568,7 +598,8 @@ function admin() {
     userP = getEntry("pwdInput");
     storedP = localStorage.getItem("p"); //unrailfance the cipher pwd
     // console.log(hash(userP)+ ", " + storedP);
-    if (hash(userP) === storedP || "" + userP === "458829546") { //includes backup pwd
+    if (hash(userP) === storedP || "" + userP === "458829546") {
+        //includes backup pwd
         //true || for testing
         var DATA = JSON.parse(localStorage.getItem("log_data"));
         data2 = DATA;
@@ -694,10 +725,11 @@ function submit() {
         }
     }
 }
+
 function done() {
     m = document.getElementById("msg");
     m.innerHTML = "THANK YOU!";
-        document.getElementById("submit-button").style.visibility = "hidden";
+    document.getElementById("submit-button").style.visibility = "hidden";
     fade(m);
 }
 function checkAndSave(residentName, visitorName) {
