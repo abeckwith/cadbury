@@ -189,12 +189,14 @@ function notcheckOutTrad() {
  * @param roomNum room selected
  */
 function checkForName(roomNum) {
+    //show buttons:
     if (isresident && !signingIn) show("where-going-assist");
     if (isresident && signingIn) show("date-and-button");
 
     roomNum = roomNum.toUpperCase();
     roomSaved = roomNum;
 
+    //show instructions and morningside buttons, if needed:
     if (roomNum in residents && residents[roomNum] !== "") {
         document.getElementById("auto-name-input2").value = residents[roomNum];
         document.getElementById("auto-name-input").value = residents[roomNum];
@@ -242,7 +244,7 @@ function checkForRoom(name) {
     }
 }
 /**
- * UNUSED - DELETE
+ * TODO UNUSED - DELETE
  */
 function submitRoom2() {
     room = getEntry("auto-room-input2").toUpperCase(); //so 'a' becomes 'A'
@@ -252,14 +254,16 @@ function submitRoom2() {
     } else document.getElementById("auto-name-input2").value = "not found";
 }
 /**
- * Generates printable version of visitor log
+ * Generates printable version of visitor log 
+ * also shows email link for PDF
  */
 function printVersion() {
     //get start and end dates:
     startDate = document.getElementById("start-date").value;
-
     endDate = document.getElementById("end-date").value;
-    if (startDate === "mm/dd/yyyy") startDate = endDate;
+    if (startDate === "mm/dd/yyyy") startDate = endDate; //by default, same day
+
+    //build date values for comparison:
     startDate =
         startDate.substring(5, 7) +
         "/" +
@@ -272,11 +276,9 @@ function printVersion() {
         endDate.substring(8, 10) +
         "/" +
         endDate.substring(0, 4);
+
     if (endDate < startDate) alert("End must be after start date!");
-    else {
-        // hide("heading");
-        // const tds = document.querySelectorAll("td");
-        // const ths = document.querySelectorAll("th");
+    else { //show table
         logTable = document.getElementById("logtable");
         html = "<table id='logtable2'>";
         html +=
@@ -294,6 +296,8 @@ function printVersion() {
             "</tr>";
         const rows = logTable.getElementsByTagName("tr");
         let filterDate = "";
+
+        //build all rows:
         for (let i = 1; i < rows.length; i++) {
 
             const arrDate = rows[i].getElementsByTagName("td")[7].textContent;
@@ -304,7 +308,9 @@ function printVersion() {
             else filterDate = arrDate;
 
             filterDate = filterDate.substring(0, filterDate.indexOf(" "));
+
             if (filterDate.length == 9) filterDate = "0" + filterDate;
+            
             if (filterDate <= endDate && filterDate >= startDate) {
                 html += "<tr>";
                 for (j = 0; j < 10; j++)
@@ -347,6 +353,9 @@ let data2 = "";
 function back() {
     window.location.href = "index.html";
 }
+/**
+ * shows admin screen
+ */
 function adminPage() {
     hide("logo");
     hide("login");
@@ -398,40 +407,54 @@ function changePassword() {
     }
 }
 let editStatus = "";
-
-function deleteRes(theKey) {
+/**
+ * prepare to delete resident/show confirm button
+ * @param  roomNumber 
+ */
+function deleteRes(roomNumber) {
     editStatus = "delete";
 
-    document.getElementById("conf-row" + theKey).style.backgroundColor =
+    document.getElementById("conf-row" + roomNumber).style.backgroundColor =
         "powderblue";
-    document.getElementById("conf-btn" + theKey).innerHTML =
-        "Confirm Remove " + editDATA[theKey];
+    document.getElementById("conf-btn" + roomNumber).innerHTML =
+        "Confirm Remove " + residentList[roomNumber];
 }
-function changeRes(theKey) {
+/**
+ * Get new resident's name, show confirm button
+ * @param roomNumber 
+ */
+function changeRes(roomNumber) {
     editStatus = "change";
     newName = prompt(
-        "ENTER THE NEW NAME OF THE RESIDENT IN ROOM " + theKey + ":"
+        "ENTER THE NEW NAME OF THE RESIDENT IN ROOM " + roomNumber + ":"
     );
 
-    document.getElementById("conf-row" + theKey).style.backgroundColor =
+    document.getElementById("conf-row" + roomNumber).style.backgroundColor =
         "powderblue";
-    document.getElementById("conf-btn" + theKey).innerHTML =
-        "Confirm Changing " + editDATA[theKey] + " to " + newName;
+    document.getElementById("conf-btn" + roomNumber).innerHTML =
+        "Confirm Changing " + residentList[roomNumber] + " to " + newName;
 }
-function confirm(theKey) {
+/**
+ * Confirm changes to resident log
+ * @param roomNumber 
+ */
+function confirm(roomNumber) {
     if (editStatus === "delete") {
-        editDATA[theKey] = "";
-        localStorage.setItem("residents", JSON.stringify(editDATA));
-        // alert("Resident has been removed from room");
+        residentList[roomNumber] = "";
+        localStorage.setItem("residents", JSON.stringify(residentList));
         editList();
     }
     if (editStatus === "change") {
-        editDATA[theKey] = newName;
-        localStorage.setItem("residents", JSON.stringify(editDATA));
-        // alert("Change has been made!");
+        residentList[roomNumber] = newName;
+        localStorage.setItem("residents", JSON.stringify(residentList));
         editList();
     }
 }
+/**
+ * sort algorithm for room and names
+ * @param  arr rooms and names array
+ * @returns 
+ */
 function sort2DArrayAlphabetically(arr) {
     arr.sort((a, b) => {
         const firstElementA = a[0];
@@ -447,25 +470,38 @@ function sort2DArrayAlphabetically(arr) {
     });
     return arr;
 }
+/**
+ * canceled log deletion
+ */
 function cancel() {
     document.getElementById("finish-delete").innerHTML = "";
 }
+/**
+ * deletes range of log entries by date
+ */
 function deleteData() {
+    //sort by date:
     d = data2["all"].sort(function (a, b) {
         return new Date(b.dateObject) - new Date(a.dateObject);
     });
-    deleteDate = document.getElementById("start").value;
+
+    deleteDate = document.getElementById("start").value; //get date to be deleted before
+
     count = 0;
     newData = [];
     for (let index = 0; index < d.length; index++) {
         const element = d[index];
-        console.log(element.dateObject.substring(0, 10) + ", " + deleteDate);
+        // console.log(element.dateObject.substring(0, 10) + ", " + deleteDate);
         if (element.dateObject.substring(0, 10) >= deleteDate)
             newData.push(element);
     }
     allData = { all: newData }; //data to store back to local storage
+
     localStorage.setItem("log_data", JSON.stringify(allData));
 }
+/**
+ * Get and show log entries within date range
+ */
 function getDate() {
     d = data2["all"].sort(function (a, b) {
         return new Date(b.dateObject) - new Date(a.dateObject);
@@ -492,6 +528,9 @@ function getDate() {
   min="2018-01-01"
   max="2018-12-31"
 */
+/**
+ * set up ability to edit log entries
+ */
 function editLog() {
     //sorts so most recent is first:
 
@@ -515,18 +554,20 @@ function editLog() {
     document.getElementById("edit-page").innerHTML = html;
 }
 
-var editDATA;
-
+var residentList;
+/**
+ * Build page of resident lists for editing
+ */
 function editList() {
     //load room/resident data from local storage
     editStatus = "";
-    editDATA = JSON.parse(localStorage.getItem("residents"));
-    rooms = Object.keys(editDATA);
+    residentList = JSON.parse(localStorage.getItem("residents"));
+    rooms = Object.keys(residentList);
     roomsAndNames = [];
     rooms.forEach((room) => {
         if (room.length === 3) room2 = room + "X";
         else room2 = room;
-        roomsAndNames.push([room2, editDATA[room]]);
+        roomsAndNames.push([room2, residentList[room]]);
     });
     roomsAndNames = sort2DArrayAlphabetically(roomsAndNames);
 
@@ -568,18 +609,17 @@ function editList() {
     }
     html += "</table>";
     document.getElementById("edit-page").innerHTML = html;
-    //options: add, delete, change
-
-    //clear log entries - double check with alert()
-
-    //add:
 }
+
 function downloadPDF(content) {
     const element = document.getElementById("content");
     html2pdf()
         .from(content)
         .save("Cadbury" + new Date().toLocaleDateString() + ".pdf");
 }
+/**
+ * displays visitor log
+ */
 function seeLog() {
     //sorts so most recent is first:
     d = data2["all"].sort(function (a, b) {
@@ -636,7 +676,7 @@ function seeLog() {
         "<div id='email'></div>" + display + "</table></span>";
 }
 /**
- * used for hiding password characters
+ * hides password characters
  */
 function pwd() {
     var x = document.getElementById("pwdInput");
@@ -673,7 +713,9 @@ function showTime() {
         displayTime.innerHTML = time.toLocaleTimeString("en-US");
     setTimeout(showTime, 1000);
 }
-
+/**
+ * called by Start Over button
+ */
 function reset() {
     window.location.reload();
 }
@@ -792,27 +834,39 @@ function submit() {
         }
     }
 }
-
+/**
+ * Called from submit() (which is called from Finish button)
+ */
 function done() {
     m = document.getElementById("msg");
     m.innerHTML = "THANK YOU!";
     document.getElementById("submit-button").style.visibility = "hidden";
     fade(m);
 }
+/**
+ * Called from submit() (which is called from Finish button)
+ * Checks if name is found
+ * Saves log entry into local storage
+ * @param  residentName 
+ * @param  visitorName 
+ * @returns 
+ */
 function checkAndSave(residentName, visitorName) {
+    //set personType for log:
     residentName = residentName.trim().toUpperCase();
     visitorName = visitorName.trim().toUpperCase();
 
     if (isresident) personType = "Resident";
     else if (isvisitor) personType = "Visitor";
     else personType = "Agency";
+
     //visitor signing in OR resident signing out:
     if ((signingIn && !isresident) || (!signingIn && isresident)) {
         today = new Date();
+
         //format the date:
         const formattedDate = today.toLocaleDateString();
         const formattedTime = today.toLocaleTimeString();
-
         date = formattedDate + " " + formattedTime;
         if (signingIn) {
             //visitor signing in
@@ -823,6 +877,7 @@ function checkAndSave(residentName, visitorName) {
             tOut = date;
             tIn = "";
         }
+
         //make login object to save to array
         login = {
             rName: residentName, //resident name
@@ -837,7 +892,7 @@ function checkAndSave(residentName, visitorName) {
             howLong: howLongOut,
             whereGo: whereGoing,
         };
-        console.log(login);
+
         //get array from local storage
         var DATA = JSON.parse(localStorage.getItem("log_data"));
 
