@@ -21,17 +21,31 @@ let roomSaved = "";
 let question = false;
 let checkingOut = false;
 
+/**
+ * Highligh selected button where person is going
+ * @param  id button to highlight
+ * @param  others other buttons
+ */
 function going(id, others) {
     whereGoing = id;
     show("how-long");
     selectedButton(id, others);
 }
+/**
+ * Highligh selected button of how long person will be gone
+ * @param id button to highlight
+ * @param others other buttons 
+ */
 function howLong(id, others) {
     howLongOut = id;
     show("date-and-button");
     selectedButton(id, others);
 }
-
+/**
+ * Highligh resident button
+ * @param id button to highlight
+ * @param others other buttons 
+ */
 function resident() {
     isresident = true;
     isvisitor = false;
@@ -40,6 +54,11 @@ function resident() {
     disableBtns(["resbtn", "visbtn", "agbtn"]);
     selectedButton("resbtn", ["visbtn", "agbtn"]);
 }
+/**
+ * Highligh visitor button
+ * @param id button to highlight
+ * @param others other buttons 
+ */
 function visitor() {
     isresident = false;
     isvisitor = true;
@@ -48,7 +67,11 @@ function visitor() {
     disableBtns(["resbtn", "visbtn", "agbtn"]);
     selectedButton("visbtn", ["resbtn", "agbtn"]);
 }
-
+/**
+ * Highligh agency button
+ * @param id button to highlight
+ * @param others other buttons 
+ */
 function agency() {
     isresident = false;
     isvisitor = false;
@@ -58,6 +81,11 @@ function agency() {
 
     selectedButton("agbtn", ["resbtn", "visbtn"]);
 }
+/**
+ * Highligh resident or assisted button
+ * @param id button to highlight
+ * @param others other buttons 
+ */
 function morningSide(isMorningside) {
     ismorningSideResident = isMorningside;
     if (isMorningside) {
@@ -69,12 +97,16 @@ function morningSide(isMorningside) {
     }
 }
 
-/** called when morningside resident is checkng out */
+/** 
+ * called when morningside resident is checkng out
+ * shows options of where they are going
+ */
 function submitName1() {
     show("where-going-assist");
 }
 /**
  * called when visitor starts typing in last name box
+ * shows date info and reveals name field
  */
 function submitName() {
     show("date-and-button");
@@ -87,7 +119,10 @@ function submitName() {
         show("agency-nm");
     }
 }
-
+/**
+ * Person clicked signing in, so 
+ * show name and room fields
+ */
 function signIn() {
     signingIn = true;
     if (isresident) {
@@ -102,6 +137,10 @@ function signIn() {
         show("name-entry");
     }
 }
+/**
+ * Person clicked signing out, so
+ * showroom and name fields
+ */
 function signOut() {
     signingIn = false;
 
@@ -117,6 +156,10 @@ function signOut() {
         show("name-entry");
     }
 }
+/**
+ * morningside resident is checking out, so show buttons
+ * to select where going
+ */
 function checkOutMorningside() {
     checkingOut = true;
     show("where-going-morn");
@@ -126,6 +169,10 @@ function notcheckOutMorningside() {
     checkingOut = false;
     hide("morningside-out");
 }
+/**
+ * resident is checking out, so show buttons
+ * to select where going
+ */
 function checkOutTrad() {
     checkingOut = true;
     show("where-going-assist");
@@ -134,11 +181,14 @@ function notcheckOutTrad() {
     checkingOut = false;
     hide("morningside-trad");
 }
+/**
+ * Called when a resident name is selected
+ * shows next set of buttons
+ * also shows instructions if visiting mnorningside
+ * 
+ * @param roomNum room selected
+ */
 function checkForName(roomNum) {
-    //morningside needs responsible party
-    // if(isresident && !signingIn && roomNum.toUpperCase() in morningsideRooms){
-
-    // }
     if (isresident && !signingIn) show("where-going-assist");
     if (isresident && signingIn) show("date-and-button");
 
@@ -159,6 +209,12 @@ function checkForName(roomNum) {
         // document.getElementById("auto-name-input").value = ""; //not found";
     }
 }
+/**
+ * Called when a resident room is selected
+ * shows next set of buttons
+ * 
+ * @param roomNum room selected
+ */
 function checkForRoom(name) {
     //morningside needs responsible party
     // if(isresident && !signingIn && roomNum.toUpperCase() in morningsideRooms){
@@ -185,7 +241,9 @@ function checkForRoom(name) {
         document.getElementById("auto-room-input").value = ""; //not found";
     }
 }
-
+/**
+ * UNUSED - DELETE
+ */
 function submitRoom2() {
     room = getEntry("auto-room-input2").toUpperCase(); //so 'a' becomes 'A'
     console.log(residents[room]);
@@ -193,7 +251,9 @@ function submitRoom2() {
         document.getElementById("auto-name-input2").value = residents[room];
     } else document.getElementById("auto-name-input2").value = "not found";
 }
-
+/**
+ * Generates printable version of visitor log
+ */
 function printVersion() {
     //get start and end dates:
     startDate = document.getElementById("start-date").value;
@@ -235,18 +295,14 @@ function printVersion() {
         const rows = logTable.getElementsByTagName("tr");
         let filterDate = "";
         for (let i = 1; i < rows.length; i++) {
-            // rows[i].getElementsByTagName("td").forEach(element => {
-            //     // console.log(element.textContent)
-            // });
+
             const arrDate = rows[i].getElementsByTagName("td")[7].textContent;
             const depDate = rows[i].getElementsByTagName("td")[8].textContent;
-            // console.log(arrDate)
-            // console.log(depDate)
+ 
             if (arrDate === "" || typeof arrDate === "undefined")
                 filterDate = depDate;
             else filterDate = arrDate;
 
-            // console.log(filterDate)
             filterDate = filterDate.substring(0, filterDate.indexOf(" "));
             if (filterDate.length == 9) filterDate = "0" + filterDate;
             if (filterDate <= endDate && filterDate >= startDate) {
@@ -262,20 +318,10 @@ function printVersion() {
         html += "</table>";
 
         hide("logtable");
-        // logTable.style.width = "100%";
+
         document.getElementById("heading").innerHTML =
             html + "<a href='#' onclick='adminPage()'>BACK</a>";
-        // ths.forEach((th) => {
-        //     th.style.fontSize = "10px"; // Replace '16px' with desired font size
-        //     th.style.backgroundColor = "white";
-        //     th.style.color = "black";
-        //     // th.style.width = "fit-content";
-        // });
-        // tds.forEach((td) => {
-        //     td.style.fontSize = "10px"; // Replace '16px' with desired font size
-        //     td.style.backgroundColor = "white";
-        //     td.style.color = "black";
-        // });
+
         downloadPDF(html);
         alert("The log for those dates has been downloaded to your device!");
         adminEmail = "info@cadburycommons.com";
@@ -291,7 +337,6 @@ function printVersion() {
             '" target="_blank">EMAIL THE LOG</a>';
         document.getElementById("email").innerHTML = email;
     }
-    // document.getElementById("logtable").style.fontSize = "10px";
 }
 /**
  * Gets data from local storage and builds table for log, sorted to most recent first
@@ -324,6 +369,9 @@ function unhash(ct) {
     pt = decr(ct);
     return pt;
 }
+/**
+ * Get, check and set new password
+ */
 function changePassword() {
     done = false;
     while (!done) {
@@ -350,6 +398,7 @@ function changePassword() {
     }
 }
 let editStatus = "";
+
 function deleteRes(theKey) {
     editStatus = "delete";
 
