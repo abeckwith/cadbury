@@ -34,7 +34,7 @@ function going(id, others) {
 /**
  * Highligh selected button of how long person will be gone
  * @param id button to highlight
- * @param others other buttons 
+ * @param others other buttons
  */
 function howLong(id, others) {
     howLongOut = id;
@@ -44,7 +44,7 @@ function howLong(id, others) {
 /**
  * Highligh resident button
  * @param id button to highlight
- * @param others other buttons 
+ * @param others other buttons
  */
 function resident() {
     isresident = true;
@@ -57,7 +57,7 @@ function resident() {
 /**
  * Highligh visitor button
  * @param id button to highlight
- * @param others other buttons 
+ * @param others other buttons
  */
 function visitor() {
     isresident = false;
@@ -70,7 +70,7 @@ function visitor() {
 /**
  * Highligh agency button
  * @param id button to highlight
- * @param others other buttons 
+ * @param others other buttons
  */
 function agency() {
     isresident = false;
@@ -84,7 +84,7 @@ function agency() {
 /**
  * Highligh resident or assisted button
  * @param id button to highlight
- * @param others other buttons 
+ * @param others other buttons
  */
 function morningSide(isMorningside) {
     ismorningSideResident = isMorningside;
@@ -97,7 +97,7 @@ function morningSide(isMorningside) {
     }
 }
 
-/** 
+/**
  * called when morningside resident is checkng out
  * shows options of where they are going
  */
@@ -120,7 +120,7 @@ function submitName() {
     }
 }
 /**
- * Person clicked signing in, so 
+ * Person clicked signing in, so
  * show name and room fields
  */
 function signIn() {
@@ -185,7 +185,7 @@ function notcheckOutTrad() {
  * Called when a resident name is selected
  * shows next set of buttons
  * also shows instructions if visiting mnorningside
- * 
+ *
  * @param roomNum room selected
  */
 function checkForName(roomNum) {
@@ -199,11 +199,9 @@ function checkForName(roomNum) {
     if (roomNum in residents2 && residents2[roomNum] !== "") {
         document.getElementById("auto-name-input2").value = residents2[roomNum];
         document.getElementById("auto-name-input").value = residents2[roomNum];
-        if (morningsideRooms.includes(roomNum)){
-                if(!isresident || isvisitor)
-                    show("instr");
-                else
-            checkOutMorningside();
+        if (morningsideRooms.includes(roomNum)) {
+            if (!isresident || isvisitor) show("instr");
+            else checkOutMorningside();
         }
     } else {
         // document.getElementById("auto-name-input2").value = ""; //not found";
@@ -213,7 +211,7 @@ function checkForName(roomNum) {
 /**
  * Called when a resident room is selected
  * shows next set of buttons
- * 
+ *
  * @param roomNum room selected
  */
 function checkForRoom(name) {
@@ -253,7 +251,7 @@ function submitRoom2() {
     } else document.getElementById("auto-name-input2").value = "not found";
 }
 /**
- * Generates printable version of visitor log 
+ * Generates printable version of visitor log
  * also shows email link for PDF
  */
 function printVersion() {
@@ -277,7 +275,8 @@ function printVersion() {
         endDate.substring(0, 4);
 
     if (endDate < startDate) alert("End must be after start date!");
-    else { //show table
+    else {
+        //show table
         logTable = document.getElementById("logtable");
         html = "<table id='logtable2'>";
         html +=
@@ -298,10 +297,9 @@ function printVersion() {
 
         //build all rows:
         for (let i = 1; i < rows.length; i++) {
-
             const arrDate = rows[i].getElementsByTagName("td")[7].textContent;
             const depDate = rows[i].getElementsByTagName("td")[8].textContent;
- 
+
             if (arrDate === "" || typeof arrDate === "undefined")
                 filterDate = depDate;
             else filterDate = arrDate;
@@ -309,7 +307,7 @@ function printVersion() {
             filterDate = filterDate.substring(0, filterDate.indexOf(" "));
 
             if (filterDate.length == 9) filterDate = "0" + filterDate;
-            
+
             if (filterDate <= endDate && filterDate >= startDate) {
                 html += "<tr>";
                 for (j = 0; j < 10; j++)
@@ -408,7 +406,7 @@ function changePassword() {
 let editStatus = "";
 /**
  * prepare to delete resident/show confirm button
- * @param  roomNumber 
+ * @param  roomNumber
  */
 function deleteRes(roomNumber) {
     editStatus = "delete";
@@ -420,7 +418,7 @@ function deleteRes(roomNumber) {
 }
 /**
  * Get new resident's name, show confirm button
- * @param roomNumber 
+ * @param roomNumber
  */
 function changeRes(roomNumber) {
     editStatus = "change";
@@ -435,7 +433,7 @@ function changeRes(roomNumber) {
 }
 /**
  * Confirm changes to resident log
- * @param roomNumber 
+ * @param roomNumber
  */
 function confirm(roomNumber) {
     if (editStatus === "delete") {
@@ -452,7 +450,7 @@ function confirm(roomNumber) {
 /**
  * sort algorithm for room and names
  * @param  arr rooms and names array
- * @returns 
+ * @returns
  */
 function sort2DArrayAlphabetically(arr) {
     arr.sort((a, b) => {
@@ -563,12 +561,16 @@ function editList() {
     residentList = JSON.parse(localStorage.getItem("residents"));
 
     //temporary solution for adding rooms:
-    if(!("220A" in residentList))
-    {
-        console.log("adding")
-        residentList["216A"] = "";
-        residentList["220A"] = "";
-        residentList["221A"] = "";
+    if (!("220A" in residentList)) {
+        residentList["216A"] = residentList["216"];
+        residentList["220A"] = residentList["220"];
+        residentList["221A"] = residentList["221"];
+        residentList["216B"] = "";
+        residentList["220B"] = "";
+        residentList["221B"] = "";
+        delete residentList["216"];
+        delete residentList["220"];
+        delete residentList["221"];
         localStorage.setItem("residents", JSON.stringify(residentList));
     }
     rooms = Object.keys(residentList);
@@ -734,12 +736,10 @@ function reset() {
 function start() {
     //FOR FIRST TIME RUNNING ON GIVEN DEVICE:
     //if no residents in local storage, take them from the .js file:
-    if (localStorage.getItem("residents") === null){
+    if (localStorage.getItem("residents") === null) {
         localStorage.setItem("residents", JSON.stringify(residentsFake));
-        console.log("Loading default (random name) residents...")
-    }
-   else
-    residents2 = JSON.parse(localStorage.getItem("residents"));
+        console.log("Loading default (random name) residents...");
+    } else residents2 = JSON.parse(localStorage.getItem("residents"));
 
     //if no log data yet, set up the array:
     if (localStorage.getItem("log_data") === null) {
@@ -795,7 +795,7 @@ function start() {
  */
 function setStatus(thing, id) {
     if (thing === "") {
-        console.log(thing + ", " + id)
+        console.log(thing + ", " + id);
         document.getElementById(id).style.borderColor = "red";
         // if (id === "auto-name-input" || id === "auto-name-input2")
         //     alert("Enter a resident's name or 'other'");
@@ -860,9 +860,9 @@ function done() {
  * Called from submit() (which is called from Finish button)
  * Checks if name is found
  * Saves log entry into local storage
- * @param  residentName 
- * @param  visitorName 
- * @returns 
+ * @param  residentName
+ * @param  visitorName
+ * @returns
  */
 function checkAndSave(residentName, visitorName) {
     //set personType for log:
