@@ -596,6 +596,7 @@ function pwd() {
     } else {
         x.type = "password";
     }
+    x.style.height = "40px";
 }
 /**
  * called from admin button - asks for password and calls admin
