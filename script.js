@@ -561,6 +561,16 @@ function editList() {
     //load room/resident data from local storage
     editStatus = "";
     residentList = JSON.parse(localStorage.getItem("residents"));
+
+    //temporary solution for adding rooms:
+    if(!("220A" in residentList))
+    {
+        console.log("adding")
+        residentList["216A"] = "";
+        residentList["220A"] = "";
+        residentList["221A"] = "";
+        localStorage.setItem("residents", JSON.stringify(residentList));
+    }
     rooms = Object.keys(residentList);
     roomsAndNames = [];
     rooms.forEach((room) => {
@@ -724,8 +734,10 @@ function reset() {
 function start() {
     //FOR FIRST TIME RUNNING ON GIVEN DEVICE:
     //if no residents in local storage, take them from the .js file:
-    if (localStorage.getItem("residents") === null)
+    if (localStorage.getItem("residents") === null){
         localStorage.setItem("residents", JSON.stringify(residentsFake));
+        console.log("Loading default (random name) residents...")
+    }
    else
     residents2 = JSON.parse(localStorage.getItem("residents"));
 
