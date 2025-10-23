@@ -197,9 +197,9 @@ function checkForName(roomNum) {
     roomSaved = roomNum;
 
     //show instructions and morningside buttons, if needed:
-    if (roomNum in residents && residents[roomNum] !== "") {
-        document.getElementById("auto-name-input2").value = residents[roomNum];
-        document.getElementById("auto-name-input").value = residents[roomNum];
+    if (roomNum in residents2 && residents2[roomNum] !== "") {
+        document.getElementById("auto-name-input2").value = residents2[roomNum];
+        document.getElementById("auto-name-input").value = residents2[roomNum];
         if (morningsideRooms.includes(roomNum)){
                 if(!isresident || isvisitor)
                     show("instr");
@@ -230,8 +230,8 @@ function checkForRoom(name) {
     nameSaved = name;
     foundRoom = "";
     if (name !== "") {
-        for (const key in residents) {
-            if (residents[key].toUpperCase() === name) {
+        for (const key in residents2) {
+            if (residents2[key].toUpperCase() === name) {
                 foundRoom = key; // Found the key
             }
         }
@@ -248,9 +248,9 @@ function checkForRoom(name) {
  */
 function submitRoom2() {
     room = getEntry("auto-room-input2").toUpperCase(); //so 'a' becomes 'A'
-    console.log(residents[room]);
-    if (room in residents && residents[room] !== "") {
-        document.getElementById("auto-name-input2").value = residents[room];
+    console.log(residents2[room]);
+    if (room in residents2 && residents2[room] !== "") {
+        document.getElementById("auto-name-input2").value = residents2[room];
     } else document.getElementById("auto-name-input2").value = "not found";
 }
 /**
@@ -726,7 +726,9 @@ function start() {
     //FOR FIRST TIME RUNNING ON GIVEN DEVICE:
     //if no residents in local storage, take them from the .js file:
     if (localStorage.getItem("residents") === null)
-        localStorage.setItem("residents", JSON.stringify(residents));
+        localStorage.setItem("residents", JSON.stringify(residentsFake));
+   else
+    residents2 = JSON.parse(localStorage.getItem("residents"));
 
     //if no log data yet, set up the array:
     if (localStorage.getItem("log_data") === null) {

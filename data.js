@@ -88,7 +88,7 @@ traditionalRooms = [
 
 let cadburyRooms = morningsideRooms.concat(traditionalRooms);
 
-let residents = {
+let residentsFake = {
     "101": "Prince Scott",
     "102A": "Summer Battles",
     "102B": "Hilary Mcgrew",
