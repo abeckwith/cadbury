@@ -360,7 +360,7 @@ function adminPage() {
     hide("start-over");
     hide("date-and-button");
     document.getElementById("heading").innerHTML =
-        '<input onclick="seeLog()" type="button" class="visit-type-button" value="SEE LOG"><Br>' +
+        '<input onclick="seeLog(true)" type="button" class="visit-type-button" value="SEE LOG"><Br>' +
         ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST"><Br>' +
         ' <input onclick="editLog()" type="button" class="visit-type-button" value="EDIT LOG DATA"><Br>' +
         ' <input onclick="changePassword()" type="button" class="visit-type-button" value="CHANGE ADMIN PASSWORD"><Br><BR>' +
@@ -631,7 +631,9 @@ function downloadPDF(content) {
 /**
  * displays visitor log
  */
-function seeLog() {
+function seeLog(adminAccess) {
+      var DATA = JSON.parse(localStorage.getItem("log_data"));
+        data2 = DATA;
     //sorts so most recent is first:
     d = data2["all"].sort(function (a, b) {
         return new Date(b.dateObject) - new Date(a.dateObject);
@@ -639,8 +641,11 @@ function seeLog() {
     const today = new Date();
     const dateOnly = today.toISOString().slice(0, 10);
     //Table heading:
+    if(adminAccess) ad = "<a href='#' onclick='adminPage()'>RETURN TO ADMIN PAGE</a><Br> ";
+    else ad = "<a href='#' onclick='reset()'>RETURN TO MAIN PAGE</a><Br> ";
+
     document.getElementById("heading").innerHTML =
-        "<a href='#' onclick='adminPage()'>RETURN TO ADMIN PAGE</a><Br> " +
+        ad +
         // '<input onclick="seeLog()" type="button" class="visit-type-button" value="SEE LOG">' +
         // ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST">' +
         "<BR><center><span id='print-menu'><b>PRINTABLE VERSION/Email PDF:</b> " +
@@ -685,6 +690,8 @@ function seeLog() {
 
     document.getElementById("main").innerHTML =
         "<div id='email'></div>" + display + "</table></span>";
+
+        window.scrollTo(0, 0);
 }
 /**
  * hides password characters
