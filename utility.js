@@ -42,7 +42,7 @@ function autocomplete(inp, arr, nameField) {
                     b.classList.add("name-in-list");
                     b.innerHTML =
                         "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                    b.innerHTML += arr[i].substr(val.length);
+                    b.innerHTML += arr[i].substr(val.length) + "&nbsp;&nbsp;&nbsp;" + residents2[arr[i]];
                     /* insert an input field that will hold the current array item's value:*/
                     b.innerHTML +=
                         "<input type='hidden' value='" + arr[i] + "'>";

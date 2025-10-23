@@ -196,7 +196,6 @@ function checkForName(roomNum) {
     roomNum = roomNum.toUpperCase();
     roomSaved = roomNum;
 
-    //show instructions and morningside buttons, if needed:
     if (roomNum in residents2 && residents2[roomNum] !== "") {
         document.getElementById("auto-name-input2").value = residents2[roomNum];
         document.getElementById("auto-name-input").value = residents2[roomNum];
