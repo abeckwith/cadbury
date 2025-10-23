@@ -459,7 +459,7 @@ function editLog() {
         html += "<br>NEWEST: " + d[0].dateObject.substring(0, 10);
         html +=
             '<Br><Br><label for="start">Delete log entries before </label>' +
-            '<input type="date" id="start" name="start" min="" value="" />';
+            '<input type="date"  class="datefield"  id="start" name="start" min="" value="" />';
         html += "<button onclick='getDate()'>Find entries to delete</button>";
         html += "<div id='finish-delete'></div>";
     } else html = "No data to delete";
@@ -544,13 +544,13 @@ function seeLog() {
         // '<input onclick="seeLog()" type="button" class="visit-type-button" value="SEE LOG">' +
         // ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST">' +
         "<BR><center><span id='print-menu'><b>PRINTABLE VERSION/Email PDF:</b> " +
-        "Start Date: <input type='date' id='start-date' value='" +
+        "Start Date: <input type='date' class='datefield' id='start-date' value='" +
         dateOnly +
         "'>&nbsp;&nbsp;" +
-        "End Date: <input type='date' id='end-date' value='" +
+        "End Date: <input type='date' class='datefield'  id='end-date' value='" +
         dateOnly +
         "'>&nbsp;&nbsp;" +
-        "<a href='#' onclick='printVersion()'>MAKE PRINTABLE VERSION</a></span></center><br>";
+        "<br><a href='#' onclick='printVersion()'>MAKE PRINTABLE VERSION</a></span></center><br>";
 
     display =
         "<table id='logtable'>" +

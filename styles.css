@@ -50,7 +50,10 @@ body {
     text-decoration: none;
     display: block;
 }
+.datefield{
+    height:30px;
 
+}
 .dropdown a:hover {
     background-color: #ddd;
 }
