@@ -254,7 +254,7 @@ function submitRoom2() {
  * Generates printable version of visitor log
  * also shows email link for PDF
  */
-function printVersion() {
+function printVersion(adminAccess) {
     //get start and end dates:
     startDate = document.getElementById("start-date").value;
     endDate = document.getElementById("end-date").value;
@@ -321,9 +321,10 @@ function printVersion() {
         html += "</table>";
 
         hide("logtable");
-
+        if(adminAccess) backBtn = "<a href='#' onclick='adminPage()'>BACK</a>";
+        else backBtn = "";
         document.getElementById("heading").innerHTML =
-            html + "<a href='#' onclick='adminPage()'>BACK</a>";
+            html + backBtn;
 
         downloadPDF(html);
         alert("The log for those dates has been downloaded to your device!");
@@ -655,7 +656,7 @@ function seeLog(adminAccess) {
         "End Date: <input type='date' class='datefield'  id='end-date' value='" +
         dateOnly +
         "'>&nbsp;&nbsp;" +
-        "<br><a href='#' onclick='printVersion()'>MAKE PRINTABLE VERSION</a></span></center><br>";
+        "<br><a href='#' onclick='printVersion(" + adminAccess + ")'>MAKE PRINTABLE VERSION</a></span></center><br>";
 
     display =
         "<table id='logtable'>" +
