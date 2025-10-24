@@ -802,7 +802,6 @@ function start() {
  */
 function setStatus(thing, id) {
     if (thing === "") {
-        console.log(thing + ", " + id);
         document.getElementById(id).style.borderColor = "red";
         // if (id === "auto-name-input" || id === "auto-name-input2")
         //     alert("Enter a resident's name or 'other'");
