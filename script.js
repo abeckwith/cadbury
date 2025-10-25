@@ -360,6 +360,7 @@ function adminPage() {
     hide("main");
     hide("start-over");
     hide("date-and-button");
+    hide("l-btn");
     document.getElementById("heading").innerHTML =
         '<input onclick="seeLog(true)" type="button" class="visit-type-button" value="SEE LOG"><Br>' +
         ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST"><Br>' +
@@ -742,6 +743,15 @@ function reset() {
  * called onload - starts timer and updates display
  */
 function start() {
+    pwdInput.addEventListener("keypress", function(event) {
+        // Check if the pressed key is "Enter"
+        if (event.key === "Enter") {
+            // Prevent the default form submission behavior if the input is within a form
+            event.preventDefault();
+            // Programmatically click the button
+            logbtn.click();
+        }
+    });
     //FOR FIRST TIME RUNNING ON GIVEN DEVICE:
     //if no residents in local storage, take them from the .js file:
     if (localStorage.getItem("residents") === null) {
