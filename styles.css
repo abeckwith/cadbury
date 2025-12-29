@@ -85,11 +85,7 @@ select {
     border-radius: 4px;
     box-sizing: border-box;
 }
-#auto-name-input,
-#auto-name-input2 {
-    font-size: 30px;
-    width: 400px;
-}
+
 #signin-form {
     display: none;
 }
@@ -109,11 +105,11 @@ select {
     border: 3px solid black;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 40px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .visit-type-button {
-    padding: 5px 10px;
+    padding: 15px 10px;
     /* width:10%; */
     background-color: #4caf50;
     color: white;
@@ -122,7 +118,7 @@ select {
     border: 2px solid black;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 35px;
+    font-size: 45px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -281,10 +277,15 @@ input[type="radio"] {
 #auto-room-input2,
 #name {
     width: 150px;
-    font-size: 30px;
+    font-size: 37px;
 }
 #auto-room-input2 {
-    width: 300px;
+    width: 350px;
+}
+#auto-name-input,
+#auto-name-input2 {
+    font-size: 37px;
+    width: 400px;
 }
 #namelbl {
     font-size: 25px;
