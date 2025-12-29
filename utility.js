@@ -278,7 +278,7 @@ function fade(element) {
    
 
         window.location.reload();
-    }, 2500); // Reload after 1 second (matching transition duration)
+    }, 2200); // Reload after 1 second (matching transition duration)
 }
 function enc(text) {
     return text.substring(3) + text.substring(0, 3);
