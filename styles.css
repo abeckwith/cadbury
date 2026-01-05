@@ -32,6 +32,7 @@ body {
 .dropdown {
     position: relative;
     display: inline-block;
+    width: 300px;
 }
 
 .dropdown-content {
@@ -120,6 +121,21 @@ select {
     cursor: pointer;
     font-size: 43px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 600px;
+}
+.visit-type-button2 {
+    padding: 12px 8px;
+    /* width:10%; */
+    background-color: #4caf50;
+    color: white;
+
+    margin: 8px 0;
+    border: 2px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 43px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 400px;
 }
 
 input[type="submit"]:hover {
@@ -164,6 +180,7 @@ input[type="radio"] {
     width: 350px;
     border: 1px solid black;
     cursor: pointer;
+    text-align: left;
 }
 .name-in-list:hover {
     background-color: black;

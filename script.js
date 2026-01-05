@@ -30,6 +30,13 @@ function going(id, others) {
     whereGoing = id;
     show("how-long");
     selectedButton(id, others);
+    hide("outside");
+    hide("dining");
+    hide("garden");
+    hide("porch");
+    hide("other2");
+    hide("where-going-morn")
+
 }
 /**
  * Highligh selected button of how long person will be gone
@@ -40,6 +47,12 @@ function howLong(id, others) {
     howLongOut = id;
     show("date-and-button");
     selectedButton(id, others);
+}
+function hideFirstBtns() {
+    hide("resbtn");
+    hide("visbtn");
+    hide("agbtn");
+    hide("form1")
 }
 /**
  * Highligh resident button
@@ -52,6 +65,7 @@ function resident() {
     isagency = false;
     show("signin-form");
     disableBtns(["resbtn", "visbtn", "agbtn"]);
+    hideFirstBtns();
     selectedButton("resbtn", ["visbtn", "agbtn"]);
 }
 /**
@@ -65,6 +79,8 @@ function visitor() {
     isagency = false;
     show("signin-form-vis");
     disableBtns(["resbtn", "visbtn", "agbtn"]);
+    hideFirstBtns();
+
     selectedButton("visbtn", ["resbtn", "agbtn"]);
 }
 /**
@@ -78,6 +94,7 @@ function agency() {
     isagency = true;
     show("signin-form-vis");
     disableBtns(["resbtn", "visbtn", "agbtn"]);
+    hideFirstBtns();
 
     selectedButton("agbtn", ["resbtn", "visbtn"]);
 }
@@ -136,6 +153,9 @@ function signIn() {
         disableBtns(["signin-btn-vis", "signout-btn-vis"]);
         show("name-entry");
     }
+    hide("signout-btn");
+    hide("signin-btn");
+    hide("form2");
 }
 /**
  * Person clicked signing out, so
@@ -155,6 +175,9 @@ function signOut() {
         disableBtns(["signout-btn-vis", "signin-btn-vis"]);
         show("name-entry");
     }
+    hide("signout-btn");
+    hide("signin-btn");
+     hide("form2");
 }
 /**
  * morningside resident is checking out, so show buttons
@@ -176,6 +199,8 @@ function notcheckOutMorningside() {
 function checkOutTrad() {
     checkingOut = true;
     show("where-going-assist");
+    hide("auto-room-input");
+    hide("auto-name-input");
 }
 function notcheckOutTrad() {
     checkingOut = false;
@@ -321,10 +346,9 @@ function printVersion(adminAccess) {
         html += "</table>";
 
         hide("logtable");
-        if(adminAccess) backBtn = "<a href='#' onclick='adminPage()'>BACK</a>";
+        if (adminAccess) backBtn = "<a href='#' onclick='adminPage()'>BACK</a>";
         else backBtn = "";
-        document.getElementById("heading").innerHTML =
-            html + backBtn;
+        document.getElementById("heading").innerHTML = html + backBtn;
 
         downloadPDF(html);
         alert("The log for those dates has been downloaded to your device!");
@@ -634,8 +658,8 @@ function downloadPDF(content) {
  * displays visitor log
  */
 function seeLog(adminAccess) {
-      var DATA = JSON.parse(localStorage.getItem("log_data"));
-        data2 = DATA;
+    var DATA = JSON.parse(localStorage.getItem("log_data"));
+    data2 = DATA;
     //sorts so most recent is first:
     d = data2["all"].sort(function (a, b) {
         return new Date(b.dateObject) - new Date(a.dateObject);
@@ -643,7 +667,8 @@ function seeLog(adminAccess) {
     const today = new Date();
     const dateOnly = today.toISOString().slice(0, 10);
     //Table heading:
-    if(adminAccess) ad = "<a href='#' onclick='adminPage()'>RETURN TO ADMIN PAGE</a><Br> ";
+    if (adminAccess)
+        ad = "<a href='#' onclick='adminPage()'>RETURN TO ADMIN PAGE</a><Br> ";
     else ad = "<a href='#' onclick='reset()'>RETURN TO MAIN PAGE</a><Br> ";
 
     document.getElementById("heading").innerHTML =
@@ -657,7 +682,9 @@ function seeLog(adminAccess) {
         "End Date: <input type='date' class='datefield'  id='end-date' value='" +
         dateOnly +
         "'>&nbsp;&nbsp;" +
-        "<br><a href='#' onclick='printVersion(" + adminAccess + ")'>MAKE PRINTABLE VERSION</a></span></center><br>";
+        "<br><a href='#' onclick='printVersion(" +
+        adminAccess +
+        ")'>MAKE PRINTABLE VERSION</a></span></center><br>";
 
     display =
         "<table id='logtable'>" +
@@ -693,7 +720,7 @@ function seeLog(adminAccess) {
     document.getElementById("main").innerHTML =
         "<div id='email'></div>" + display + "</table></span>";
 
-        window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
 }
 /**
  * hides password characters
@@ -743,7 +770,7 @@ function reset() {
  * called onload - starts timer and updates display
  */
 function start() {
-    pwdInput.addEventListener("keypress", function(event) {
+    pwdInput.addEventListener("keypress", function (event) {
         // Check if the pressed key is "Enter"
         if (event.key === "Enter") {
             // Prevent the default form submission behavior if the input is within a form

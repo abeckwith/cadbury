@@ -27,10 +27,11 @@
         <!-- CADBURY SIGN IN/SIGN OUT -->
     </div>
     <div id="main">
-        <form>
+        <Center>
+        <form id="form1">
             <!-- I am a -->
-            <input id="resbtn" class="visit-type-button" type="button" value="RESIDENT" onclick="resident()">
-            <input id="visbtn" class="visit-type-button" type="button" value="VISITOR" onclick="visitor()">
+            <input id="resbtn" class="visit-type-button" type="button" value="RESIDENT" onclick="resident()"><Br>
+            <input id="visbtn" class="visit-type-button" type="button" value="VISITOR" onclick="visitor()"><Br>
             <input id="agbtn" class="visit-type-button" type="button" value="AGENCY/OTHER" onclick="agency()">
             <!-- <input onclick="show('name-entry')" type="radio" id="resident" name="person-type" value="resident">
             <label for="resident">Resident</label>
@@ -50,8 +51,8 @@
 
         <!-- RESIDENT Sign in/sign out  buttons-->
         <span id="signin-form">
-            <form>
-                <input id="signout-btn" class="visit-type-button" type="button" value="LEAVING" onclick="signOut()">
+            <form id="form2">
+                <input id="signout-btn" class="visit-type-button" type="button" value="LEAVING" onclick="signOut()"><Br>
                 <input id="signin-btn" class="visit-type-button" type="button" value="RETURNING" onclick="signIn()">
             </form>
         </span>
@@ -114,7 +115,7 @@
                 </div>
 
             </form>
-        </div>
+        </div> 
         <div id="auto-room2">
             <form autocomplete="off" action="/action_page.php">
                 <div class="autocomplete">
@@ -164,39 +165,38 @@
         <!-- submit button -->
         <!-- <input id="submit-name-button" class="visit-type-button" type="button" value="Submit Name"
             onclick="submitName()"> -->
-
         <div id="resident-info">
 
 
             <div class="dropdown" id="where-going-assist">
                 <form>
-                    Where are you going?
+                    Where are you going?<Br>
                     <!-- <input id="walk" class="visit-type-button" type="button" value="walk"
                         onclick="going('walk', ['md', 'socialouting', 'other'])">
                     <input id="socialouting" class="visit-type-button" type="button" value="social outing"
                         onclick="going('socialouting', ['walk', 'md', 'other'])"> -->
-                    <input id="md" class="visit-type-button" type="button" value="MD appt"
-                        onclick="going('md', [ 'other'])">
-                    <input id="other" class="visit-type-button" type="button" value="other"
+                    <input id="md" class="visit-type-button2" type="button" value="MD appt"
+                        onclick="going('md', [ 'other'])"><Br>
+                    <input id="other" class="visit-type-button2" type="button" value="other"
                         onclick="going('other', [ 'md' ])">
                 </form>
             </div>
             <div class="dropdown" id="where-going-morn">
                 <form>
                     Where are you going?
-                    <input id="outside" class="visit-type-button" type="button" value="out of the building"
+                    <input id="outside" class="visit-type-button2" type="button" value="out of building"
                         onclick="going('outside', ['dining', 'garden', 'other', 'porch'])">
 
-                    <input id="dining" class="visit-type-button" type="button" value="dining room"
+                    <input id="dining" class="visit-type-button2" type="button" value="dining rm"
                         onclick="going('dining', ['outside', 'garden', 'other', 'porch'])">
 
-                    <input id="garden" class="visit-type-button" type="button" value="garden"
+                    <input id="garden" class="visit-type-button2" type="button" value="garden"
                         onclick="going('garden', ['outside', 'dining', 'other', 'porch'])">
 
-                    <input id="porch" class="visit-type-button" type="button" value="front porch"
+                    <input id="porch" class="visit-type-button2" type="button" value="front porch"
                         onclick="going('porch', ['outside', 'dining', 'other', 'garden'])">
 
-                    <input id="other2" class="visit-type-button" type="button" value="other"
+                    <input id="other2" class="visit-type-button2" type="button" value="other"
                         onclick="going('other', ['outside', 'dining', 'garden', 'porch'])">
                 </form>
             </div>
@@ -204,11 +204,11 @@
             <div class="dropdown" id="how-long">
                 <form>
                     For how long?
-                    <input id="1" class="visit-type-button" type="button" value="up to 1hr"
+                    <input id="1" class="visit-type-button2" type="button" value="up to 1hr"
                         onclick="howLong(1, [2, 3, 4])">
-                    <input id="2" class="visit-type-button" type="button" value="2hrs" onclick="howLong(2, [1, 3, 4])">
-                    <input id="3" class="visit-type-button" type="button" value="3hrs" onclick="howLong(3, [1, 2, 4])">
-                    <input id="4" class="visit-type-button" type="button" value="4+ hrs"
+                    <input id="2" class="visit-type-button2" type="button" value="2hrs" onclick="howLong(2, [1, 3, 4])">
+                    <input id="3" class="visit-type-button2" type="button" value="3hrs" onclick="howLong(3, [1, 2, 4])">
+                    <input id="4" class="visit-type-button2" type="button" value="4+ hrs"
                         onclick="howLong(4, [1, 2, 3])">
 
                     <!-- <input type="radio" id="in" name="check-type" value="in" onclick="signIn()">
@@ -238,6 +238,7 @@
             </form>
         </div>
 
+<center>
 
         <!-- morningside checkbox -->
         <!-- <form>
