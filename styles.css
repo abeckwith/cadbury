@@ -109,7 +109,7 @@ select {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .visit-type-button {
-    padding: 15px 10px;
+    padding: 12px 8px;
     /* width:10%; */
     background-color: #4caf50;
     color: white;
@@ -118,7 +118,7 @@ select {
     border: 2px solid black;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 45px;
+    font-size: 43px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -276,7 +276,7 @@ input[type="radio"] {
 #auto-room-input,
 #auto-room-input2,
 #name {
-    width: 150px;
+    width: 170px;
     font-size: 37px;
 }
 #auto-room-input2 {
@@ -285,14 +285,14 @@ input[type="radio"] {
 #auto-name-input,
 #auto-name-input2 {
     font-size: 37px;
-    width: 400px;
+    width: 500px;
 }
 #namelbl {
     font-size: 25px;
     width: 300px;
 }
 #name {
-    width: 400px;
+    width: 500px;
 }
 
 #back-button {
