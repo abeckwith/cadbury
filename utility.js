@@ -8,6 +8,7 @@ function autocomplete(inp, arr, nameField) {
     /* the autocomplete function takes two arguments,
             the text field element and an array of possible autocompleted values:*/
     var currentFocus;
+    console.log(inp + ", " + arr + ", " + nameField)
     /* execute a function when someone writes in the text field:*/
     inp.addEventListener("input", function (e) {
         var a,
@@ -42,7 +43,9 @@ function autocomplete(inp, arr, nameField) {
                     b.classList.add("name-in-list");
                     b.innerHTML =
                         "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                    b.innerHTML += arr[i].substr(val.length) + "&nbsp;&nbsp;&nbsp;" + residents2[arr[i]];
+                    b.innerHTML += arr[i].substr(val.length);
+                    if(residents2[arr[i]] != undefined) 
+                        b.innerHTML += "&nbsp;&nbsp;&nbsp;" + residents2[arr[i]];
                     /* insert an input field that will hold the current array item's value:*/
                     b.innerHTML +=
                         "<input type='hidden' value='" + arr[i] + "'>";
@@ -57,12 +60,12 @@ function autocomplete(inp, arr, nameField) {
                         /** MY NEW CODE: */
                         if (
                             inp.id == "auto-room-input" ||
-                            inp.id == "auto-room-input2"
+                            inp.id == "auto-room-input2" 
                         )
                             checkForName(inp.value);
                          if (
                             inp.id == "auto-name-input" ||
-                            inp.id == "auto-name-input2"
+                            inp.id == "auto-name-input2" 
                         )
                             checkForRoom(inp.value);
                     });
@@ -113,6 +116,7 @@ function autocomplete(inp, arr, nameField) {
             checkForName(document.getElementById("auto-room-input2").value);
         if (isresident && inp.id === "auto-room-input")
             checkForName(document.getElementById("auto-room-input").value);
+        
     });
 
     function addActive(x) {
@@ -208,6 +212,8 @@ function getEntry(id) {
  * shows button with given id
  */
 function show(id) {
+        console.log("showing: " + id);
+
     document.getElementById(id).style.display = "block";
 }
 

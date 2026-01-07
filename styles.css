@@ -13,8 +13,8 @@ body {
             border: none;
             cursor: pointer; */
     width: fit-content;
-    background-color: #4caf50;
-    color: white;
+    background-color: #0ae494;  /*. #4caf50 */
+    color: black;
     padding: 5px 10px;
     margin: 8px 0;
     border: 1px solid black;
@@ -92,15 +92,15 @@ select {
 }
 .display-date {
     font-size: 17px;
-    margin-left: 50px;
+    /* margin-left: 50px; */
     font-family: "Courier New", Courier, monospace;
 }
 
 /* submit button */
 #submit-button {
     width: 50%;
-    background-color: #4caf50;
-    color: white;
+    background-color: #0ae494;
+    color: black;
     padding: 14px 20px;
     margin: 8px 0;
     border: 3px solid black;
@@ -112,8 +112,8 @@ select {
 .visit-type-button {
     padding: 12px 8px;
     /* width:10%; */
-    background-color: #4caf50;
-    color: white;
+    background-color: #0ae494;
+    color: black;
 
     margin: 8px 0;
     border: 2px solid black;
@@ -126,8 +126,8 @@ select {
 .visit-type-button2 {
     padding: 12px 8px;
     /* width:10%; */
-    background-color: #4caf50;
-    color: white;
+    background-color: #0ae494;;
+    color: black;
 
     margin: 8px 0;
     border: 2px solid black;
@@ -173,7 +173,7 @@ input[type="radio"] {
 }
 
 .display-time {
-    margin-left: 12px;
+    /* margin-left: 12px; */
 }
 .name-in-list {
     background-color: lightgreen;
@@ -272,33 +272,36 @@ input[type="radio"] {
 #auto-name,
 #auto-name2,
 #agency-nm,
-#auto-room 
-#auto-room2
+#auto-room ,
+#auto-room2,
+
 #auto-room-input,
 #auto-room-input2,
 #room-button2,
 #room-button,
 #morningside-out,
 #traditional-out,
-#instr {
+#instr,
+#next,
+#working {
     display: none;
 }
 #albl {
     font-size: 25px;
 }
-#aname {
+/* #aname {
     height: 52px;
     font-size: 30px;
-}
+    width:500px;
+} */
 #auto-room-input,
 #auto-room-input2,
-#name {
-    width: 170px;
+#name,
+#aname{
+    width: 500px;
     font-size: 37px;
 }
-#auto-room-input2 {
-    width: 350px;
-}
+
 #auto-name-input,
 #auto-name-input2 {
     font-size: 37px;

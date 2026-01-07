@@ -30,13 +30,8 @@ function going(id, others) {
     whereGoing = id;
     show("how-long");
     selectedButton(id, others);
-    hide("outside");
-    hide("dining");
-    hide("garden");
-    hide("porch");
-    hide("other2");
-    hide("where-going-morn")
-
+    hide("where-going-morn");
+    hide("where-going-assist");
 }
 /**
  * Highligh selected button of how long person will be gone
@@ -47,13 +42,10 @@ function howLong(id, others) {
     howLongOut = id;
     show("date-and-button");
     selectedButton(id, others);
+
+    hide("how-long");
 }
-function hideFirstBtns() {
-    hide("resbtn");
-    hide("visbtn");
-    hide("agbtn");
-    hide("form1")
-}
+
 /**
  * Highligh resident button
  * @param id button to highlight
@@ -65,7 +57,8 @@ function resident() {
     isagency = false;
     show("signin-form");
     disableBtns(["resbtn", "visbtn", "agbtn"]);
-    hideFirstBtns();
+    hide("form1");
+
     selectedButton("resbtn", ["visbtn", "agbtn"]);
 }
 /**
@@ -79,7 +72,8 @@ function visitor() {
     isagency = false;
     show("signin-form-vis");
     disableBtns(["resbtn", "visbtn", "agbtn"]);
-    hideFirstBtns();
+
+    hide("form1");
 
     selectedButton("visbtn", ["resbtn", "agbtn"]);
 }
@@ -94,7 +88,7 @@ function agency() {
     isagency = true;
     show("signin-form-vis");
     disableBtns(["resbtn", "visbtn", "agbtn"]);
-    hideFirstBtns();
+    hide("form1");
 
     selectedButton("agbtn", ["resbtn", "visbtn"]);
 }
@@ -129,8 +123,10 @@ function submitName() {
     show("date-and-button");
     if (signingIn) {
         show("auto-name2");
+        show("auto-room2");
+        // show("auto-name-input2");
         show("auto-room-input2");
-        // show("room-button2");
+        show("date-and-button");
     }
     if (isagency && signingIn) {
         show("agency-nm");
@@ -142,20 +138,44 @@ function submitName() {
  */
 function signIn() {
     signingIn = true;
-    if (isresident) {
+    if (isresident && !isagency) {
         selectedButton("signin-btn", ["signout-btn"]);
         disableBtns(["signin-btn", "signout-btn"]);
         show("auto-name");
         show("auto-room-input");
         show("auto-room");
-    } else {
+    } else if (!isagency) {
         selectedButton("signin-btn-vis", ["signout-btn-vis"]);
         disableBtns(["signin-btn-vis", "signout-btn-vis"]);
         show("name-entry");
+        show("auto-room-input2");
+        show("auto-room");
+    }
+    if (isagency) {
+        show("working");
     }
     hide("signout-btn");
     hide("signin-btn");
     hide("form2");
+    hide("signin-form-vis");
+}
+let forceRoom = true;
+
+function working(arg) {
+    show("name-entry");
+    hide("working");
+    show("name-entry");
+    show("auto-room-input2");
+    show("auto-room");
+
+    if (arg) {
+        forceRoom = true;
+    } else {
+        forceRoom = false;
+        // show("visitor-info");
+        // show("name");
+        // show("agency-nm");
+    }
 }
 /**
  * Person clicked signing out, so
@@ -177,7 +197,8 @@ function signOut() {
     }
     hide("signout-btn");
     hide("signin-btn");
-     hide("form2");
+    hide("form2");
+    hide("signin-form-vis");
 }
 /**
  * morningside resident is checking out, so show buttons
@@ -187,6 +208,7 @@ function checkOutMorningside() {
     checkingOut = true;
     show("where-going-morn");
     hide("where-going-assist");
+    hide("morningside-out");
 }
 function notcheckOutMorningside() {
     checkingOut = false;
@@ -221,12 +243,13 @@ function checkForName(roomNum) {
     roomNum = roomNum.toUpperCase();
     roomSaved = roomNum;
 
+    //if resident found, :
     if (roomNum in residents2 && residents2[roomNum] !== "") {
+        //set room number:
         document.getElementById("auto-name-input2").value = residents2[roomNum];
         document.getElementById("auto-name-input").value = residents2[roomNum];
         if (morningsideRooms.includes(roomNum)) {
-            if (!isresident || isvisitor) show("instr");
-            else checkOutMorningside();
+            if (ismorningSideResident && !signingIn) checkOutMorningside();
         }
     } else {
         // document.getElementById("auto-name-input2").value = ""; //not found";
@@ -804,15 +827,15 @@ function start() {
     autocomplete(document.getElementById("auto-name-input"), allData, true);
     autocomplete(document.getElementById("auto-name-input2"), allData, true);
 
-    allAgencies = [];
-    var DATA2 = JSON.parse(localStorage.getItem("log_data"));
-    allData = DATA2["all"];
-    for (let index = 0; index < allData.length; index++) {
-        const element = allData[index];
-        anm = element.agencyNm;
-        if (typeof anm !== "undefined") allAgencies.push(anm);
-    }
-    autocomplete(document.getElementById("aname"), allAgencies, true);
+    // allAgencies = [];
+    // var DATA2 = JSON.parse(localStorage.getItem("log_data"));
+    // allData = DATA2["all"];
+    // for (let index = 0; index < allData.length; index++) {
+    //     const element = allData[index];
+    //     anm = element.agencyNm;
+    //     if (typeof anm !== "undefined") allAgencies.push(anm);
+    // }
+    // autocomplete(document.getElementById("name1"), allAgencies, true);
 
     autocomplete(
         document.getElementById("auto-room-input"),
@@ -824,6 +847,7 @@ function start() {
         cadburyRooms,
         false
     );
+
     showTime();
     updateDateTime();
     const inputField = document.getElementById("name");
@@ -839,7 +863,7 @@ function start() {
  * Checks if there is a value in the Entry and sets red if not
  */
 function setStatus(thing, id) {
-    if (thing === "") {
+    if (thing === "" && forceRoom) {
         document.getElementById(id).style.borderColor = "red";
         // if (id === "auto-name-input" || id === "auto-name-input2")
         //     alert("Enter a resident's name or 'other'");
@@ -869,8 +893,8 @@ function submit() {
             residentName = getEntry("auto-name-input2");
             hasresnm = setStatus(residentName, "auto-name-input2");
         }
-        agencyName = getEntry("aname");
-        hasanm = setStatus(agencyName, "aname");
+        agencyName = getEntry("name1");
+        hasanm = setStatus(agencyName, "name1");
         if (
             (signingIn && !isagency && hasnm && hasresnm) ||
             (signingIn && isagency && hasnm && hasresnm && hasanm) ||
@@ -890,6 +914,7 @@ function submit() {
             if (foundNm) done();
         }
     }
+    
 }
 /**
  * Called from submit() (which is called from Finish button)
@@ -1100,7 +1125,7 @@ function checkAndSave(residentName, visitorName) {
             //find closest with Levenshtein and suggest best name:
             allData = DATA["all"]; //start with oldest so that newer will replace
 
-            closeness = 10;
+            closeness = 15;
             for (let index = 0; index < allData.length; index++) {
                 const entry = allData[index];
 
@@ -1109,9 +1134,10 @@ function checkAndSave(residentName, visitorName) {
                     //look for  name match:
 
                     nmCloseness = levenshteinDistance(vNameEntry2, visitorName);
-                    if (nmCloseness < closeness) {
+                    if (nmCloseness < closeness && vNameEntry2 != "") {
                         closeness = nmCloseness;
                         best = vNameEntry2.toUpperCase();
+                        console.log(best);
                         found = true;
                     }
                 } else {
@@ -1119,7 +1145,7 @@ function checkAndSave(residentName, visitorName) {
                     //look for  name match:
 
                     nmCloseness = levenshteinDistance(rNameEntry, residentName);
-                    if (nmCloseness < closeness) {
+                    if (nmCloseness < closeness && vNameEntry != "") {
                         closeness = nmCloseness;
                         best = rNameEntry.toUpperCase();
                         found = true;
