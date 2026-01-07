@@ -226,7 +226,7 @@ function checkOutTrad() {
 }
 function notcheckOutTrad() {
     checkingOut = false;
-    hide("morningside-trad");
+    hide("traditional-out");
 }
 /**
  * Called when a resident name is selected
@@ -267,7 +267,6 @@ function checkForRoom(name) {
     // if(isresident && !signingIn && roomNum.toUpperCase() in morningsideRooms){
 
     // }
-    console.log(name);
     if (isresident && !signingIn) show("where-going-assist");
     if (isresident && signingIn) show("date-and-button");
 
@@ -280,7 +279,6 @@ function checkForRoom(name) {
                 foundRoom = key; // Found the key
             }
         }
-        console.log("HERE");
         document.getElementById("auto-room-input2").value = foundRoom;
         document.getElementById("auto-room-input").value = foundRoom;
     } else {
@@ -293,7 +291,6 @@ function checkForRoom(name) {
  */
 function submitRoom2() {
     room = getEntry("auto-room-input2").toUpperCase(); //so 'a' becomes 'A'
-    console.log(residents2[room]);
     if (room in residents2 && residents2[room] !== "") {
         document.getElementById("auto-name-input2").value = residents2[room];
     } else document.getElementById("auto-name-input2").value = "not found";
@@ -893,8 +890,8 @@ function submit() {
             residentName = getEntry("auto-name-input2");
             hasresnm = setStatus(residentName, "auto-name-input2");
         }
-        agencyName = getEntry("name1");
-        hasanm = setStatus(agencyName, "name1");
+        agencyName = getEntry("aname");
+        hasanm = setStatus(agencyName, "aname");
         if (
             (signingIn && !isagency && hasnm && hasresnm) ||
             (signingIn && isagency && hasnm && hasresnm && hasanm) ||
@@ -1041,7 +1038,6 @@ function checkAndSave(residentName, visitorName) {
                     found = true;
                     if (allData[index]["timeOut"] == "") {
                         //haven't checked out yet
-                        console.log(594);
                         //mhaven't yet asked if taking out:
                         if (!question) {
                             question = true; //so second time it will skip this
@@ -1133,11 +1129,11 @@ function checkAndSave(residentName, visitorName) {
                     vNameEntry2 = entry.vName.trim().toLowerCase();
                     //look for  name match:
 
-                    nmCloseness = levenshteinDistance(vNameEntry2, visitorName);
+                    nmCloseness = levenshteinDistance(vNameEntry2.toUpperCase(), visitorName.toUpperCase());
+                    console.log(visitorName + ", " + vNameEntry2 + ": " + nmCloseness);
                     if (nmCloseness < closeness && vNameEntry2 != "") {
                         closeness = nmCloseness;
                         best = vNameEntry2.toUpperCase();
-                        console.log(best);
                         found = true;
                     }
                 } else {
