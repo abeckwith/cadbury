@@ -410,6 +410,8 @@ function adminPage() {
         ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST"><Br>' +
         ' <input onclick="editLog()" type="button" class="visit-type-button" value="EDIT LOG DATA"><Br>' +
         ' <input onclick="changePassword()" type="button" class="visit-type-button" value="CHANGE ADMIN PASSWORD"><Br><BR>' +
+        ' Choose Excel spreadsheet to reload all names:<Br>(1st column: rooms, 2nd column: names - nothing else)<Br>'+
+        '<input type="file" id="file_upload" /><div id="output"></div><Br>' +
         '<input id="back-button" onclick="back()" type="button" class="visit-type-button" value="RETURN TO SIGN-IN PAGE"></input><Br>' +
         '<div id="edit-page"></div>';
 }
@@ -428,9 +430,10 @@ function changePassword() {
     done = false;
     while (!done) {
         p1 = prompt(
-            "Enter your new password (minimum 6 characters/no other restrictions):"
+            "Enter your new password (minimum 6 characters/no other restrictions):",
         );
-        if (p1 === null) done = true; //cancel button clicked
+        if (p1 === null)
+            done = true; //cancel button clicked
         else {
             if (p1.length < 6) alert("Not enough characters (minimum of 6)!");
             else {
@@ -469,7 +472,7 @@ function deleteRes(roomNumber) {
 function changeRes(roomNumber) {
     editStatus = "change";
     newName = prompt(
-        "ENTER THE NEW NAME OF THE RESIDENT IN ROOM " + roomNumber + ":"
+        "ENTER THE NEW NAME OF THE RESIDENT IN ROOM " + roomNumber + ":",
     );
 
     document.getElementById("conf-row" + roomNumber).style.backgroundColor =
@@ -790,6 +793,51 @@ function reset() {
  * called onload - starts timer and updates display
  */
 function start() {
+    //listener to read names and rooms from .xls, when selected:
+    document
+        .getElementById("file_upload")
+        .addEventListener("change", function (e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                const binaryString = event.target.result;
+                const workbook = XLSX.read(binaryString, { type: "binary" }); // Parses the file
+
+                // Assuming you want data from the first sheet
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert the worksheet data to a usable format (e.g., JSON)
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, {
+                    header: 1,
+                });
+
+                console.log(jsonData);
+                newData = {};
+                jsonData.forEach((element) => {
+                    newData[element[0]] = element[1];
+                });
+                // Save the data
+                localStorage.setItem("residents", JSON.stringify(newData));
+
+                alert("New names loaded! (you may need to refresh your browswer for them to take effect)")
+                // document.getElementById("output").innerText = JSON.stringify(
+                //     jsonData,
+                //     null,
+                //     2,
+                // );
+            };
+
+            reader.onerror = function (event) {
+                console.error(
+                    "File could not be read: " + event.target.error.code,
+                );
+            };
+
+            reader.readAsBinaryString(file);
+        });
+
     pwdInput.addEventListener("keypress", function (event) {
         // Check if the pressed key is "Enter"
         if (event.key === "Enter") {
@@ -803,7 +851,9 @@ function start() {
     //if no residents in local storage, take them from the .js file:
     if (localStorage.getItem("residents") === null) {
         localStorage.setItem("residents", JSON.stringify(residentsFake));
-        console.log("Loading default (random name) residents...");
+        alert(
+            "No residents list found!!! Loading default (random name) residents...",
+        );
     } else residents2 = JSON.parse(localStorage.getItem("residents"));
 
     //if no log data yet, set up the array:
@@ -837,12 +887,12 @@ function start() {
     autocomplete(
         document.getElementById("auto-room-input"),
         cadburyRooms,
-        false
+        false,
     );
     autocomplete(
         document.getElementById("auto-room-input2"),
         cadburyRooms,
-        false
+        false,
     );
 
     showTime();
@@ -855,7 +905,26 @@ function start() {
         // Perform actions based on the current input value
     });
 }
+// function csvJSON(csv) {
+//     const lines = csv.split("\\n");
+//     const result = [];
+//     const headers = lines[0].split(",");
 
+//     for (let i = 1; i < lines.length; i++) {
+//         const obj = {};
+//         const currentline = lines[i].split(",");
+
+//         for (let j = 0; j < headers.length; j++) {
+//             obj[headers[j]] = currentline[j];
+//         }
+
+//         result.push(obj);
+//     }
+
+//     // Returns a JavaScript object (array of objects)
+//     // Use JSON.stringify(result) to get a JSON string
+//     localStorage.setItem("residents", JSON.stringify(result));
+// }
 /**
  * Checks if there is a value in the Entry and sets red if not
  */
@@ -866,7 +935,7 @@ function setStatus(thing, id) {
         //     alert("Enter a resident's name or 'other'");
         if (id === "auto-room-input" || id === "auto-room-input2")
             alert(
-                "Enter a 3-digit room number or describe where you are going"
+                "Enter a 3-digit room number or describe where you are going",
             );
 
         return false;
@@ -911,7 +980,6 @@ function submit() {
             if (foundNm) done();
         }
     }
-    
 }
 /**
  * Called from submit() (which is called from Finish button)
@@ -1020,7 +1088,7 @@ function checkAndSave(residentName, visitorName) {
                             formattedDate + " " + formattedTime;
                         localStorage.setItem(
                             "log_data",
-                            JSON.stringify({ all: allData })
+                            JSON.stringify({ all: allData }),
                         );
                     } else {
                         alreadySignedInOrOut = true;
@@ -1044,7 +1112,7 @@ function checkAndSave(residentName, visitorName) {
                             //are they siging someone out?
                             if (
                                 morningsideRooms.includes(
-                                    entry.room.toUpperCase()
+                                    entry.room.toUpperCase(),
                                 )
                             )
                                 show("morningside-out");
@@ -1059,7 +1127,7 @@ function checkAndSave(residentName, visitorName) {
                                     formattedDate + " " + formattedTime;
                                 localStorage.setItem(
                                     "log_data",
-                                    JSON.stringify({ all: allData })
+                                    JSON.stringify({ all: allData }),
                                 );
 
                                 //CREATE 2nd OBJECT for M-SIDE RESIDENT
@@ -1078,7 +1146,7 @@ function checkAndSave(residentName, visitorName) {
                                 };
                                 //get array from local storage
                                 var DATA = JSON.parse(
-                                    localStorage.getItem("log_data")
+                                    localStorage.getItem("log_data"),
                                 );
 
                                 //first login, or data has been cleared:
@@ -1087,14 +1155,14 @@ function checkAndSave(residentName, visitorName) {
                                     allData["all"].push(login);
                                     localStorage.setItem(
                                         "log_data",
-                                        JSON.stringify(allData)
+                                        JSON.stringify(allData),
                                     );
                                 } else {
                                     //add new data, write back to local storage:
                                     DATA["all"].push(login);
                                     localStorage.setItem(
                                         "log_data",
-                                        JSON.stringify(DATA)
+                                        JSON.stringify(DATA),
                                     );
                                 }
                             } else {
@@ -1103,7 +1171,7 @@ function checkAndSave(residentName, visitorName) {
                                     formattedDate + " " + formattedTime;
                                 localStorage.setItem(
                                     "log_data",
-                                    JSON.stringify({ all: allData })
+                                    JSON.stringify({ all: allData }),
                                 );
                             }
                         }
@@ -1111,7 +1179,7 @@ function checkAndSave(residentName, visitorName) {
                         //already checked out - don't want to go back to previous sign in
                         alreadySignedInOrOut = true;
                         alert(
-                            "Name found, but already signed out - have reception record for you by hand..."
+                            "Name found, but already signed out - have reception record for you by hand...",
                         );
                     }
                 }
@@ -1129,8 +1197,13 @@ function checkAndSave(residentName, visitorName) {
                     vNameEntry2 = entry.vName.trim().toLowerCase();
                     //look for  name match:
 
-                    nmCloseness = levenshteinDistance(vNameEntry2.toUpperCase(), visitorName.toUpperCase());
-                    console.log(visitorName + ", " + vNameEntry2 + ": " + nmCloseness);
+                    nmCloseness = levenshteinDistance(
+                        vNameEntry2.toUpperCase(),
+                        visitorName.toUpperCase(),
+                    );
+                    console.log(
+                        visitorName + ", " + vNameEntry2 + ": " + nmCloseness,
+                    );
                     if (nmCloseness < closeness && vNameEntry2 != "") {
                         closeness = nmCloseness;
                         best = vNameEntry2.toUpperCase();
@@ -1152,7 +1225,8 @@ function checkAndSave(residentName, visitorName) {
             if (!found) alert("Name not found - please check your spelling");
             return false; //allows them to try again
         }
-        if (!alreadySignedInOrOut) return true; //found and no problem
+        if (!alreadySignedInOrOut)
+            return true; //found and no problem
         else return false; //found, but need to try again because already signed out
     }
 }

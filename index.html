@@ -14,6 +14,10 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
 
+    <!-- for reading excel sheet:-->
+    <script src="https://cdn.sheetjs.com"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
 
     <title>Cadbury Login Page</title>
 </head>
@@ -54,6 +58,7 @@
                         value=" &#x1F6B6;&#x200D;&#x27A1;&#xFE0F;&#x1F6AA; RETURNING" onclick="signIn()">
                 </form>
             </span>
+
             <!-- VISITOR Sign in/sign out  buttons-->
             <span id="signin-form-vis">
                 <form>
@@ -64,24 +69,7 @@
                         onclick="signOut()">
                 </form>
             </span>
-            <span id="morningside-form-res">
-                <form>
-                    I am a resident at
-                    <input id="res-assist" class="visit-type-button" type="button" value="ASSISTED/INDEPENDENT LIVING"
-                        onclick="morningSide(false)">
-                    <input id="res-morn" class="visit-type-button" type="button" value="MORNINGSIDE "
-                        onclick="morningSide(true)">
-                </form>
-            </span>
-            <span id="morningside-form-vis-age">
-                <form>
-                    I am visiting a resident in
-                    <input id="vis-assist" class="visit-type-button" type="button" value="ASSISTED/INDEPENDENT LIVING"
-                        onclick="morningSide(false)">
-                    <input id="vis-morn" class="visit-type-button" type="button" value="MORNINGSIDE "
-                        onclick="morningSide(true)">
-                </form>
-            </span>
+
 
             <div id="auto-room">
                 <form autocomplete="off">
@@ -98,23 +86,25 @@
                     </div>
                 </form>
             </div>
+
             <div id="working">
                 <form>
-                    Are you working with just one specific resident?<Br>
+                    Are you visiting just one specific resident?<Br>
                     <input id="workingYes" class="visit-type-button" type="button" value="YES"
                         onclick="working(true)"><br>
                     <input id="workingNo" class="visit-type-button" type="button" value="NO" onclick="working(false)">
                 </form>
 
             </div>
+
             <div id="name-entry">
-                <!--NAME ENTRY-->
                 <form>
-                    <input autocomplete="on" type="text" id="name" name="name" value="" placeholder="Your First & Last Name">
+                    <input autocomplete="on" type="text" id="name" name="name" value=""
+                        placeholder="Your First & Last Name">
                     <div id="agency-nm">
                         <label id='albl' for="aname">You agency or group name, your purpose, or "tour":</label><br>
 
-                            <input autocomplete="on" type="text" id="aname" name="aname" placeholder="AGENCY OR PURPOSE">
+                        <input autocomplete="on" type="text" id="aname" name="aname" placeholder="AGENCY OR PURPOSE">
                     </div>
 
                 </form>
@@ -151,23 +141,8 @@
                 <input id="trad-out" class="visit-type-button" type="button" value="NO" onclick="notcheckOutTrad()">
 
             </div>
-            <!-- <div id="visiting-name-entry">
-            NAME ENTRY
-             <form>
-                Who are you visiting?
-                <label for="fname2">First name:</label>
-                <input type="text" id="fname2" name="fname2" value=""><br>
 
-                <label for="lname2">Last name:</label>
-                <input type="text" id="lname2" name="lnam2e" value=""><br>
-            </form> 
-        </div> -->
-            <!-- submit button -->
-            <!-- <input id="submit-name-button" class="visit-type-button" type="button" value="Submit Name"
-            onclick="submitName()"> -->
             <div id="resident-info">
-
-
                 <div class="dropdown" id="where-going-assist">
                     <form>
                         Where are you going?<Br>
@@ -208,51 +183,13 @@
                             onclick="howLong(3, [1, 2, 4])">
                         <input id="4" class="visit-type-button2" type="button" value="4+ hours"
                             onclick="howLong(4, [1, 2, 3])">
-
-                        <!-- <input type="radio" id="in" name="check-type" value="in" onclick="signIn()">
-                <label for="in">Signing In</label>
-
-                <input type="radio" id="out" name="check-type" value="out" onclick="signOut()">
-                <label for="out">Signing Out</label> -->
                     </form>
                 </div>
 
                 <br>
-                <!-- </form> -->
-                <!-- <b>How long</b> do you expect to be gone for?<Br>
-                <input type="text" id="when" name="when" value=""><br> -->
+
                 </form>
             </div>
-            <!-- visit info -->
-            <div id="visitor-info">
-
-                <!-- visit person and room -->
-                <form>
-                    <B>Room</B> or <b>Place</b> you are visiting:<Br>
-                    <input type="text" id="room" name="room" value=""><br>
-
-                    <b>Person</b> you are visiting:<Br>
-                    <input type="text" id="name" name="name" value=""><br>
-                </form>
-            </div>
-
-
-
-            <!-- morningside checkbox -->
-            <!-- <form>
-
-                Visiting Morningside Memory Care?
-
-                <input type="radio" id="notvisit" name="morning" value="notvisit" checked>
-                <label for="visit">NO</label>
-
-                <input type="radio" id="visit" name="morning" value="visit">
-                <label for="notvisit">YES</label>
-            </form>
-            <br>
-            <Br> -->
-            <!-- visitor type -->
-
         </div>
 
         <!-- time display -->
@@ -268,9 +205,6 @@
                 <span id="msg"></span>
 
                 <input id="submit-button" type="button" value="FINISH" onclick="submit()">
-
-
-
                 </form>
             </div>
         </div>
@@ -293,6 +227,8 @@
             </form>
         </div>
         <button id="l-btn" onclick="seeLog(false)">L</button>
+
+
 
 
 </body>

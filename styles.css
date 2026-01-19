@@ -257,7 +257,7 @@ input[type="radio"] {
     background-color: red;
 }
 #name-entry,
-#visitor-info,
+/* #visitor-info, */
 #date-and-button,
 /* #resident-info, */
 #where-going-morn,
