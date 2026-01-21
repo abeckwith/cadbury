@@ -794,49 +794,49 @@ function reset() {
  */
 function start() {
     //listener to read names and rooms from .xls, when selected:
-    document
-        .getElementById("file_upload")
-        .addEventListener("change", function (e) {
-            const file = e.target.files[0];
-            const reader = new FileReader();
+    // document
+    //     .getElementById("file_upload")
+    //     .addEventListener("change", function (e) {
+    //         const file = e.target.files[0];
+    //         const reader = new FileReader();
 
-            reader.onload = function (event) {
-                const binaryString = event.target.result;
-                const workbook = XLSX.read(binaryString, { type: "binary" }); // Parses the file
+    //         reader.onload = function (event) {
+    //             const binaryString = event.target.result;
+    //             const workbook = XLSX.read(binaryString, { type: "binary" }); // Parses the file
 
-                // Assuming you want data from the first sheet
-                const firstSheetName = workbook.SheetNames[0];
-                const worksheet = workbook.Sheets[firstSheetName];
+    //             // Assuming you want data from the first sheet
+    //             const firstSheetName = workbook.SheetNames[0];
+    //             const worksheet = workbook.Sheets[firstSheetName];
 
-                // Convert the worksheet data to a usable format (e.g., JSON)
-                const jsonData = XLSX.utils.sheet_to_json(worksheet, {
-                    header: 1,
-                });
+    //             // Convert the worksheet data to a usable format (e.g., JSON)
+    //             const jsonData = XLSX.utils.sheet_to_json(worksheet, {
+    //                 header: 1,
+    //             });
 
-                console.log(jsonData);
-                newData = {};
-                jsonData.forEach((element) => {
-                    newData[element[0]] = element[1];
-                });
-                // Save the data
-                localStorage.setItem("residents", JSON.stringify(newData));
+    //             console.log(jsonData);
+    //             newData = {};
+    //             jsonData.forEach((element) => {
+    //                 newData[element[0]] = element[1];
+    //             });
+    //             // Save the data
+    //             localStorage.setItem("residents", JSON.stringify(newData));
 
-                alert("New names loaded! (you may need to refresh your browswer for them to take effect)")
-                // document.getElementById("output").innerText = JSON.stringify(
-                //     jsonData,
-                //     null,
-                //     2,
-                // );
-            };
+    //             alert("New names loaded! (you may need to refresh your browswer for them to take effect)")
+    //             // document.getElementById("output").innerText = JSON.stringify(
+    //             //     jsonData,
+    //             //     null,
+    //             //     2,
+    //             // );
+    //         };
 
-            reader.onerror = function (event) {
-                console.error(
-                    "File could not be read: " + event.target.error.code,
-                );
-            };
+    //         reader.onerror = function (event) {
+    //             console.error(
+    //                 "File could not be read: " + event.target.error.code,
+    //             );
+    //         };
 
-            reader.readAsBinaryString(file);
-        });
+    //         reader.readAsBinaryString(file);
+    //     });
 
     pwdInput.addEventListener("keypress", function (event) {
         // Check if the pressed key is "Enter"
