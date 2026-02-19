@@ -86,6 +86,7 @@
                     </div>
                 </form>
             </div>
+    
 
             <div id="working">
                 <form>
@@ -109,7 +110,7 @@
 
                 </form>
             </div>
-
+               
             <!-- for NON- agency visit: require room and resident name -->
             <div id="auto-room2">
                 <form autocomplete="off" action="/action_page.php">
@@ -125,6 +126,8 @@
                     </div>
                 </form>
             </div>
+       <input style='display:none' id="another" class="visit-type-button" type="button" value="ADD THIS NAME"
+                        onclick="addResToList()"><br>
 
 
             <div id="morningside-out">
@@ -191,6 +194,7 @@
                 </form>
             </div>
         </div>
+        <input class="visit-type-button" style='display:none' id="submit-names-button" type="button" value="FINISH" onclick="finishNames()">
 
         <!-- time display -->
         <div id="date-and-button">

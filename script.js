@@ -131,7 +131,17 @@ function submitName() {
     }
     if (isagency && signingIn) {
         show("agency-nm");
+        if(!forceRoom){
+             show("another");
+             hide("submit-button");
+             show("submit-names-button");
+        }
     }
+}
+function addResToList(){
+    document.getElementById("auto-room-input2").value = "";
+    document.getElementById("auto-name-input2").value = "";
+    submitOneName();
 }
 /**
  * Person clicked signing in, so
@@ -159,6 +169,7 @@ function signIn() {
     hide("signin-btn");
     hide("form2");
     hide("signin-form-vis");
+    hide("another");
 }
 let forceRoom = true;
 
@@ -173,6 +184,7 @@ function working(arg) {
         forceRoom = true;
     } else {
         forceRoom = false;
+        // show("another");
         // show("visitor-info");
         // show("name");
         // show("agency-nm");
@@ -200,6 +212,7 @@ function signOut() {
     hide("signin-btn");
     hide("form2");
     hide("signin-form-vis");
+    hide("another");
 }
 /**
  * morningside resident is checking out, so show buttons
@@ -987,6 +1000,36 @@ function submit() {
             if (foundNm) done();
         }
     }
+}
+/**
+ * Called when submit button clicked
+ * Gets all values from form and loads to local stoarge
+ */
+function submitOneName() {
+        //check for existence visitor first and last and resident visiting:
+        visitorName = getEntry("name");
+        hasnm = setStatus(visitorName, "name");
+        hasresnm = true;
+        if (!checkingOut) {
+            residentName = getEntry("auto-name-input2");
+            hasresnm = setStatus(residentName, "auto-name-input2");
+        }
+        agencyName = getEntry("aname");
+        hasanm = setStatus(agencyName, "aname");
+        if (
+            (signingIn && !isagency && hasnm && hasresnm) ||
+            (signingIn && isagency && hasnm && hasresnm && hasanm) ||
+            (!signingIn && hasnm)
+        ) {
+            foundNm = checkAndSave(residentName, visitorName);
+            //TODO: SAVE and check that name is right!!!!!!!!!!!
+            // if (foundNm) done();
+        }
+    
+}
+function finishNames(){
+    // addResToList();
+    done();
 }
 /**
  * Called from submit() (which is called from Finish button)
