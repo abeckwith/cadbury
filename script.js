@@ -22,7 +22,7 @@ let question = false;
 let checkingOut = false;
 
 /**
- * Highligh selected button where person is going
+ * Highlight selected button where person is going
  * @param  id button to highlight
  * @param  others other buttons
  */
@@ -44,6 +44,7 @@ function howLong(id, others) {
     selectedButton(id, others);
 
     hide("how-long");
+    submit();
 }
 
 /**
@@ -207,12 +208,16 @@ function signOut() {
 function checkOutMorningside() {
     checkingOut = true;
     show("where-going-morn");
+    show("submit-button");
     hide("where-going-assist");
     hide("morningside-out");
 }
 function notcheckOutMorningside() {
     checkingOut = false;
     hide("morningside-out");
+    show("submit-button");
+    submit();
+
 }
 /**
  * resident is checking out, so show buttons
@@ -223,10 +228,12 @@ function checkOutTrad() {
     show("where-going-assist");
     hide("auto-room-input");
     hide("auto-name-input");
+    hide("traditional-out");
 }
 function notcheckOutTrad() {
     checkingOut = false;
     hide("traditional-out");
+    submit();
 }
 /**
  * Called when a resident name is selected
@@ -1106,10 +1113,11 @@ function checkAndSave(residentName, visitorName) {
                     found = true;
                     if (allData[index]["timeOut"] == "") {
                         //haven't checked out yet
-                        //mhaven't yet asked if taking out:
+                        //haven't yet asked if taking out:
                         if (!question) {
                             question = true; //so second time it will skip this
                             //are they siging someone out?
+                            hide("submit-button");
                             if (
                                 morningsideRooms.includes(
                                     entry.room.toUpperCase(),
@@ -1121,6 +1129,7 @@ function checkAndSave(residentName, visitorName) {
                         }
                         //morningside - have already asked if taking out
                         else if (question) {
+                            // show("submit-button");
                             if (checkingOut) {
                                 //they said YES
                                 allData[index]["timeOut"] =
@@ -1167,6 +1176,7 @@ function checkAndSave(residentName, visitorName) {
                                 }
                             } else {
                                 //regular save/no morningside checkout:
+                                show("submit-button");
                                 allData[index]["timeOut"] =
                                     formattedDate + " " + formattedTime;
                                 localStorage.setItem(
