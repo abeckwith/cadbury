@@ -177,7 +177,9 @@ input[type="radio"] {
 }
 .name-in-list {
     background-color: lightgreen;
-    width: 350px;
+    /* height:3.5vw; */
+    font-size:29px; 
+    width: 400px;
     border: 1px solid black;
     cursor: pointer;
     text-align: left;
