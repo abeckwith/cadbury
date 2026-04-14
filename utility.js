@@ -205,14 +205,14 @@ function selectedButton(id, others) {
  * @returns
  */
 function getEntry(id) {
-    console.log(id)
+    // console.log(id)
     return document.getElementById(id).value;
 }
 /**
  * shows button with given id
  */
 function show(id) {
-        console.log("showing: " + id);
+        // console.log("showing: " + id);
 
     document.getElementById(id).style.display = "block";
 }
@@ -221,7 +221,7 @@ function show(id) {
  * hide given element
  */
 function hide(id) {
-    console.log("hiding: " + id)
+    // console.log("hiding: " + id)
     document.getElementById(id).style.display = "none";
 }
 /**

@@ -1254,9 +1254,9 @@ function checkAndSave(residentName, visitorName) {
                         vNameEntry2.toUpperCase(),
                         visitorName.toUpperCase(),
                     );
-                    console.log(
-                        visitorName + ", " + vNameEntry2 + ": " + nmCloseness,
-                    );
+                    // console.log(
+                    //     visitorName + ", " + vNameEntry2 + ": " + nmCloseness,
+                    // );
                     if (nmCloseness < closeness && vNameEntry2 != "") {
                         closeness = nmCloseness;
                         best = vNameEntry2.toUpperCase();
