@@ -2,12 +2,14 @@
 (function () {
     const STORAGE_KEY = "recentConsoleErrors";
     const MAX_ERRORS = 3;
-
+    // alert("function called")
     // Keep original console.error behavior
     const originalConsoleError = console.error;
 
+    //override console.error:
     console.error = function (...args) {
         try {
+            alert("overridden error function called")
             // Convert arguments into a readable string
             const message = args
                 .map((arg) => {

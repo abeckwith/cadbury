@@ -966,10 +966,11 @@ function setStatus(thing, id) {
 }
 
 /**
- * Called when submit button clicked
+ * Called when FINISH button clicked
  * Gets all values from form and loads to local stoarge
  */
 function submit() {
+    // testingIt();
     if (isvisitor || isagency) {
         //check for existence visitor first and last and resident visiting:
         visitorName = getEntry("name");
