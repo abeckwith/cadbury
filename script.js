@@ -79,7 +79,7 @@ function visitor() {
     selectedButton("visbtn", ["resbtn", "agbtn"]);
 }
 /**
- * Highligh agency button
+ * Highlight agency button
  * @param id button to highlight
  * @param others other buttons
  */
@@ -139,9 +139,10 @@ function submitName() {
     }
 }
 function addResToList(){
+        submitOneName();
+
     document.getElementById("auto-room-input2").value = "";
     document.getElementById("auto-name-input2").value = "";
-    submitOneName();
 }
 /**
  * Person clicked signing in, so
