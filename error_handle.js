@@ -1,57 +1,36 @@
+const STORAGE_KEY = "recentConsoleErrors";
+const MAX_ERRORS = 10;
+
 // Store only the 3 most recent console.error messages in localStorage
-(function () {
-    const STORAGE_KEY = "recentConsoleErrors";
-    const MAX_ERRORS = 3;
-    // alert("function called")
-    // Keep original console.error behavior
-    const originalConsoleError = console.error;
+window.addEventListener("error", (event) => {
+    const message =
+        event.message +
+        "\nFILE: " +
+        event.filename +
+        "\nLINE number: " +
+        event.lineno;
+    // handleErrors();
 
-    //override console.error:
-    console.error = function (...args) {
-        try {
-            alert("overridden error function called")
-            // Convert arguments into a readable string
-            const message = args
-                .map((arg) => {
-                    if (arg instanceof Error) {
-                        return arg.stack || arg.message;
-                    }
+    // Get existing errors
+    const existing = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
-                    if (typeof arg === "object") {
-                        return JSON.stringify(arg);
-                    }
+    // Add newest error with timestamp
+    existing.unshift({
+        message,
+        timestamp: new Date().toISOString(),
+    });
 
-                    return String(arg);
-                })
-                .join(" ");
+    // Keep only the 3 most recent
+    const trimmed = existing.slice(0, MAX_ERRORS);
 
-            // Get existing errors
-            const existing =
-                JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    // Save back to localStorage
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
+});
 
-            // Add newest error with timestamp
-            existing.unshift({
-                message,
-                timestamp: new Date().toISOString(),
-            });
-
-            // Keep only the 3 most recent
-            const trimmed = existing.slice(0, MAX_ERRORS);
-
-            // Save back to localStorage
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
-        } catch (e) {
-            // Avoid recursive console.error calls
-        }
-
-        // Still output to browser console
-        originalConsoleError.apply(console, args);
-    };
-})();
 function seeErrors() {
     //get list of errors:
     const errors =
-        JSON.parse(localStorage.getItem("recentConsoleErrors")) || [];
+        JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
     const text = errors
         .map((error, index) => {
@@ -60,4 +39,7 @@ function seeErrors() {
         .join("\n\n-----------------\n\n");
 
     alert(text || "No saved errors");
+}
+function clearErrors(){
+    localStorage.removeItem(STORAGE_KEY)
 }
