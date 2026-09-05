@@ -860,7 +860,7 @@ function start() {
     document.getElementById("name").addEventListener("input", function (e) {
         foundVisitor = false;
         nameEntry = this.value;
-        // console.log(nameEntry);
+        console.log(nameEntry);
         var DATA = JSON.parse(localStorage.getItem("log_data"));
         if (DATA === null) {
             return;
@@ -871,6 +871,7 @@ function start() {
             return new Date(b.dateObject) - new Date(a.dateObject);
         });
         for (let index = 0; index < allData.length; index++) {
+            console.log(allData[index].vName);
             if (!foundVisitor) {
                 const entry = allData[index];
                 visitorNameFromList = entry.vName.trim().toUpperCase();
@@ -880,7 +881,7 @@ function start() {
                     document.getElementById("auto-room-input2").value = entry.room;
                     document.getElementById("auto-name-input2").value = entry.rName;
                     // auto-name-input2
-                    // console.log(entry.room, entry.rName);
+                    console.log(entry.room, entry.rName);
                 }
             }
         }
