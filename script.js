@@ -860,7 +860,7 @@ function start() {
     document.getElementById("name").addEventListener("input", function (e) {
         foundVisitor = false;
         nameEntry = this.value;
-        console.log(nameEntry);
+        // console.log(nameEntry);
         var DATA = JSON.parse(localStorage.getItem("log_data"));
         if (DATA === null) {
             return;
@@ -872,7 +872,7 @@ function start() {
         });
         for (let index = 0; index < allData.length; index++) {
             // console.log(allData[index].vName);
-            if (!foundVisitor) {
+            // if (!foundVisitor) {
                 const entry = allData[index];
                 visitorNameFromList = entry.vName.trim().toUpperCase();
                 if (visitorNameFromList === nameEntry.trim().toUpperCase() && visitorNameFromList !== "") {
@@ -883,7 +883,7 @@ function start() {
                     // auto-name-input2
                     // console.log(entry.room, entry.rName);
                 }
-            }
+            // }
         }
     });
     pwdInput.addEventListener("keypress", function (event) {
