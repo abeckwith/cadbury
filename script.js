@@ -871,17 +871,17 @@ function start() {
             return new Date(b.dateObject) - new Date(a.dateObject);
         });
         for (let index = 0; index < allData.length; index++) {
-            console.log(allData[index].vName);
+            // console.log(allData[index].vName);
             if (!foundVisitor) {
                 const entry = allData[index];
                 visitorNameFromList = entry.vName.trim().toUpperCase();
-                if (visitorNameFromList === nameEntry.trim().toUpperCase()) {
+                if (visitorNameFromList === nameEntry.trim().toUpperCase() && visitorNameFromList !== "") {
                     // autoFillRoomAndResidentName(entry.room, entry.rName);
                     foundVisitor = true;
                     document.getElementById("auto-room-input2").value = entry.room;
                     document.getElementById("auto-name-input2").value = entry.rName;
                     // auto-name-input2
-                    console.log(entry.room, entry.rName);
+                    // console.log(entry.room, entry.rName);
                 }
             }
         }
