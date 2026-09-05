@@ -139,7 +139,7 @@ function submitName() {
     }
 }
 function addResToList(){
-        submitOneName();
+    submitOneName();
 
     document.getElementById("auto-room-input2").value = "";
     document.getElementById("auto-name-input2").value = "";
@@ -894,6 +894,7 @@ function start() {
 
     autocomplete(document.getElementById("auto-name-input"), allData, true);
     autocomplete(document.getElementById("auto-name-input2"), allData, true);
+    autocomplete(document.getElementById("name"), allData, false);
 
     // allAgencies = [];
     // var DATA2 = JSON.parse(localStorage.getItem("log_data"));

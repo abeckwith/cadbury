@@ -56,6 +56,7 @@ function autocomplete(inp, arr, nameField) {
                         /* close the list of autocompleted values,
                             (or any other open lists of autocompleted values:*/
                         closeAllLists();
+                        console.log(inp.id)
                         /** MY NEW CODE: */
                         if (
                             inp.id == "auto-room-input" ||
@@ -67,6 +68,8 @@ function autocomplete(inp, arr, nameField) {
                             inp.id == "auto-name-input2" 
                         )
                             checkForRoom(inp.value);
+                        if(inp.id == "name")
+                            console.log(inp.value);
                     });
                     a.appendChild(b);
                 }
@@ -113,6 +116,7 @@ function autocomplete(inp, arr, nameField) {
         //visitor entering room number
         if (!isresident && inp.id === "auto-room-input2")
             checkForName(document.getElementById("auto-room-input2").value);
+        //resident entering room number
         if (isresident && inp.id === "auto-room-input")
             checkForName(document.getElementById("auto-room-input").value);
         
