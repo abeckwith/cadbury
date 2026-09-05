@@ -860,7 +860,7 @@ function start() {
     document.getElementById("name").addEventListener("input", function (e) {
         foundVisitor = false;
         nameEntry = this.value;
-        console.log(nameEntry);
+        // console.log(nameEntry);
         var DATA = JSON.parse(localStorage.getItem("log_data"));
         if (DATA === null) {
             return;
