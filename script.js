@@ -131,14 +131,14 @@ function submitName() {
     }
     if (isagency && signingIn) {
         show("agency-nm");
-        if(!forceRoom){
-             show("another");
-             hide("submit-button");
-             show("submit-names-button");
+        if (!forceRoom) {
+            show("another");
+            hide("submit-button");
+            show("submit-names-button");
         }
     }
 }
-function addResToList(){
+function addResToList() {
     submitOneName();
 
     document.getElementById("auto-room-input2").value = "";
@@ -231,7 +231,6 @@ function notcheckOutMorningside() {
     hide("morningside-out");
     show("submit-button");
     submit();
-
 }
 /**
  * resident is checking out, so show buttons
@@ -431,7 +430,7 @@ function adminPage() {
         ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST"><Br>' +
         ' <input onclick="editLog()" type="button" class="visit-type-button" value="EDIT LOG DATA"><Br>' +
         ' <input onclick="changePassword()" type="button" class="visit-type-button" value="CHANGE ADMIN PASSWORD"><Br><BR>' +
-        ' Choose Excel spreadsheet to reload all names:<Br>(1st column: rooms, 2nd column: names - nothing else)<Br>'+
+        " Choose Excel spreadsheet to reload all names:<Br>(1st column: rooms, 2nd column: names - nothing else)<Br>" +
         '<input type="file" id="file_upload" /><div id="output"></div><Br>' +
         '<input id="back-button" onclick="back()" type="button" class="visit-type-button" value="RETURN TO SIGN-IN PAGE"></input><Br>' +
         '<div id="edit-page"></div>';
@@ -858,7 +857,34 @@ function start() {
 
     //         reader.readAsBinaryString(file);
     //     });
-
+    document.getElementById("name").addEventListener("input", function (e) {
+        foundVisitor = false;
+        nameEntry = this.value;
+        console.log(nameEntry);
+        var DATA = JSON.parse(localStorage.getItem("log_data"));
+        if (DATA === null) {
+            return;
+        }
+        allData = DATA["all"];
+        allData = allData.sort(function (a, b) {
+            //sorts so most recent is first
+            return new Date(b.dateObject) - new Date(a.dateObject);
+        });
+        for (let index = 0; index < allData.length; index++) {
+            if (!foundVisitor) {
+                const entry = allData[index];
+                visitorNameFromList = entry.vName.trim().toUpperCase();
+                if (visitorNameFromList === nameEntry.trim().toUpperCase()) {
+                    // autoFillRoomAndResidentName(entry.room, entry.rName);
+                    foundVisitor = true;
+                    document.getElementById("auto-room-input2").value = entry.room;
+                    document.getElementById("auto-name-input2").value = entry.rName;
+                    // auto-name-input2
+                    // console.log(entry.room, entry.rName);
+                }
+            }
+        }
+    });
     pwdInput.addEventListener("keypress", function (event) {
         // Check if the pressed key is "Enter"
         if (event.key === "Enter") {
@@ -894,7 +920,6 @@ function start() {
 
     autocomplete(document.getElementById("auto-name-input"), allData, true);
     autocomplete(document.getElementById("auto-name-input2"), allData, true);
-    autocomplete(document.getElementById("name"), allData, false);
 
     // allAgencies = [];
     // var DATA2 = JSON.parse(localStorage.getItem("log_data"));
@@ -1009,28 +1034,27 @@ function submit() {
  * Gets all values from form and loads to local stoarge
  */
 function submitOneName() {
-        //check for existence visitor first and last and resident visiting:
-        visitorName = getEntry("name");
-        hasnm = setStatus(visitorName, "name");
-        hasresnm = true;
-        if (!checkingOut) {
-            residentName = getEntry("auto-name-input2");
-            hasresnm = setStatus(residentName, "auto-name-input2");
-        }
-        agencyName = getEntry("aname");
-        hasanm = setStatus(agencyName, "aname");
-        if (
-            (signingIn && !isagency && hasnm && hasresnm) ||
-            (signingIn && isagency && hasnm && hasresnm && hasanm) ||
-            (!signingIn && hasnm)
-        ) {
-            foundNm = checkAndSave(residentName, visitorName);
-            //TODO: SAVE and check that name is right!!!!!!!!!!!
-            // if (foundNm) done();
-        }
-    
+    //check for existence visitor first and last and resident visiting:
+    visitorName = getEntry("name");
+    hasnm = setStatus(visitorName, "name");
+    hasresnm = true;
+    if (!checkingOut) {
+        residentName = getEntry("auto-name-input2");
+        hasresnm = setStatus(residentName, "auto-name-input2");
+    }
+    agencyName = getEntry("aname");
+    hasanm = setStatus(agencyName, "aname");
+    if (
+        (signingIn && !isagency && hasnm && hasresnm) ||
+        (signingIn && isagency && hasnm && hasresnm && hasanm) ||
+        (!signingIn && hasnm)
+    ) {
+        foundNm = checkAndSave(residentName, visitorName);
+        //TODO: SAVE and check that name is right!!!!!!!!!!!
+        // if (foundNm) done();
+    }
 }
-function finishNames(){
+function finishNames() {
     // addResToList();
     done();
 }
