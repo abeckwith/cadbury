@@ -871,7 +871,6 @@ function start() {
             //sorts so most recent is first
             return new Date(b.dateObject) - new Date(a.dateObject);
         });
-        console.log(residents2);
         //see if this visitor has previously visited a resident; if so, auto fill that name:
         for (let index = 0; index < allData.length; index++) {
             if (!foundVisitor) {
@@ -882,7 +881,6 @@ function start() {
                 stillAResident = false;
 
                 Object.values(residents2).forEach((element) => {
-                    console.log(element, entry.rName);
                     if (element.toUpperCase() === entry.rName.toUpperCase())
                         stillAResident = true;
                 });
