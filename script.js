@@ -898,6 +898,8 @@ function start() {
                             entry.room;
                         document.getElementById("auto-name-input2").value =
                             entry.rName;
+                        if(isagency) document.getElementById("aname").value =
+                            entry.agencyNm;
                     }
             }
         }
@@ -989,6 +991,7 @@ function start() {
 //     // Use JSON.stringify(result) to get a JSON string
 //     localStorage.setItem("residents", JSON.stringify(result));
 // }
+
 /**
  * Checks if there is a value in the Entry and sets red if not
  */
