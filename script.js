@@ -898,6 +898,7 @@ function start() {
                             entry.room;
                         document.getElementById("auto-name-input2").value =
                             entry.rName;
+                        //fill in agency nanme, if applicable:
                         if(isagency) document.getElementById("aname").value =
                             entry.agencyNm;
                     }
