@@ -876,11 +876,12 @@ function start() {
             if (!foundVisitor) {
                 const entry = allData[index];
                 visitorNameFromList = entry.vName.trim().toUpperCase();
-
                 //no point in checking if the resident is no longer in Cadbury:
                 stillAResident = false;
 
                 Object.values(residents2).forEach((element) => {
+                                    console.log(visitorNameFromList, element.toUpperCase())
+
                     if (element.toUpperCase() === entry.rName.toUpperCase())
                         stillAResident = true;
                 });
