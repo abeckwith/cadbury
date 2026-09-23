@@ -428,7 +428,7 @@ function adminPage() {
     hide("date-and-button");
     hide("l-btn");
     document.getElementById("heading").innerHTML =
-        '<input onclick="seeLog(true)" type="button" class="visit-type-button" value="SEE LOG"><Br>' +
+        '<input onclick="seeLog(true, "")" type="button" class="visit-type-button" value="SEE LOG"><Br>' +
         ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST"><Br>' +
         ' <input onclick="editLog()" type="button" class="visit-type-button" value="EDIT LOG DATA"><Br>' +
         ' <input onclick="changePassword()" type="button" class="visit-type-button" value="CHANGE ADMIN PASSWORD"><Br><BR>' +
@@ -700,9 +700,16 @@ function downloadPDF(content) {
         .save("Cadbury" + new Date().toLocaleDateString() + ".pdf");
 }
 /**
+ * applies filter to table showing log data
+ */
+function filter(adminAccess) {
+    filterValue = document.getElementById("filter").value;
+    seeLog(adminAccess, filterValue);
+}
+/**
  * displays visitor log
  */
-function seeLog(adminAccess) {
+function seeLog(adminAccess, filterValue) {
     var DATA = JSON.parse(localStorage.getItem("log_data"));
     data2 = DATA;
     //sorts so most recent is first:
@@ -738,7 +745,15 @@ function seeLog(adminAccess) {
         adminAccess +
         ")'>MAKE PRINTABLE VERSION</a></span></center><br>";
 
+    searchBar = "";
+    searchBar +=
+        'Filter results with any part of name of visitor, resident, or agency: <Br>(blank to reset)<Br><input autocomplete="off"  placeholder="name" type="text" id="filter" name="name" value="" placeholder="">';
+    searchBar +=
+        "<button id='filter-button' onclick='filter(" +
+        adminAccess +
+        ")'>APPLY FILTER</button><br>";
     display =
+        searchBar +
         "<table id='logtable'>" +
         "<tr>" +
         "<th>Count</th>" +
@@ -757,19 +772,30 @@ function seeLog(adminAccess) {
     logEntryCount = 0;
     //build table of info:
     d.forEach((logEntry) => {
-        logEntryCount++;
-        t = logEntry.timestamp;
-        display +=
-            "<tr><td>" + logEntryCount + "</td><td>" + logEntry.vName + "</td>";
-        display += "<td>" + logEntry.rName + "</td>";
-        display += "<td>" + logEntry.room + "</td>";
-        display += "<td>" + logEntry.personType + "</td>";
-        display += "<td>" + logEntry.agencyNm + "</td>";
-        display += "<td>" + logEntry.whereGo + "</td>";
-        display += "<td>" + logEntry.howLong + "</td>";
-        display += "<td>" + logEntry.timeIn + "</td>";
-        display += "<td>" + logEntry.timeOut + "</td>";
-        display += "<td>" + logEntry.responsible + "</td>" + "</tr>";
+        filterTest = (logEntry.rName.toUpperCase().indexOf(filterValue.toUpperCase()) != -1)
+        || (logEntry.vName.toUpperCase().indexOf(filterValue.toUpperCase()) != -1)
+        || (logEntry.agencyNm.toUpperCase().indexOf(filterValue.toUpperCase()) != -1)
+        || (logEntry.responsible.toUpperCase().indexOf(filterValue.toUpperCase()) != -1);
+ 
+        if (filterValue == "" || (filterValue != "" && filterTest)) {
+            logEntryCount++;
+            t = logEntry.timestamp;
+            display +=
+                "<tr><td>" +
+                logEntryCount +
+                "</td><td>" +
+                logEntry.vName +
+                "</td>";
+            display += "<td>" + logEntry.rName + "</td>";
+            display += "<td>" + logEntry.room + "</td>";
+            display += "<td>" + logEntry.personType + "</td>";
+            display += "<td>" + logEntry.agencyNm + "</td>";
+            display += "<td>" + logEntry.whereGo + "</td>";
+            display += "<td>" + logEntry.howLong + "</td>";
+            display += "<td>" + logEntry.timeIn + "</td>";
+            display += "<td>" + logEntry.timeOut + "</td>";
+            display += "<td>" + logEntry.responsible + "</td>" + "</tr>";
+        }
     });
     show("main");
 
@@ -929,7 +955,7 @@ function start() {
                             logEntry.room;
                         document.getElementById("auto-name-input2").value =
                             logEntry.rName;
-                       //fill in agency nanme, if applicable:
+                        //fill in agency nanme, if applicable:
                         if (isagency)
                             document.getElementById("aname").value =
                                 logEntry.agencyNm;
