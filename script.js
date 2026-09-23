@@ -859,53 +859,53 @@ function start() {
     //     });
 
     //called as visitor starts typing their name
-    // document.getElementById("name").addEventListener("input", function (e) {
-    //     foundVisitor = false;
-    //     nameEntry = this.value;
-    //     var DATA = JSON.parse(localStorage.getItem("log_data"));
-    //     if (DATA === null) {
-    //         return;
-    //     }
-    //     allData = DATA["all"];
-    //     allData = allData.sort(function (a, b) {
-    //         //sorts so most recent is first
-    //         return new Date(b.dateObject) - new Date(a.dateObject);
-    //     });
-    //     //see if this visitor has previously visited a resident; if so, auto fill that name:
-    //     for (let index = 0; index < allData.length; index++) {
-    //         if (!foundVisitor) {
-    //             const entry = allData[index];
-    //             visitorNameFromList = entry.vName.trim().toUpperCase();
-    //             //no point in checking if the resident is no longer in Cadbury:
-    //             stillAResident = false;
+    document.getElementById("name").addEventListener("input", function (e) {
+        foundVisitor = false;
+        nameEntry = this.value;
+        var DATA = JSON.parse(localStorage.getItem("log_data"));
+        if (DATA === null) {
+            return;
+        }
+        allData = DATA["all"];
+        allData = allData.sort(function (a, b) {
+            //sorts so most recent is first
+            return new Date(b.dateObject) - new Date(a.dateObject);
+        });
+        //see if this visitor has previously visited a resident; if so, auto fill that name:
+        for (let index = 0; index < allData.length; index++) {
+            if (!foundVisitor) {
+                const entry = allData[index];
+                visitorNameFromList = entry.vName.trim().toUpperCase();
+                //no point in checking if the resident is no longer in Cadbury:
+                stillAResident = false;
 
-    //             Object.values(residents2).forEach((element) => {
-    //                                 console.log(visitorNameFromList, element.toUpperCase())
+                Object.values(residents2).forEach((element) => {
+                                    // console.log(visitorNameFromList, element.toUpperCase())
 
-    //                 if (element.toUpperCase() === entry.rName.toUpperCase())
-    //                     stillAResident = true;
-    //             });
+                    if (element.toUpperCase() === entry.rName.toUpperCase())
+                        stillAResident = true;
+                });
 
-    //             if (stillAResident)
-    //                 //check if found visitor name
-    //                 if (
-    //                     visitorNameFromList ===
-    //                         nameEntry.trim().toUpperCase() &&
-    //                     visitorNameFromList !== ""
-    //                 ) {
-    //                     //fill the room and name fields with previously-visted resident:
-    //                     foundVisitor = true;
-    //                     document.getElementById("auto-room-input2").value =
-    //                         entry.room;
-    //                     document.getElementById("auto-name-input2").value =
-    //                         entry.rName;
-    //                     //fill in agency nanme, if applicable:
-    //                     if(isagency) document.getElementById("aname").value =
-    //                         entry.agencyNm;
-    //                 }
-    //         }
-    //     }
-    // });
+                if (stillAResident)
+                    //check if found visitor name
+                    if (
+                        visitorNameFromList ===
+                            nameEntry.trim().toUpperCase() &&
+                        visitorNameFromList !== ""
+                    ) {
+                        //fill the room and name fields with previously-visted resident:
+                        foundVisitor = true;
+                        document.getElementById("auto-room-input2").value =
+                            entry.room;
+                        document.getElementById("auto-name-input2").value =
+                            entry.rName;
+                        //fill in agency nanme, if applicable:
+                        if(isagency) document.getElementById("aname").value =
+                            entry.agencyNm;
+                    }
+            }
+        }
+    });
     pwdInput.addEventListener("keypress", function (event) {
         // Check if the pressed key is "Enter"
         if (event.key === "Enter") {
