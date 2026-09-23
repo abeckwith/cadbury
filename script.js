@@ -913,16 +913,18 @@ function start() {
                     //no point in checking if the resident is no longer in Cadbury:
                     stillAResident = false;
 
-                    Object.values(residents2).every((element) => {
-                        // console.log(visitorNameFromList, element.toUpperCase())
 
+                    entries = Object.values(residents2)
+                    for(j = 0; j < entries.length; j++){
+                        // console.log(visitorNameFromList, element.toUpperCase())
+                        myEntry = entries[j];
                         if (
-                            element.toUpperCase() === entry.rName.toUpperCase()
+                            myEntry.toUpperCase() === entry.rName.toUpperCase()
                         ) {
                             stillAResident = true;
-                            return false;
+                            break;
                         }
-                    });
+                    };
 
                     if (stillAResident)
                         if (
