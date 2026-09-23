@@ -707,6 +707,7 @@ function seeLog(adminAccess) {
     d = data2["all"].sort(function (a, b) {
         return new Date(b.dateObject) - new Date(a.dateObject);
     });
+    alert("NOTE: There are " + d.length + " visitor entries. The oldest entry is " + d[0].timeIn)
     const today = new Date();
     const dateOnly = today.toISOString().slice(0, 10);
     //Table heading:
