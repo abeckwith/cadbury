@@ -873,13 +873,15 @@ function start() {
         });
         //see if this visitor has previously visited a resident; if so, auto fill that name:
         loc = nameEntry.indexOf(" ");
-        if (loc != -1 && nameEntry.length > loc + 1)
+        // console.log(loc, nameEntry.length);
+        if (loc != -1 && nameEntry.length > loc + 1) {
             //ex:
             //Mary(space)
             //01234
             //loc = 4
             //vnm.length = 5
             //loc + 1 = 5 : only has space, not start of last name
+            // console.log("has space")
             for (let index = 0; index < allData.length; index++) {
                 if (!foundVisitor) {
                     const entry = allData[index];
@@ -914,6 +916,7 @@ function start() {
                         }
                 }
             }
+        }
     });
     pwdInput.addEventListener("keypress", function (event) {
         // Check if the pressed key is "Enter"
