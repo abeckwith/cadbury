@@ -391,7 +391,9 @@ function printVersion(adminAccess) {
         document.getElementById("heading").innerHTML = html + backBtn;
 
         downloadPDF(html);
-        alert("A PDF of the log for those dates is downloading to your device and should be ready soon...");
+        alert(
+            "A PDF of the log for those dates is downloading to your device and should be ready soon...",
+        );
         adminEmail = "info@cadburycommons.com";
 
         email =
@@ -715,7 +717,13 @@ function seeLog(adminAccess) {
     else ad = "<a href='#' onclick='reset()'>RETURN TO MAIN PAGE</a><Br> ";
 
     document.getElementById("heading").innerHTML =
-    "NOTE: There are " + d.length + " visitor entries.<br> The oldest entry is " + d[d.length - 1].timeIn + "  " + d[d.length - 1].timeOut+ "<br>" +
+        "NOTE: There are " +
+        d.length +
+        " visitor entries.<br> The oldest entry is " +
+        d[d.length - 1].timeIn +
+        "  " +
+        d[d.length - 1].timeOut +
+        "<br>" +
         ad +
         // '<input onclick="seeLog()" type="button" class="visit-type-button" value="SEE LOG">' +
         // ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST">' +
@@ -751,7 +759,8 @@ function seeLog(adminAccess) {
     d.forEach((logEntry) => {
         logEntryCount++;
         t = logEntry.timestamp;
-        display += "<tr><td>" + logEntryCount + "</td><td>" + logEntry.vName + "</td>";
+        display +=
+            "<tr><td>" + logEntryCount + "</td><td>" + logEntry.vName + "</td>";
         display += "<td>" + logEntry.rName + "</td>";
         display += "<td>" + logEntry.room + "</td>";
         display += "<td>" + logEntry.personType + "</td>";
@@ -881,57 +890,63 @@ function start() {
             return new Date(b.dateObject) - new Date(a.dateObject);
         });
         //see if this visitor has previously visited a resident; if so, auto fill that name:
-        // loc = nameEntry.indexOf(" ");
-        // if (loc != -1 && nameEntry.length > loc + 1 && nameEntry.length > 1) {
-        //     //ex:
-        //     //Mary(space)
-        //     //01234
-        //     //loc = 4
-        //     //vnm.length = 5
-        //     //loc + 1 = 5 : only has space, not start of last name
-        //     disp = "";
-        //     disp2 = "";
-        //     for (let index = 0; index < allData.length; index++) {
-        //         //  disp2 += index + ", ";
-        //         //     document.getElementById("debug-msg").innerHTML = disp2;
-        //         if (!foundVisitor) {
-        //             const entry = allData[index];
-        //             visitorNameFromList = entry.vName.trim().toUpperCase();
-        //             // disp += visitorNameFromList + "<br>";
-        //             // document.getElementById("debug-msg").innerHTML = disp;
-        //             //no point in checking if the resident is no longer in Cadbury:
-        //             stillAResident = false;
+        loc = nameEntry.indexOf(" ");
+        if (loc != -1 && nameEntry.length > loc + 1 && nameEntry.length > 1) {
+            //ex:
+            //Mary(space)
+            //01234
+            //loc = 4
+            //vnm.length = 5
+            //loc + 1 = 5 : only has space, not start of last name
+            disp = "";
+            disp2 = "";
+            //go through each entry in the Log:
+            for (let index = 0; index < allData.length; index++) {
+                //  disp2 += index + ", ";
+                //     document.getElementById("debug-msg").innerHTML = disp2;
+                if (!foundVisitor) {
+                    const entry = allData[index];
+                    //get visitor name for each log entry:
+                    visitorNameFromList = entry.vName.trim().toUpperCase();
+                    // disp += visitorNameFromList + "<br>";
+                    // document.getElementById("debug-msg").innerHTML = disp;
+                    //no point in checking if the resident is no longer in Cadbury:
+                    stillAResident = false;
 
-        //             Object.values(residents2).forEach((element) => {
-        //                 // console.log(visitorNameFromList, element.toUpperCase())
+                    Object.values(residents2).every((element) => {
+                        // console.log(visitorNameFromList, element.toUpperCase())
 
-        //                 if (element.toUpperCase() === entry.rName.toUpperCase())
-        //                     stillAResident = true;
-        //             });
+                        if (
+                            element.toUpperCase() === entry.rName.toUpperCase()
+                        ) {
+                            stillAResident = true;
+                            return false;
+                        }
+                    });
 
-        //             if (stillAResident)
-        //                 if (
-        //                     visitorNameFromList ===
-        //                         nameEntry.trim().toUpperCase() &&
-        //                     visitorNameFromList !== ""
-        //                 ) {
-        //                     //check if found visitor name
-        //                     //fill the room and name fields with previously-visted resident:
-        //                     // document.getElementById("debug-msg").innerHTML =
-        //                     //     "found visitor";
-        //                     foundVisitor = true;
-        //                     document.getElementById("auto-room-input2").value =
-        //                         entry.room;
-        //                     document.getElementById("auto-name-input2").value =
-        //                         entry.rName;
-        //                     //fill in agency nanme, if applicable:
-        //                     if (isagency)
-        //                         document.getElementById("aname").value =
-        //                             entry.agencyNm;
-        //                 }
-        //         }
-        //     }
-        // }
+                    if (stillAResident)
+                        if (
+                            visitorNameFromList ===
+                                nameEntry.trim().toUpperCase() &&
+                            visitorNameFromList !== ""
+                        ) {
+                            //check if found visitor name
+                            //fill the room and name fields with previously-visted resident:
+                            // document.getElementById("debug-msg").innerHTML =
+                            //     "found visitor";
+                            foundVisitor = true;
+                            document.getElementById("auto-room-input2").value =
+                                entry.room;
+                            document.getElementById("auto-name-input2").value =
+                                entry.rName;
+                            //fill in agency nanme, if applicable:
+                            if (isagency)
+                                document.getElementById("aname").value =
+                                    entry.agencyNm;
+                        }
+                }
+            }
+        }
         // else
         // document.getElementById("debug-msg").innerHTML = "no space yet"
     });
