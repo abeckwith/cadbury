@@ -892,7 +892,7 @@ function start() {
         //see if this visitor has previously visited a resident; if so, auto fill that name:
 
         //only after the first two characters:
-        if (nameEntry.length > 2) {
+        if (nameEntry.length > 1) {
             //go through each entry in the Log to find this visitor:
             for (let index = 0; index < allData.length; index++) {
                 // if (!foundVisitor) {
