@@ -881,10 +881,13 @@ function start() {
             //loc = 4
             //vnm.length = 5
             //loc + 1 = 5 : only has space, not start of last name
+            disp = "";
             for (let index = 0; index < allData.length; index++) {
                 if (!foundVisitor) {
                     const entry = allData[index];
                     visitorNameFromList = entry.vName.trim().toUpperCase();
+                    disp += visitorNameFromList + "<br>";
+                    document.getElementById("debug-msg").innerHTML = disp;
                     //no point in checking if the resident is no longer in Cadbury:
                     stillAResident = false;
                     
@@ -903,7 +906,7 @@ function start() {
                         ) {
                             //check if found visitor name
                             //fill the room and name fields with previously-visted resident:
-                            document.getElementById("debug-msg").innerHTML = "found visitor"
+                            // document.getElementById("debug-msg").innerHTML = "found visitor"
                             foundVisitor = true;
                             document.getElementById("auto-room-input2").value =
                                 entry.room;
