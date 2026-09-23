@@ -391,7 +391,7 @@ function printVersion(adminAccess) {
         document.getElementById("heading").innerHTML = html + backBtn;
 
         downloadPDF(html);
-        alert("The log for those dates has been downloaded to your device!");
+        alert("A PDF of the log for those dates is downloading to your device and should be ready soon...");
         adminEmail = "info@cadburycommons.com";
 
         email =
@@ -715,7 +715,7 @@ function seeLog(adminAccess) {
     else ad = "<a href='#' onclick='reset()'>RETURN TO MAIN PAGE</a><Br> ";
 
     document.getElementById("heading").innerHTML =
-    "NOTE: There are " + d.length + " visitor entries.<br> The oldest entry is " + d[d.length - 1].timeIn + " == " + d[d.length - 1].timeOut+ "<br>" +
+    "NOTE: There are " + d.length + " visitor entries.<br> The oldest entry is " + d[d.length - 1].timeIn + "  " + d[d.length - 1].timeOut+ "<br>" +
         ad +
         // '<input onclick="seeLog()" type="button" class="visit-type-button" value="SEE LOG">' +
         // ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST">' +
@@ -865,7 +865,7 @@ function start() {
 
     //called as visitor starts typing their name
     document.getElementById("name").addEventListener("input", function (e) {
-        keystrokeCount++;
+        // keystrokeCount++;
         // document.getElementById("debug-msg").innerHTML =
         //     "Debug display: " + keystrokeCount;
 
@@ -898,8 +898,8 @@ function start() {
                 if (!foundVisitor) {
                     const entry = allData[index];
                     visitorNameFromList = entry.vName.trim().toUpperCase();
-                    disp += visitorNameFromList + "<br>";
-                    document.getElementById("debug-msg").innerHTML = disp;
+                    // disp += visitorNameFromList + "<br>";
+                    // document.getElementById("debug-msg").innerHTML = disp;
                     //no point in checking if the resident is no longer in Cadbury:
                     stillAResident = false;
 
@@ -918,8 +918,8 @@ function start() {
                         ) {
                             //check if found visitor name
                             //fill the room and name fields with previously-visted resident:
-                            document.getElementById("debug-msg").innerHTML =
-                                "found visitor";
+                            // document.getElementById("debug-msg").innerHTML =
+                            //     "found visitor";
                             foundVisitor = true;
                             document.getElementById("auto-room-input2").value =
                                 entry.room;
