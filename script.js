@@ -764,7 +764,7 @@ function seeLog(adminAccess) {
     show("main");
 
     document.getElementById("main").innerHTML =
-        "<div id='email'></div>" + display + "</table></span>";
+        "<div id='email'></div>NUMBER OF ENTRIES: " + d.length + "<br>" + display + "</table></span>";
 
     window.scrollTo(0, 0);
 }
