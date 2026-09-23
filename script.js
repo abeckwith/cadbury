@@ -812,6 +812,7 @@ function reset() {
 /**
  * called onload - starts timer and updates display
  */
+var keystrokeCount = 0;
 function start() {
     //listener to read names and rooms from .xls, when selected:
     // document
@@ -860,6 +861,9 @@ function start() {
 
     //called as visitor starts typing their name
     document.getElementById("name").addEventListener("input", function (e) {
+        keystrokeCount++;
+        document.getElementById("debug-msg").innerHTML = "Debug display: " + keystrokeCount;
+
         foundVisitor = false;
         nameEntry = this.value;
         var DATA = JSON.parse(localStorage.getItem("log_data"));
@@ -874,7 +878,7 @@ function start() {
         //see if this visitor has previously visited a resident; if so, auto fill that name:
         loc = nameEntry.indexOf(" ");
         // console.log(loc, nameEntry.length);
-        if (loc != -1 && nameEntry.length > loc + 1) {
+        if (loc != -1 && nameEntry.length > loc + 1 && nameEntry.length > 1) {
             //ex:
             //Mary(space)
             //01234
@@ -890,18 +894,18 @@ function start() {
                     document.getElementById("debug-msg").innerHTML = disp;
                     //no point in checking if the resident is no longer in Cadbury:
                     stillAResident = false;
-                    
+
                     Object.values(residents2).forEach((element) => {
                         // console.log(visitorNameFromList, element.toUpperCase())
-                        
+
                         if (element.toUpperCase() === entry.rName.toUpperCase())
                             stillAResident = true;
                     });
-                    
+
                     if (stillAResident)
                         if (
                             visitorNameFromList ===
-                            nameEntry.trim().toUpperCase() &&
+                                nameEntry.trim().toUpperCase() &&
                             visitorNameFromList !== ""
                         ) {
                             //check if found visitor name
