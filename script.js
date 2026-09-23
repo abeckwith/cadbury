@@ -917,7 +917,7 @@ function start() {
                 }
             }
         }
-        else
+        // else
         // document.getElementById("debug-msg").innerHTML = "no space yet"
     });
     pwdInput.addEventListener("keypress", function (event) {
