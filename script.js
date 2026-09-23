@@ -881,7 +881,7 @@ function start() {
             //loc = 4
             //vnm.length = 5
             //loc + 1 = 5 : only has space, not start of last name
-            // console.log("has space")
+            document.getElementById("debug-msg").innerHTML = "Has space"
             for (let index = 0; index < allData.length; index++) {
                 if (!foundVisitor) {
                     const entry = allData[index];
@@ -917,6 +917,8 @@ function start() {
                 }
             }
         }
+        else
+        document.getElementById("debug-msg").innerHTML = "no space yet"
     });
     pwdInput.addEventListener("keypress", function (event) {
         // Check if the pressed key is "Enter"
