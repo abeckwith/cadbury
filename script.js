@@ -862,7 +862,8 @@ function start() {
     //called as visitor starts typing their name
     document.getElementById("name").addEventListener("input", function (e) {
         keystrokeCount++;
-        document.getElementById("debug-msg").innerHTML = "Debug display: " + keystrokeCount;
+        // document.getElementById("debug-msg").innerHTML =
+        //     "Debug display: " + keystrokeCount;
 
         foundVisitor = false;
         nameEntry = this.value;
@@ -888,10 +889,9 @@ function start() {
             disp = "";
             disp2 = "";
             for (let index = 0; index < allData.length; index++) {
-                
                 if (!foundVisitor) {
                     disp2 += index + ", ";
-                                        document.getElementById("debug-msg").innerHTML = disp2;
+                    document.getElementById("debug-msg").innerHTML = disp2;
                     const entry = allData[index];
                     visitorNameFromList = entry.vName.trim().toUpperCase();
                     disp += visitorNameFromList + "<br>";
@@ -914,7 +914,8 @@ function start() {
                         ) {
                             //check if found visitor name
                             //fill the room and name fields with previously-visted resident:
-                            document.getElementById("debug-msg").innerHTML = "found visitor"
+                            document.getElementById("debug-msg").innerHTML =
+                                "found visitor";
                             foundVisitor = true;
                             document.getElementById("auto-room-input2").value =
                                 entry.room;
