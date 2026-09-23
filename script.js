@@ -929,7 +929,7 @@ function start() {
                             logEntry.room;
                         document.getElementById("auto-name-input2").value =
                             logEntry.rName;
-\                        //fill in agency nanme, if applicable:
+                       //fill in agency nanme, if applicable:
                         if (isagency)
                             document.getElementById("aname").value =
                                 logEntry.agencyNm;
