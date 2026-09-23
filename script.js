@@ -715,7 +715,7 @@ function seeLog(adminAccess) {
     else ad = "<a href='#' onclick='reset()'>RETURN TO MAIN PAGE</a><Br> ";
 
     document.getElementById("heading").innerHTML =
-    "NOTE: There are " + d.length + " visitor entries.<br> The oldest entry is " + d[d.length - 1].timeIn + "<br>";
+    "NOTE: There are " + d.length + " visitor entries.<br> The oldest entry is " + d[d.length - 1].timeIn + " == " + d[d.length - 1].timeOut+ "<br>";
         ad +
         // '<input onclick="seeLog()" type="button" class="visit-type-button" value="SEE LOG">' +
         // ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST">' +
