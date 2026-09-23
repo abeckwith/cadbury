@@ -732,6 +732,7 @@ function seeLog(adminAccess) {
     display =
         "<table id='logtable'>" +
         "<tr>" +
+        "<th>Count</th>" +
         "<th>Visitor</th>" +
         "<th>Resident</th>" +
         "<th>Room</th>" +
@@ -744,10 +745,12 @@ function seeLog(adminAccess) {
         "<th>Resp.Party</th>" +
         "</tr>";
     display2 = "";
+    logEntryCount = 0;
     //build table of info:
     d.forEach((logEntry) => {
+        logEntryCount++;
         t = logEntry.timestamp;
-        display += "<tr><td>" + logEntry.vName + "</td>";
+        display += "<tr><td>" + logEntryCount + "</td><td>" + logEntry.vName + "</td>";
         display += "<td>" + logEntry.rName + "</td>";
         display += "<td>" + logEntry.room + "</td>";
         display += "<td>" + logEntry.personType + "</td>";
@@ -892,7 +895,6 @@ function start() {
                 //  disp2 += index + ", ";
                 //     document.getElementById("debug-msg").innerHTML = disp2;
                 if (!foundVisitor) {
-                   
                     const entry = allData[index];
                     visitorNameFromList = entry.vName.trim().toUpperCase();
                     disp += visitorNameFromList + "<br>";
