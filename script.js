@@ -874,11 +874,10 @@ function start() {
 
     //called as visitor starts typing their name
     document.getElementById("name").addEventListener("input", function (e) {
-        // keystrokeCount++;
         // document.getElementById("debug-msg").innerHTML =
         //     "Debug display: " + keystrokeCount;
 
-        foundVisitor = false;
+        //get all the data from the visitor logs:
         nameEntry = this.value;
         var DATA = JSON.parse(localStorage.getItem("log_data"));
         if (DATA === null) {
@@ -890,49 +889,53 @@ function start() {
             return new Date(b.dateObject) - new Date(a.dateObject);
         });
         //see if this visitor has previously visited a resident; if so, auto fill that name:
-
-        //only after the first two characters:
         if (nameEntry.length > 1) {
+            //only after the first two characters
+            residentFound = false;
+
             //go through each entry in the Log to find this visitor:
             for (let index = 0; index < allData.length; index++) {
-                // if (!foundVisitor) {
-                //get visitor name for each log entry:
+                //get visitor name from each log entry:
                 const logEntry = allData[index];
                 visitorNameFromListNormed = logEntry.vName.trim().toUpperCase();
-                residentNameFromListNormed = logEntry.rName.trim().toUpperCase();
-
-                //no point in checking if the resident is no longer in Cadbury
-                //so go through residents to see if they are there:
-                stillAResident = false;
-                entries = Object.values(residents2);
-                for (j = 0; j  < entries.length; j++) {
-                    myEntry = entries[j];
-                    if (myEntry.trim().toUpperCase() === residentNameFromListNormed) {
-                        stillAResident = true;
-                        break;
-                    }
-                }
-
-                // if (stillAResident)
                 nameEntryNormed = nameEntry.trim().toUpperCase();
 
                 if (
                     visitorNameFromListNormed === nameEntryNormed &&
-                    visitorNameFromListNormed !== "" 
-                    && stillAResident
+                    visitorNameFromListNormed !== ""
                 ) {
+                    //no point in checking if the resident is no longer in Cadbury
+                    //so go through residents to see if they are there:
+                    stillAResident = false;
+                    entries = Object.values(residents2);
+                    //get residentname from same entry:
+                    residentNameFromListNormed = logEntry.rName
+                        .trim()
+                        .toUpperCase();
+                    for (j = 0; j < entries.length; j++) {
+                        myEntry = entries[j];
+                        if (
+                            myEntry.trim().toUpperCase() ===
+                            residentNameFromListNormed
+                        ) {
+                            stillAResident = true;
+                            break;
+                        }
+                    }
                     //fill the room and name fields with previously-visted resident:
-                    foundVisitor = true;
+                    if (stillAResident) {
+                        residentFound = true;
+                        document.getElementById("auto-room-input2").value =
+                            logEntry.room;
+                        document.getElementById("auto-name-input2").value =
+                            logEntry.rName;
+\                        //fill in agency nanme, if applicable:
+                        if (isagency)
+                            document.getElementById("aname").value =
+                                logEntry.agencyNm;
+                    }
 
-                    document.getElementById("auto-room-input2").value =
-                        logEntry.room;
-                    document.getElementById("auto-name-input2").value =
-                        logEntry.rName;
-
-                    //fill in agency nanme, if applicable:
-                    if (isagency)
-                        document.getElementById("aname").value = entry.agencyNm;
-                    break;
+                    if (residentFound) break;
                 }
             }
         }
