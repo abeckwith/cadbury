@@ -886,8 +886,10 @@ function start() {
             //vnm.length = 5
             //loc + 1 = 5 : only has space, not start of last name
             disp = "";
+            disp2 = "";
             for (let index = 0; index < allData.length; index++) {
-                                    document.getElementById("debug-msg").innerHTML = index;
+                disp2 += index + ", ";
+                                    document.getElementById("debug-msg").innerHTML = disp2;
 
                 if (!foundVisitor) {
                     const entry = allData[index];
