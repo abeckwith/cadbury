@@ -922,6 +922,8 @@ function start() {
                             myEntry.toUpperCase() === entry.rName.toUpperCase()
                         ) {
                             stillAResident = true;
+       document.getElementById("debug-msg").innerHTML =
+                                "found resident in list";
                             break;
                         }
                     };
@@ -932,10 +934,11 @@ function start() {
                                 nameEntry.trim().toUpperCase() &&
                             visitorNameFromList !== ""
                         ) {
+                            
                             //check if found visitor name
                             //fill the room and name fields with previously-visted resident:
-                            // document.getElementById("debug-msg").innerHTML =
-                            //     "found visitor";
+                            document.getElementById("debug-msg").innerHTML =
+                                "found visitor";
                             foundVisitor = true;
                             document.getElementById("auto-room-input2").value =
                                 entry.room;
