@@ -707,7 +707,6 @@ function seeLog(adminAccess) {
     d = data2["all"].sort(function (a, b) {
         return new Date(b.dateObject) - new Date(a.dateObject);
     });
-    alert("NOTE: There are " + d.length + " visitor entries. The oldest entry is " + d[0].timeIn)
     const today = new Date();
     const dateOnly = today.toISOString().slice(0, 10);
     //Table heading:
@@ -716,6 +715,7 @@ function seeLog(adminAccess) {
     else ad = "<a href='#' onclick='reset()'>RETURN TO MAIN PAGE</a><Br> ";
 
     document.getElementById("heading").innerHTML =
+    "NOTE: There are " + d.length + " visitor entries.<br> The oldest entry is " + d[0].timeIn + "<br>";
         ad +
         // '<input onclick="seeLog()" type="button" class="visit-type-button" value="SEE LOG">' +
         // ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST">' +
@@ -765,7 +765,7 @@ function seeLog(adminAccess) {
     show("main");
 
     document.getElementById("main").innerHTML =
-        "<div id='email'></div>NUMBER OF ENTRIES: " + d.length + "<br>" + display + "</table></span>";
+        "<div id='email'></div>" + display + "</table></span>";
 
     window.scrollTo(0, 0);
 }
