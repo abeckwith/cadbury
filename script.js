@@ -943,6 +943,7 @@ function start() {
                             if (isagency)
                                 document.getElementById("aname").value =
                                     entry.agencyNm;
+                            break;
                         }
                 }
             }
