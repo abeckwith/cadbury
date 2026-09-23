@@ -910,7 +910,7 @@ function start() {
                         ) {
                             //check if found visitor name
                             //fill the room and name fields with previously-visted resident:
-                            // document.getElementById("debug-msg").innerHTML = "found visitor"
+                            document.getElementById("debug-msg").innerHTML = "found visitor"
                             foundVisitor = true;
                             document.getElementById("auto-room-input2").value =
                                 entry.room;
