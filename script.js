@@ -881,58 +881,57 @@ function start() {
             return new Date(b.dateObject) - new Date(a.dateObject);
         });
         //see if this visitor has previously visited a resident; if so, auto fill that name:
-        loc = nameEntry.indexOf(" ");
-        // console.log(loc, nameEntry.length);
-        if (loc != -1 && nameEntry.length > loc + 1 && nameEntry.length > 1) {
-            //ex:
-            //Mary(space)
-            //01234
-            //loc = 4
-            //vnm.length = 5
-            //loc + 1 = 5 : only has space, not start of last name
-            disp = "";
-            disp2 = "";
-            for (let index = 0; index < allData.length; index++) {
-                //  disp2 += index + ", ";
-                //     document.getElementById("debug-msg").innerHTML = disp2;
-                if (!foundVisitor) {
-                    const entry = allData[index];
-                    visitorNameFromList = entry.vName.trim().toUpperCase();
-                    // disp += visitorNameFromList + "<br>";
-                    // document.getElementById("debug-msg").innerHTML = disp;
-                    //no point in checking if the resident is no longer in Cadbury:
-                    stillAResident = false;
+        // loc = nameEntry.indexOf(" ");
+        // if (loc != -1 && nameEntry.length > loc + 1 && nameEntry.length > 1) {
+        //     //ex:
+        //     //Mary(space)
+        //     //01234
+        //     //loc = 4
+        //     //vnm.length = 5
+        //     //loc + 1 = 5 : only has space, not start of last name
+        //     disp = "";
+        //     disp2 = "";
+        //     for (let index = 0; index < allData.length; index++) {
+        //         //  disp2 += index + ", ";
+        //         //     document.getElementById("debug-msg").innerHTML = disp2;
+        //         if (!foundVisitor) {
+        //             const entry = allData[index];
+        //             visitorNameFromList = entry.vName.trim().toUpperCase();
+        //             // disp += visitorNameFromList + "<br>";
+        //             // document.getElementById("debug-msg").innerHTML = disp;
+        //             //no point in checking if the resident is no longer in Cadbury:
+        //             stillAResident = false;
 
-                    Object.values(residents2).forEach((element) => {
-                        // console.log(visitorNameFromList, element.toUpperCase())
+        //             Object.values(residents2).forEach((element) => {
+        //                 // console.log(visitorNameFromList, element.toUpperCase())
 
-                        if (element.toUpperCase() === entry.rName.toUpperCase())
-                            stillAResident = true;
-                    });
+        //                 if (element.toUpperCase() === entry.rName.toUpperCase())
+        //                     stillAResident = true;
+        //             });
 
-                    if (stillAResident)
-                        if (
-                            visitorNameFromList ===
-                                nameEntry.trim().toUpperCase() &&
-                            visitorNameFromList !== ""
-                        ) {
-                            //check if found visitor name
-                            //fill the room and name fields with previously-visted resident:
-                            // document.getElementById("debug-msg").innerHTML =
-                            //     "found visitor";
-                            foundVisitor = true;
-                            document.getElementById("auto-room-input2").value =
-                                entry.room;
-                            document.getElementById("auto-name-input2").value =
-                                entry.rName;
-                            //fill in agency nanme, if applicable:
-                            if (isagency)
-                                document.getElementById("aname").value =
-                                    entry.agencyNm;
-                        }
-                }
-            }
-        }
+        //             if (stillAResident)
+        //                 if (
+        //                     visitorNameFromList ===
+        //                         nameEntry.trim().toUpperCase() &&
+        //                     visitorNameFromList !== ""
+        //                 ) {
+        //                     //check if found visitor name
+        //                     //fill the room and name fields with previously-visted resident:
+        //                     // document.getElementById("debug-msg").innerHTML =
+        //                     //     "found visitor";
+        //                     foundVisitor = true;
+        //                     document.getElementById("auto-room-input2").value =
+        //                         entry.room;
+        //                     document.getElementById("auto-name-input2").value =
+        //                         entry.rName;
+        //                     //fill in agency nanme, if applicable:
+        //                     if (isagency)
+        //                         document.getElementById("aname").value =
+        //                             entry.agencyNm;
+        //                 }
+        //         }
+        //     }
+        // }
         // else
         // document.getElementById("debug-msg").innerHTML = "no space yet"
     });
