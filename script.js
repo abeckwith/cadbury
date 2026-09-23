@@ -881,29 +881,29 @@ function start() {
             //loc = 4
             //vnm.length = 5
             //loc + 1 = 5 : only has space, not start of last name
-            document.getElementById("debug-msg").innerHTML = "Has space"
             for (let index = 0; index < allData.length; index++) {
                 if (!foundVisitor) {
                     const entry = allData[index];
                     visitorNameFromList = entry.vName.trim().toUpperCase();
                     //no point in checking if the resident is no longer in Cadbury:
                     stillAResident = false;
-
+                    
                     Object.values(residents2).forEach((element) => {
                         // console.log(visitorNameFromList, element.toUpperCase())
-
+                        
                         if (element.toUpperCase() === entry.rName.toUpperCase())
                             stillAResident = true;
                     });
-
+                    
                     if (stillAResident)
                         if (
                             visitorNameFromList ===
-                                nameEntry.trim().toUpperCase() &&
+                            nameEntry.trim().toUpperCase() &&
                             visitorNameFromList !== ""
                         ) {
                             //check if found visitor name
                             //fill the room and name fields with previously-visted resident:
+                            document.getElementById("debug-msg").innerHTML = "found visitor"
                             foundVisitor = true;
                             document.getElementById("auto-room-input2").value =
                                 entry.room;
@@ -918,7 +918,7 @@ function start() {
             }
         }
         else
-        document.getElementById("debug-msg").innerHTML = "no space yet"
+        // document.getElementById("debug-msg").innerHTML = "no space yet"
     });
     pwdInput.addEventListener("keypress", function (event) {
         // Check if the pressed key is "Enter"
