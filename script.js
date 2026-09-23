@@ -887,6 +887,8 @@ function start() {
             //loc + 1 = 5 : only has space, not start of last name
             disp = "";
             for (let index = 0; index < allData.length; index++) {
+                                    document.getElementById("debug-msg").innerHTML = index;
+
                 if (!foundVisitor) {
                     const entry = allData[index];
                     visitorNameFromList = entry.vName.trim().toUpperCase();
