@@ -888,10 +888,10 @@ function start() {
             disp = "";
             disp2 = "";
             for (let index = 0; index < allData.length; index++) {
-                disp2 += index + ", ";
-                                    document.getElementById("debug-msg").innerHTML = disp2;
-
+                
                 if (!foundVisitor) {
+                    disp2 += index + ", ";
+                                        document.getElementById("debug-msg").innerHTML = disp2;
                     const entry = allData[index];
                     visitorNameFromList = entry.vName.trim().toUpperCase();
                     disp += visitorNameFromList + "<br>";
