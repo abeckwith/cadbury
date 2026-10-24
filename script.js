@@ -724,34 +724,34 @@ function seeLog(adminAccess, filterValue) {
     else ad = "<a href='#' onclick='reset()'>RETURN TO MAIN PAGE</a><Br> ";
 
     document.getElementById("heading").innerHTML =
-        "NOTE: There are " +
-        d.length +
-        " visitor entries.<br> The oldest entry is " +
-        d[d.length - 1].timeIn +
-        "  " +
-        d[d.length - 1].timeOut +
+       
         "<br>" +
         ad +
         // '<input onclick="seeLog()" type="button" class="visit-type-button" value="SEE LOG">' +
         // ' <input onclick="editList()" type="button" class="visit-type-button" value="EDIT RESIDENCE LIST">' +
-        "<BR><center><span id='print-menu'><b>PRINTABLE VERSION/Email PDF:</b> " +
+        "<BR><center><span id='print-menu'><b>Select date range:<br></b> " +
         "Start Date: <input type='date' class='datefield' id='start-date' value='" +
         dateOnly +
-        "'>&nbsp;&nbsp;" +
+        "'>&nbsp;&nbsp;<Br>" +
         "End Date: <input type='date' class='datefield'  id='end-date' value='" +
         dateOnly +
         "'>&nbsp;&nbsp;" +
-        "<br><a href='#' onclick='printVersion(" +
+        "<br><button class='filter-button' onclick='printVersion(" +
         adminAccess +
-        ")'>MAKE PRINTABLE VERSION</a></span></center><br>";
+        ")'>MAKE PRINTABLE/PDF VERSION</button></span></center><br>";
 
     searchBar = "";
     searchBar +=
-        'Filter results with any part of name of visitor, resident, or agency: <Br>(blank to reset)<Br><input autocomplete="off"  placeholder="name" type="text" id="filter" name="name" value="" placeholder="">';
+        '<span style="font-size: 15px;">OPTIONAL:<BR>Filter results with any part of name of visitor, resident, or agency: <Br>(leave blank to reset to no filter)<Br><input autocomplete="off"  placeholder="name" type="text" id="filter" name="name" value="" placeholder="">';
     searchBar +=
-        "<button id='filter-button' onclick='filter(" +
+        "<Br><button class='filter-button' onclick='filter(" +
         adminAccess +
-        ")'>APPLY FILTER</button><br>";
+        ")'>APPLY FILTER</button></span><br>Total visitor entries: <span style='color:red; font-weight:bold'>" +
+        d.length +
+        "</span>&nbsp;&nbsp; Oldest:<span style='color:red; font-weight:bold'>" +
+        d[d.length - 1].timeIn +
+        "  " +
+        d[d.length - 1].timeOut  +"</span>";
     display =
         searchBar +
         "<table id='logtable'>" +

@@ -59,7 +59,7 @@ body {
     background-color: #ddd;
 }
 #print-menu {
-    font-size: 15px;
+    font-size: 19px;
 }
 .show {
     display: block;
@@ -329,12 +329,12 @@ input[type="radio"] {
     border-collapse: collapse;
     /* width: 100%; */
 }
-#filter-button{
+.filter-button{
     border: 3px solid black;
     padding: 5px;
     margin:10px;
     background-color: "red";
-    font-size: 20px;
+    font-size: 15px;
 }
 #logtable2 {
     width: "100%";
